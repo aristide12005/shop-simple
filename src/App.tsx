@@ -11,7 +11,7 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancelled from "./pages/PaymentCancelled";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/Dashboard";
-import StockManagement from "./pages/admin/Inventory";
+import ProductsManagement from "./pages/admin/Products";
 import IncomeTracking from "./pages/admin/Income";
 import NotFound from "./pages/NotFound";
 
@@ -30,7 +30,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
-              <Route path="inventory" element={<StockManagement />} />
+              <Route path="products" element={<ProductsManagement />} />
               <Route path="income" element={<IncomeTracking />} />
             </Route>
             <Route path="/payment-success" element={<PaymentSuccess />} />
