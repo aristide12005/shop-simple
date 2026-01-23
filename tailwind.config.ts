@@ -15,9 +15,13 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        serif: ['Playfair Display', 'serif'], // Keep for legacy support if needed
+        heading: ['Oswald', 'sans-serif'],
       },
       colors: {
+        "brand-red": "hsl(var(--brand-red))",
+        "brand-cyan": "hsl(var(--brand-cyan))",
+        "brand-grey": "hsl(var(--brand-grey))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

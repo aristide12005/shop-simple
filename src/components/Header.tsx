@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Menu, X, User } from 'lucide-react';
@@ -14,49 +15,37 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 gradient-primary text-primary-foreground shadow-elevated">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16 md:h-20">
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link to="/" className="font-serif text-2xl md:text-3xl font-bold tracking-wider">
-              Accicoa
+            <Link to="/" className="font-heading text-3xl font-bold tracking-tighter uppercase text-foreground">
+              CURPTE
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
-              <Link
-                to="/"
-                className="text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-              >
-                Home
+            <nav className="hidden md:flex items-center gap-12">
+              <Link to="/" className="text-sm font-medium uppercase tracking-widest hover:text-brand-red transition-colors">
+                Shop
               </Link>
-              <a
-                href="#collections"
-                className="text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-              >
-                Collections
+              <a href="#collections" className="text-sm font-medium uppercase tracking-widest hover:text-brand-red transition-colors">
+                Offer
               </a>
-              <a
-                href="#about"
-                className="text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-              >
+              <a href="#about" className="text-sm font-medium uppercase tracking-widest hover:text-brand-red transition-colors">
+                Sale
+              </a>
+              <a href="#contact" className="text-sm font-medium uppercase tracking-widest hover:text-brand-red transition-colors">
                 About
-              </a>
-              <a
-                href="#contact"
-                className="text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-              >
-                Contact
               </a>
             </nav>
 
             {/* Actions */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               {user ? (
                 <div className="hidden md:flex items-center gap-4">
                   {isAdmin && (
                     <Link to="/admin">
-                      <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10">
+                      <Button variant="ghost" size="sm" className="font-heading uppercase tracking-wider hover:text-brand-cyan">
                         Admin
                       </Button>
                     </Link>
@@ -65,15 +54,14 @@ export default function Header() {
                     variant="ghost"
                     size="sm"
                     onClick={() => signOut()}
-                    className="text-primary-foreground hover:bg-primary-foreground/10"
+                    className="font-heading uppercase tracking-wider hover:text-brand-red"
                   >
                     Sign Out
                   </Button>
                 </div>
               ) : (
                 <Link to="/auth" className="hidden md:block">
-                  <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10">
-                    <User className="h-4 w-4 mr-2" />
+                  <Button variant="default" size="sm" className="rounded-full bg-brand-red hover:bg-brand-red/90 text-white font-bold px-6">
                     Login
                   </Button>
                 </Link>
@@ -82,11 +70,11 @@ export default function Header() {
               {/* Cart Button */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 hover:bg-primary-foreground/10 rounded-full transition-colors"
+                className="relative p-2 bg-brand-cyan/10 rounded-full hover:bg-brand-cyan/20 transition-colors group"
               >
-                <ShoppingCart className="h-6 w-6" />
+                <ShoppingCart className="h-5 w-5 text-brand-cyan group-hover:scale-110 transition-transform" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-brand-red text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center border border-white">
                     {totalItems}
                   </span>
                 )}
@@ -95,7 +83,7 @@ export default function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 hover:bg-primary-foreground/10 rounded-full transition-colors"
+                className="md:hidden p-2"
               >
                 {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -104,65 +92,19 @@ export default function Header() {
 
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <nav className="md:hidden py-4 border-t border-primary-foreground/20 animate-slide-down">
-              <div className="flex flex-col gap-4">
-                <Link
-                  to="/"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-                >
-                  Home
-                </Link>
-                <a
-                  href="#collections"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-                >
-                  Collections
-                </a>
-                <a
-                  href="#about"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-                >
-                  About
-                </a>
-                <a
-                  href="#contact"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-                >
-                  Contact
-                </a>
+            <nav className="md:hidden py-4 border-t border-border animate-slide-down bg-background">
+              <div className="flex flex-col gap-6 p-4">
+                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="font-heading text-2xl uppercase">Shop</Link>
+                <a href="#collections" onClick={() => setIsMobileMenuOpen(false)} className="font-heading text-2xl uppercase">Offer</a>
+                <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="font-heading text-2xl uppercase">Sale</a>
+
                 {user ? (
                   <>
-                    {isAdmin && (
-                      <Link
-                        to="/admin"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-                      >
-                        Admin
-                      </Link>
-                    )}
-                    <button
-                      onClick={() => {
-                        signOut();
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="text-left text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-                    >
-                      Sign Out
-                    </button>
+                    {isAdmin && <Link to="/admin" className="text-sm font-medium text-brand-cyan">Admin Panel</Link>}
+                    <button onClick={() => signOut()} className="text-left text-sm font-medium text-brand-red">Sign Out</button>
                   </>
                 ) : (
-                  <Link
-                    to="/auth"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-primary-foreground/90 hover:text-primary-foreground transition-colors font-medium"
-                  >
-                    Login
-                  </Link>
+                  <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium">Login</Link>
                 )}
               </div>
             </nav>
