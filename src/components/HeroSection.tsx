@@ -15,10 +15,9 @@ export function HeroSection() {
 
             {/* 1. TOP MARQUEE BANNER (Scrolling Text) */}
             <div className="w-full overflow-hidden bg-foreground text-background py-2 mb-4">
-                <div className="animate-marquee whitespace-nowrap flex gap-8 items-center font-heading text-sm tracking-widest uppercase">
-                    <span>Worldwide Shipping</span> • <span>New Winter Collection</span> • <span>Limited Stock Available</span> • <span>Secure Checkout</span> •
-                    <span>Worldwide Shipping</span> • <span>New Winter Collection</span> • <span>Limited Stock Available</span> • <span>Secure Checkout</span> •
-                    <span>Worldwide Shipping</span> • <span>New Winter Collection</span> • <span>Limited Stock Available</span> • <span>Secure Checkout</span>
+                <div className="animate-marquee whitespace-nowrap flex gap-8 items-center text-sm font-bold tracking-widest uppercase">
+                    <span>HANDCRAFTED IN THE MOTHERLAND</span> • <span>GLOBAL PAN-AFRICAN SHIPPING</span> • <span>AUTHENTIC TEXTILES</span> • <span>LIMITED ROYAL EDITIONS</span> • <span>WEAR YOUR ROOTS</span> •
+                    <span>HANDCRAFTED IN THE MOTHERLAND</span> • <span>GLOBAL PAN-AFRICAN SHIPPING</span> • <span>AUTHENTIC TEXTILES</span> • <span>LIMITED ROYAL EDITIONS</span> • <span>WEAR YOUR ROOTS</span>
                 </div>
             </div>
 
@@ -45,15 +44,19 @@ export function HeroSection() {
                         </div>
 
                         <div className="relative z-10 max-w-2xl">
-                            <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-tight mb-6">
-                                Define Your <br />
-                                Silhouette
+                            <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-tight mb-6 uppercase">
+                                WEAR YOUR <br />
+                                LEGACY <br />
+                                UNAPOLOGETICALLY
                             </h1>
+                            <p className="text-white/90 text-lg mb-6 max-w-lg font-medium">
+                                Where ancestral threads meet modern cuts. The new definition of African luxury.
+                            </p>
                             <Button
                                 onClick={scrollToCollections}
-                                className="h-12 px-8 bg-white text-brand-dark hover:bg-brand-secondary hover:text-brand-dark transition-colors text-base font-semibold rounded-none"
+                                className="h-12 px-8 bg-white text-brand-dark hover:bg-brand-secondary hover:text-brand-dark transition-colors text-base font-semibold rounded-none uppercase"
                             >
-                                Shop The Drop <ArrowRight className="ml-2 h-4 w-4" />
+                                EXPLORE THE LINEAGE <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
                         </div>
                     </div>
@@ -63,15 +66,15 @@ export function HeroSection() {
                         <div className="absolute top-0 right-0 p-4 opacity-20">
                             <ArrowRight className="w-24 h-24 -rotate-45" />
                         </div>
-                        <h3 className="font-heading text-4xl mb-2">Winter <span className="text-white">Sale</span></h3>
-                        <p className="text-brand-dark/80 mb-6 max-w-xs">Up to 50% off on selected archive pieces. No code needed.</p>
+                        <h3 className="text-4xl font-bold mb-2 uppercase">THE SAHEL <span className="text-white">EDIT</span></h3>
+                        <p className="text-brand-dark/80 mb-6 max-w-xs">Breezy linens and structured cottons for the modern nomad.</p>
                         <div className="flex gap-2 mt-auto">
                             <Button
                                 onClick={scrollToCollections}
                                 variant="outline"
-                                className="border-brand-dark text-brand-dark hover:bg-white hover:text-brand-dark rounded-none w-full font-bold"
+                                className="border-brand-dark text-brand-dark hover:bg-white hover:text-brand-dark rounded-none w-full font-bold uppercase"
                             >
-                                Access Archive
+                                VIEW LOOKBOOK
                             </Button>
                         </div>
                     </div>
@@ -80,8 +83,8 @@ export function HeroSection() {
                     <div className="md:col-span-4 md:row-span-1 bg-brand-highlight p-6 relative group border border-border">
                         <div className="flex justify-between items-start mb-4">
                             <div>
-                                <h4 className="font-heading text-2xl uppercase">Tactical Vest</h4>
-                                <span className="text-sm text-brand-dark/70">V2.0 / Black</span>
+                                <h4 className="text-2xl font-bold uppercase">ROYAL AGBADA</h4>
+                                <span className="text-sm text-brand-dark/70 font-semibold">V3.0 / MIDNIGHT BLUE</span>
                             </div>
                             <span className="font-bold text-xl">$120</span>
                         </div>

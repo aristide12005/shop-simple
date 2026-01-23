@@ -34,9 +34,6 @@ export default function Header() {
               <a href="#about" className="text-sm font-normal text-foreground hover:text-brand-primary transition-colors">
                 About
               </a>
-              <a href="#sustainability" className="text-sm font-normal text-foreground hover:text-brand-primary transition-colors">
-                Sustainability
-              </a>
             </nav>
 
             {/* Actions */}
