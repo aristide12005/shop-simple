@@ -6,7 +6,7 @@ export function useCollections() {
   return useQuery({
     queryKey: ['collections'],
     queryFn: async (): Promise<CollectionWithImages[]> => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('collections')
         .select(`
           *,
@@ -25,7 +25,7 @@ export function useCollection(id: string) {
   return useQuery({
     queryKey: ['collection', id],
     queryFn: async (): Promise<CollectionWithImages | null> => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('collections')
         .select(`
           *,
@@ -46,10 +46,10 @@ export function useCreateCollection() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: { name: string; description: string; price: number; stock_quantity: number }) => {
+    mutationFn: async (data: { name: string; description: string; price: number; stock_quantity?: number }) => {
       const { data: collection, error } = await supabase
         .from('collections')
-        .insert(data)
+        .insert({ ...data, stock_quantity: data.stock_quantity ?? 0 } as any)
         .select()
         .single();
 
@@ -66,10 +66,10 @@ export function useUpdateCollection() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, ...data }: { id: string; name: string; description: string; price: number; stock_quantity: number }) => {
+    mutationFn: async ({ id, ...data }: { id: string; name: string; description: string; price: number; stock_quantity?: number }) => {
       const { data: collection, error } = await supabase
         .from('collections')
-        .update(data)
+        .update(data as any)
         .eq('id', id)
         .select()
         .single();
@@ -159,7 +159,7 @@ export function useCreateVariant() {
 
   return useMutation({
     mutationFn: async (data: { collection_id: string; name: string; sku?: string; stock_quantity: number; price?: number }) => {
-      const { data: variant, error } = await supabase
+      const { data: variant, error } = await (supabase as any)
         .from('product_variants')
         .insert(data)
         .select()
@@ -178,7 +178,7 @@ export function useUpdateVariant() {
 
   return useMutation({
     mutationFn: async ({ id, ...data }: { id: string; name?: string; sku?: string; stock_quantity?: number; price?: number }) => {
-      const { data: variant, error } = await supabase
+      const { data: variant, error } = await (supabase as any)
         .from('product_variants')
         .update(data)
         .eq('id', id)
@@ -198,7 +198,7 @@ export function useDeleteVariant() {
 
   return useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('product_variants')
         .delete()
         .eq('id', id);
