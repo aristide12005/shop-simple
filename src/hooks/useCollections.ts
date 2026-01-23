@@ -151,60 +151,61 @@ export function useDeleteImage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['collections'] });
     },
-  }
+  });
+}
 
 export function useCreateVariant() {
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-    return useMutation({
-      mutationFn: async (data: { collection_id: string; name: string; sku?: string; stock_quantity: number; price?: number }) => {
-        const { data: variant, error } = await supabase
-          .from('product_variants')
-          .insert(data)
-          .select()
-          .single();
-        if (error) throw error;
-        return variant;
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['collections'] });
-      },
-    });
-  }
+  return useMutation({
+    mutationFn: async (data: { collection_id: string; name: string; sku?: string; stock_quantity: number; price?: number }) => {
+      const { data: variant, error } = await supabase
+        .from('product_variants')
+        .insert(data)
+        .select()
+        .single();
+      if (error) throw error;
+      return variant;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['collections'] });
+    },
+  });
+}
 
-  export function useUpdateVariant() {
-    const queryClient = useQueryClient();
+export function useUpdateVariant() {
+  const queryClient = useQueryClient();
 
-    return useMutation({
-      mutationFn: async ({ id, ...data }: { id: string; name?: string; sku?: string; stock_quantity?: number; price?: number }) => {
-        const { data: variant, error } = await supabase
-          .from('product_variants')
-          .update(data)
-          .eq('id', id)
-          .select()
-          .single();
-        if (error) throw error;
-        return variant;
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['collections'] });
-      },
-    });
-  }
+  return useMutation({
+    mutationFn: async ({ id, ...data }: { id: string; name?: string; sku?: string; stock_quantity?: number; price?: number }) => {
+      const { data: variant, error } = await supabase
+        .from('product_variants')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw error;
+      return variant;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['collections'] });
+    },
+  });
+}
 
-  export function useDeleteVariant() {
-    const queryClient = useQueryClient();
+export function useDeleteVariant() {
+  const queryClient = useQueryClient();
 
-    return useMutation({
-      mutationFn: async (id: string) => {
-        const { error } = await supabase
-          .from('product_variants')
-          .delete()
-          .eq('id', id);
-        if (error) throw error;
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['collections'] });
-      },
-    });
-  }
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase
+        .from('product_variants')
+        .delete()
+        .eq('id', id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['collections'] });
+    },
+  });
+}

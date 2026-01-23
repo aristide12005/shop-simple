@@ -28,7 +28,6 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/auth" element={<Auth />} />
-<<<<<<< HEAD
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="inventory" element={<StockManagement />} />
@@ -37,11 +36,11 @@ const App = () => (
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancelled" element={<PaymentCancelled />} />
             <Route path="*" element={<NotFound />} />
-          </Routes >
-        </BrowserRouter >
-      </CartProvider >
-    </TooltipProvider >
-  </QueryClientProvider >
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
+    </TooltipProvider>
+  </QueryClientProvider>
 );
 
 export default App;
