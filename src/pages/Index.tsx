@@ -7,6 +7,13 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 export default function Index() {
+  const scrollToCollections = () => {
+    const element = document.getElementById('collections');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
@@ -23,7 +30,11 @@ export default function Index() {
               <p className="text-brand-dark/80 text-lg">
                 Get up to 50% off on selected items. Upgrade your winter wardrobe with our premium collection.
               </p>
-              <Button variant="secondary" className="rounded-none font-bold px-8 bg-brand-dark text-white hover:bg-white hover:text-brand-dark uppercase tracking-widest">
+              <Button
+                onClick={scrollToCollections}
+                variant="secondary"
+                className="rounded-none font-bold px-8 bg-brand-dark text-white hover:bg-white hover:text-brand-dark uppercase tracking-widest"
+              >
                 Shop Now
               </Button>
             </div>
@@ -49,7 +60,11 @@ export default function Index() {
           <p className="text-muted-foreground max-w-2xl mx-auto mb-8 text-lg">
             Our latest collection combines urban utility with modern aesthetics. Quality materials, bold designs.
           </p>
-          <Button size="lg" className="rounded-none bg-foreground text-background hover:bg-brand-red hover:text-white px-10 h-14 text-lg font-bold shadow-none uppercase tracking-widest">
+          <Button
+            onClick={scrollToCollections}
+            size="lg"
+            className="rounded-none bg-foreground text-background hover:bg-brand-red hover:text-white px-10 h-14 text-lg font-bold shadow-none uppercase tracking-widest"
+          >
             Explore All <ArrowRight className="ml-2" />
           </Button>
         </section>

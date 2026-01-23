@@ -3,6 +3,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, MoveRight } from "lucide-react";
 
 export function HeroSection() {
+    const scrollToCollections = () => {
+        const element = document.getElementById('collections');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <section className="w-full bg-background pt-4 pb-12 px-2 md:px-4">
 
@@ -32,43 +39,49 @@ export function HeroSection() {
                         </div>
 
                         <div className="relative z-10">
-                            <span className="inline-block px-3 py-1 bg-brand-red text-white text-xs font-bold uppercase tracking-wider mb-4">
+                            <span className="inline-block px-3 py-1 bg-brand-primary text-brand-dark text-xs font-bold uppercase tracking-wider mb-4">
                                 2026 Collection
                             </span>
                         </div>
 
                         <div className="relative z-10 max-w-2xl">
-                            <h1 className="text-6xl md:text-9xl font-heading font-bold text-white leading-[0.85] tracking-tighter mb-6">
-                                DEFINE <br />
-                                YOUR <br />
-                                <span className="text-transparent border-white border-2 px-2" style={{ WebkitTextStroke: "2px white" }}>SILHOUETTE</span>
+                            <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-tight mb-6">
+                                Define Your <br />
+                                Silhouette
                             </h1>
-                            <Button className="h-14 px-8 bg-white text-black hover:bg-brand-red hover:text-white transition-colors text-lg font-bold uppercase rounded-none">
-                                Shop The Drop <ArrowRight className="ml-2 h-5 w-5" />
+                            <Button
+                                onClick={scrollToCollections}
+                                className="h-12 px-8 bg-white text-brand-dark hover:bg-brand-secondary hover:text-brand-dark transition-colors text-base font-semibold rounded-none"
+                            >
+                                Shop The Drop <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
                         </div>
                     </div>
 
                     {/* B. SECONDARY PROMO (Top Right) */}
-                    <div className="md:col-span-4 md:row-span-1 bg-black text-white p-8 flex flex-col justify-center relative overflow-hidden">
+                    <div className="md:col-span-4 md:row-span-1 bg-brand-primary text-brand-dark p-8 flex flex-col justify-center relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-4 opacity-20">
                             <ArrowRight className="w-24 h-24 -rotate-45" />
                         </div>
-                        <h3 className="font-heading text-4xl mb-2">Winter <span className="text-brand-red">Sale</span></h3>
-                        <p className="text-gray-400 mb-6 max-w-xs">Up to 50% off on selected archive pieces. No code needed.</p>
+                        <h3 className="font-heading text-4xl mb-2">Winter <span className="text-white">Sale</span></h3>
+                        <p className="text-brand-dark/80 mb-6 max-w-xs">Up to 50% off on selected archive pieces. No code needed.</p>
                         <div className="flex gap-2 mt-auto">
-                            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black rounded-none w-full">
+                            <Button
+                                onClick={scrollToCollections}
+                                variant="outline"
+                                className="border-brand-dark text-brand-dark hover:bg-white hover:text-brand-dark rounded-none w-full font-bold"
+                            >
                                 Access Archive
                             </Button>
                         </div>
                     </div>
 
                     {/* C. FEATURED ITEM (Bottom Right) */}
-                    <div className="md:col-span-4 md:row-span-1 bg-brand-grey p-6 relative group border border-border">
+                    <div className="md:col-span-4 md:row-span-1 bg-brand-highlight p-6 relative group border border-border">
                         <div className="flex justify-between items-start mb-4">
                             <div>
                                 <h4 className="font-heading text-2xl uppercase">Tactical Vest</h4>
-                                <span className="text-sm text-muted-foreground">V2.0 / Black</span>
+                                <span className="text-sm text-brand-dark/70">V2.0 / Black</span>
                             </div>
                             <span className="font-bold text-xl">$120</span>
                         </div>
@@ -79,7 +92,11 @@ export function HeroSection() {
                                 className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
                             />
                         </div>
-                        <Button size="icon" className="absolute bottom-6 left-6 rounded-none bg-black text-white hover:bg-brand-red">
+                        <Button
+                            onClick={scrollToCollections}
+                            size="icon"
+                            className="absolute bottom-6 left-6 rounded-none bg-brand-dark text-white hover:bg-brand-primary hover:text-brand-dark"
+                        >
                             <MoveRight className="h-4 w-4" />
                         </Button>
                     </div>
