@@ -9,8 +9,8 @@ export default function Footer() {
           <div>
             <h3 className="font-serif text-2xl font-bold mb-4">Accicoa</h3>
             <p className="text-background/70 text-sm">
-              Premium African products crafted for excellence. 
-              Your gateway to authentic African artistry.
+              redefining streetwear with a minimalist, industrial edge.
+              Designed for the modern silhouette.
             </p>
           </div>
 

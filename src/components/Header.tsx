@@ -20,7 +20,7 @@ export default function Header() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link to="/" className="font-heading text-3xl font-bold tracking-tighter uppercase text-foreground">
-              LUXE<span className="text-brand-red">THREADS</span>
+              ACCICOA
             </Link>
 
             {/* Desktop Navigation */}
