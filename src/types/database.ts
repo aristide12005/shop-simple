@@ -5,6 +5,18 @@ export interface Collection {
   price: number;
   created_at: string;
   updated_at: string;
+  stock_quantity: number;
+}
+
+export interface ProductVariant {
+  id: string;
+  collection_id: string;
+  name: string;
+  sku: string | null;
+  stock_quantity: number;
+  price: number | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface CollectionImage {
@@ -17,6 +29,7 @@ export interface CollectionImage {
 
 export interface CollectionWithImages extends Collection {
   collection_images: CollectionImage[];
+  product_variants?: ProductVariant[];
 }
 
 export interface CartItem {

@@ -10,7 +10,8 @@ export function useCollections() {
         .from('collections')
         .select(`
           *,
-          collection_images (*)
+          collection_images (*),
+          product_variants (*)
         `)
         .order('created_at', { ascending: false });
 
@@ -28,7 +29,8 @@ export function useCollection(id: string) {
         .from('collections')
         .select(`
           *,
-          collection_images (*)
+          collection_images (*),
+          product_variants (*)
         `)
         .eq('id', id)
         .maybeSingle();
@@ -44,7 +46,7 @@ export function useCreateCollection() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: { name: string; description: string; price: number }) => {
+    mutationFn: async (data: { name: string; description: string; price: number; stock_quantity: number }) => {
       const { data: collection, error } = await supabase
         .from('collections')
         .insert(data)
@@ -64,7 +66,7 @@ export function useUpdateCollection() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, ...data }: { id: string; name: string; description: string; price: number }) => {
+    mutationFn: async ({ id, ...data }: { id: string; name: string; description: string; price: number; stock_quantity: number }) => {
       const { data: collection, error } = await supabase
         .from('collections')
         .update(data)
@@ -149,5 +151,60 @@ export function useDeleteImage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['collections'] });
     },
-  });
-}
+  }
+
+export function useCreateVariant() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+      mutationFn: async (data: { collection_id: string; name: string; sku?: string; stock_quantity: number; price?: number }) => {
+        const { data: variant, error } = await supabase
+          .from('product_variants')
+          .insert(data)
+          .select()
+          .single();
+        if (error) throw error;
+        return variant;
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['collections'] });
+      },
+    });
+  }
+
+  export function useUpdateVariant() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+      mutationFn: async ({ id, ...data }: { id: string; name?: string; sku?: string; stock_quantity?: number; price?: number }) => {
+        const { data: variant, error } = await supabase
+          .from('product_variants')
+          .update(data)
+          .eq('id', id)
+          .select()
+          .single();
+        if (error) throw error;
+        return variant;
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['collections'] });
+      },
+    });
+  }
+
+  export function useDeleteVariant() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+      mutationFn: async (id: string) => {
+        const { error } = await supabase
+          .from('product_variants')
+          .delete()
+          .eq('id', id);
+        if (error) throw error;
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['collections'] });
+      },
+    });
+  }
