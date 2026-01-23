@@ -2,87 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Oswald for Headings, Inter for Body */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;700&display=swap');
 
 @layer base {
   :root {
-    /* CURPTE-inspired Concrete Aesthetics */
-
-    /* Light Grey Concrete Background */
+    /* Swiss-Street Theme */
     --background: 210 20% 98%;
-    --foreground: 220 15% 10%;
-    /* Nearly black */
+    /* Light Grey */
+    --foreground: 0 0% 10%;
+    /* Almost Black */
 
     --card: 0 0% 100%;
-    --card-foreground: 220 15% 10%;
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 10%;
+    --popover-foreground: 0 0% 10%;
 
-    /* Brand Accent: Vibrant Red/Orange */
-    --brand-red: 4 90% 58%;
-    /* #F64434 roughly */
-    --brand-cyan: 190 80% 60%;
-    /* #5CD6E8 roughly */
-
-    /* Mapping brand colors to semantic system */
-    --primary: 4 90% 58%;
+    --primary: 0 0% 10%;
+    /* Black buttons */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 190 80% 60%;
-    --secondary-foreground: 220 15% 10%;
+    --secondary: 210 20% 90%;
+    /* Light grey accents */
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 210 20% 94%;
-    --muted-foreground: 215 15% 40%;
+    --muted: 210 10% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 210 20% 90%;
-    --accent-foreground: 220 15% 10%;
+    --accent: 355 78% 56%;
+    /* The New Brand Red (#E63946) */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 4 90% 58%;
+    --border: 0 0% 90%;
+    /* Very subtle borders */
+    --input: 0 0% 90%;
+    --ring: 0 0% 10%;
 
-    --radius: 0rem;
-    /* Sharp edges for that brutalist/modern look */
-
-    /* Custom tokens */
-    --brand-grey: 210 10% 85%;
+    --radius: 0px;
+    /* Force sharp corners globally */
   }
 
   .dark {
-    /* Dark Concrete Mode */
-    --background: 222 15% 12%;
-    --foreground: 210 40% 98%;
-
-    --card: 222 15% 15%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222 15% 15%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 4 90% 58%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 190 80% 60%;
-    --secondary-foreground: 222 47% 11%;
-
-    --muted: 217 19% 20%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 217 19% 27%;
-    --accent-foreground: 210 40% 98%;
-
-    /* ...rest standard ... */
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217 19% 27%;
-    --input: 217 19% 27%;
-    --ring: 4 90% 58%;
+    --background: 0 0% 10%;
+    --foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 10%;
+    /* ... rest of dark mode ... */
   }
 }
 
@@ -94,9 +62,11 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
+    /* Optional: Add a subtle noise texture if you have a noise image */
+    /* background-image: url('/noise.png'); */
   }
 
-  /* Heading typography update */
+  /* TIGHT HEADINGS */
   h1,
   h2,
   h3,
@@ -105,29 +75,18 @@
   h6 {
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.02em;
+    /* Tighter letter spacing is more modern */
   }
 }
 
 @layer utilities {
-  .font-heading {
-    font-family: 'Oswald', sans-serif;
+  .text-stroke {
+    -webkit-text-stroke: 1px currentColor;
+    color: transparent;
   }
 
-  @keyframes bounce-slow {
-
-    0%,
-    100% {
-      transform: translateY(-5%);
-      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-    }
-
-    50% {
-      transform: translateY(0);
-      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    }
+  .clip-image {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
   }
-
-  .animate-bounce-slow {
-    animation: bounce-slow 3s infinite;
-  }
+}
