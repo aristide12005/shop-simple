@@ -53,6 +53,7 @@ export type Database = {
           id: string
           name: string
           price: number
+          stock_quantity: number
           updated_at: string
         }
         Insert: {
@@ -61,6 +62,7 @@ export type Database = {
           id?: string
           name: string
           price?: number
+          stock_quantity?: number
           updated_at?: string
         }
         Update: {
@@ -69,6 +71,7 @@ export type Database = {
           id?: string
           name?: string
           price?: number
+          stock_quantity?: number
           updated_at?: string
         }
         Relationships: []
@@ -144,6 +147,47 @@ export type Database = {
           total_amount?: number
         }
         Relationships: []
+      }
+      product_variants: {
+        Row: {
+          collection_id: string
+          created_at: string
+          id: string
+          name: string
+          price: number | null
+          sku: string | null
+          stock_quantity: number
+          updated_at: string
+        }
+        Insert: {
+          collection_id: string
+          created_at?: string
+          id?: string
+          name: string
+          price?: number | null
+          sku?: string | null
+          stock_quantity?: number
+          updated_at?: string
+        }
+        Update: {
+          collection_id?: string
+          created_at?: string
+          id?: string
+          name?: string
+          price?: number | null
+          sku?: string | null
+          stock_quantity?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_variants_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "collections"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
