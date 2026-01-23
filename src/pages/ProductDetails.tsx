@@ -90,13 +90,13 @@ export default function ProductDetails() {
             )}
 
             {/* Main Image */}
-            <div className="flex-1 bg-secondary order-1 md:order-2 aspect-[3/4] relative overflow-hidden group">
+            <div className="flex-1 bg-brand-secondary order-1 md:order-2 aspect-[3/4] relative overflow-hidden group">
               <img
                 src={images[selectedImageIndex].image_url || '/placeholder.svg'}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute top-0 right-0 bg-brand-red text-white text-xs font-bold uppercase py-2 px-4 shadow-sm">
+              <div className="absolute top-0 right-0 bg-brand-primary text-brand-dark text-xs font-bold uppercase py-2 px-4 shadow-sm">
                 New Arrival
               </div>
             </div>
@@ -106,27 +106,27 @@ export default function ProductDetails() {
           <div className="lg:col-span-5 space-y-10">
             <div className="space-y-4 border-b border-border pb-8">
               <div className="flex items-center gap-2 text-brand-dark mb-2">
-                {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 fill-current" />)}
+                {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 fill-brand-primary text-brand-primary" />)}
                 <span className="text-xs uppercase tracking-widest ml-2 text-muted-foreground">Top Rated</span>
               </div>
 
               <h1 className="text-5xl md:text-7xl font-heading font-bold text-foreground leading-[0.9] uppercase tracking-tighter">
                 {product.name}
               </h1>
-              <p className="text-2xl font-bold text-brand-red font-heading tracking-wide">
+              <p className="text-2xl font-bold text-brand-primary font-heading tracking-wide">
                 ${Number(product.price).toFixed(2)}
               </p>
             </div>
 
             <div className="space-y-6">
-              <h3 className="font-heading text-lg font-bold uppercase tracking-widest border-l-4 border-brand-red pl-3">Description</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+              <h3 className="font-heading text-lg font-bold uppercase tracking-widest border-l-4 border-brand-primary pl-3">Description</h3>
+              <p className="text-brand-dark/80 leading-relaxed text-sm md:text-base">
                 {product.description || 'Constructed with premium materials for durability and style. This piece embodies the essence of modern streetwear luxury.'}
               </p>
 
               <ul className="grid grid-cols-2 gap-4 pt-4 text-xs font-bold uppercase tracking-wider text-brand-dark">
-                <li className="flex items-center gap-2"><Truck className="w-4 h-4 text-brand-red" /> Free Worldwide Shipping</li>
-                <li className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-brand-red" /> Lifetime Warranty</li>
+                <li className="flex items-center gap-2"><Truck className="w-4 h-4 text-brand-primary" /> Free Worldwide Shipping</li>
+                <li className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-brand-primary" /> Lifetime Warranty</li>
               </ul>
             </div>
 
@@ -146,7 +146,7 @@ export default function ProductDetails() {
                 <Button
                   onClick={handleAddToCart}
                   size="lg"
-                  className="h-16 rounded-none bg-foreground text-background hover:bg-brand-red hover:text-white text-lg font-heading font-bold uppercase tracking-[0.2em] shadow-none transition-all"
+                  className="h-16 rounded-none bg-brand-dark text-white hover:bg-brand-primary hover:text-brand-dark text-lg font-heading font-bold uppercase tracking-[0.2em] shadow-none transition-all"
                 >
                   Add to Cart — ${Number(product.price).toFixed(2)}
                 </Button>

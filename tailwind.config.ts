@@ -15,14 +15,17 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'], // Body text: Clean, legible
-        heading: ['Oswald', 'sans-serif'], // Headings: Tall, bold, impactful
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Oswald', 'sans-serif'],
       },
       colors: {
-        // A sophisticated "Concrete" palette
-        "brand-red": "#E63946", // A deeper, more mature red
-        "brand-dark": "#1A1A1A", // Soft black, less harsh than #000
-        "brand-grey": "#F1F1F1", // Light concrete grey for backgrounds
+        // Charming Seaside Palette
+        "brand-primary": "#85D1DB",  // Medium Cyan
+        "brand-secondary": "#B3EBF2", // Light Blue
+        "brand-accent": "#B6F2D1",   // Pale Green
+        "brand-highlight": "#C9FDF2", // Light Cyan
+
+        "brand-dark": "#0F172A", // Dark Slate for text (readable on white)
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -55,7 +58,7 @@ export default {
         },
       },
       borderRadius: {
-        lg: "0px", // SHARP EDGES = MATURE/PREMIUM
+        lg: "0px",
         md: "0px",
         sm: "0px",
       },

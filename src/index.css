@@ -6,51 +6,51 @@
 
 @layer base {
   :root {
-    /* Swiss-Street Theme */
-    --background: 210 20% 98%;
-    /* Light Grey */
-    --foreground: 0 0% 10%;
-    /* Almost Black */
+    /* Charming Seaside Theme */
+    --background: 0 0% 100%;
+    /* #FFFFFF White */
+    --foreground: 222 47% 11%;
+    /* #0F172A Dark Slate for text */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 0 0% 10%;
-    /* Black buttons */
-    --primary-foreground: 0 0% 100%;
+    /* Primary: #85D1DB (HSL approx: 188 50% 69%) */
+    --primary: 188 50% 69%;
+    --primary-foreground: 222 47% 11%;
 
-    --secondary: 210 20% 90%;
-    /* Light grey accents */
-    --secondary-foreground: 0 0% 10%;
+    /* Secondary: #B3EBF2 (HSL approx: 186 65% 82%) */
+    --secondary: 186 65% 82%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 10% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 186 65% 95%;
+    /* Very light blue wash */
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 355 78% 56%;
-    /* The New Brand Red (#E63946) */
-    --accent-foreground: 0 0% 100%;
+    /* Accent: #B6F2D1 (HSL approx: 147 65% 83%) */
+    --accent: 147 65% 83%;
+    --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 90%;
-    /* Very subtle borders */
-    --input: 0 0% 90%;
-    --ring: 0 0% 10%;
+    --border: 186 30% 90%;
+    --input: 186 30% 90%;
+    --ring: 188 50% 69%;
 
     --radius: 0px;
-    /* Force sharp corners globally */
   }
 
   .dark {
-    --background: 0 0% 10%;
-    --foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 10%;
-    /* ... rest of dark mode ... */
+    /* Keeping Dark mode somewhat consistent but mapped to palette */
+    --background: 222 47% 11%;
+    --foreground: 0 0% 100%;
+    --primary: 188 50% 69%;
+    --primary-foreground: 222 47% 11%;
+    /* ... rest ... */
   }
 }
 
@@ -62,11 +62,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
-    /* Optional: Add a subtle noise texture if you have a noise image */
-    /* background-image: url('/noise.png'); */
   }
 
-  /* TIGHT HEADINGS */
   h1,
   h2,
   h3,
@@ -76,7 +73,6 @@
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     letter-spacing: -0.02em;
-    /* Tighter letter spacing is more modern */
   }
 }
 
@@ -84,9 +80,5 @@
   .text-stroke {
     -webkit-text-stroke: 1px currentColor;
     color: transparent;
-  }
-
-  .clip-image {
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
   }
 }

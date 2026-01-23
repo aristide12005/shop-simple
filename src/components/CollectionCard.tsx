@@ -35,7 +35,7 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
         <div className="absolute inset-x-0 bottom-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-10">
           <Button
             onClick={handleAddToCart}
-            className="w-full h-12 rounded-none bg-brand-red text-white hover:bg-black uppercase tracking-widest font-bold text-xs"
+            className="w-full h-12 rounded-none bg-brand-primary text-brand-dark hover:bg-brand-highlight hover:text-brand-dark uppercase tracking-widest font-bold text-xs"
           >
             Add to Cart — ${Number(collection.price).toFixed(2)}
           </Button>
@@ -45,7 +45,7 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
       {/* Details - Minimal & Sharp */}
       <div className="flex justify-between items-start pt-2">
         <div>
-          <h3 className="font-heading text-lg font-bold leading-none uppercase tracking-wide group-hover:text-brand-red transition-colors">
+          <h3 className="font-heading text-lg font-bold leading-none uppercase tracking-wide group-hover:text-brand-primary transition-colors">
             <Link to={`/product/${collection.id}`}>
               {collection.name}
             </Link>

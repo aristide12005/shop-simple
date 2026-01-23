@@ -25,16 +25,16 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8">
-              <Link to="/" className="text-sm font-medium uppercase tracking-widest hover:text-brand-red transition-colors">
+              <Link to="/" className="text-sm font-medium uppercase tracking-widest hover:text-brand-primary transition-colors">
                 Shop
               </Link>
-              <a href="#collections" className="text-sm font-medium uppercase tracking-widest hover:text-brand-red transition-colors">
+              <a href="#collections" className="text-sm font-medium uppercase tracking-widest hover:text-brand-primary transition-colors">
                 Collections
               </a>
-              <a href="#about" className="text-sm font-medium uppercase tracking-widest hover:text-brand-red transition-colors">
+              <a href="#about" className="text-sm font-medium uppercase tracking-widest hover:text-brand-primary transition-colors">
                 About
               </a>
-              <a href="#sustainability" className="text-sm font-medium uppercase tracking-widest hover:text-brand-red transition-colors">
+              <a href="#sustainability" className="text-sm font-medium uppercase tracking-widest hover:text-brand-primary transition-colors">
                 Sustainability
               </a>
             </nav>
@@ -45,7 +45,7 @@ export default function Header() {
                 <div className="hidden md:flex items-center gap-4">
                   {isAdmin && (
                     <Link to="/admin">
-                      <Button variant="ghost" size="sm" className="font-heading uppercase tracking-wider hover:text-brand-red rounded-none">
+                      <Button variant="ghost" size="sm" className="font-heading uppercase tracking-wider hover:text-brand-primary rounded-none">
                         Admin
                       </Button>
                     </Link>
@@ -54,14 +54,14 @@ export default function Header() {
                     variant="ghost"
                     size="sm"
                     onClick={() => signOut()}
-                    className="font-heading uppercase tracking-wider hover:text-brand-red rounded-none"
+                    className="font-heading uppercase tracking-wider hover:text-brand-primary rounded-none"
                   >
                     Sign Out
                   </Button>
                 </div>
               ) : (
                 <Link to="/auth" className="hidden md:block">
-                  <Button variant="default" size="sm" className="bg-brand-red hover:bg-brand-red/90 text-white font-bold px-6 rounded-none uppercase tracking-wider">
+                  <Button variant="default" size="sm" className="bg-brand-primary hover:bg-brand-primary/90 text-brand-dark font-bold px-6 rounded-none uppercase tracking-wider">
                     Login
                   </Button>
                 </Link>
@@ -72,9 +72,9 @@ export default function Header() {
                 onClick={() => setIsCartOpen(true)}
                 className="relative p-2 hover:bg-muted transition-colors group"
               >
-                <ShoppingCart className="h-5 w-5 text-foreground group-hover:text-brand-red transition-colors" />
+                <ShoppingCart className="h-5 w-5 text-foreground group-hover:text-brand-primary transition-colors" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-brand-red text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center border border-white rounded-none">
+                  <span className="absolute -top-1 -right-1 bg-brand-primary text-brand-dark text-[10px] font-bold h-4 w-4 flex items-center justify-center border border-white rounded-none">
                     {totalItems}
                   </span>
                 )}

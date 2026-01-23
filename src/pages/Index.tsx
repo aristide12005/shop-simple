@@ -15,15 +15,15 @@ export default function Index() {
 
         {/* Promotional Banner */}
         <section className="container mx-auto px-4 md:px-8">
-          <div className="bg-brand-red text-white p-8 md:p-12 rounded-none relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="bg-brand-primary text-brand-dark p-8 md:p-12 rounded-none relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="z-10 space-y-4 max-w-xl">
               <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase leading-none">
                 Winter Sale <br /> Is Here
               </h2>
-              <p className="text-white/80 text-lg">
+              <p className="text-brand-dark/80 text-lg">
                 Get up to 50% off on selected items. Upgrade your winter wardrobe with our premium collection.
               </p>
-              <Button variant="secondary" className="rounded-none font-bold px-8 hover:bg-white hover:text-brand-red uppercase tracking-widest">
+              <Button variant="secondary" className="rounded-none font-bold px-8 bg-brand-dark text-white hover:bg-white hover:text-brand-dark uppercase tracking-widest">
                 Shop Now
               </Button>
             </div>
