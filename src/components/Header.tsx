@@ -24,17 +24,17 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
-              <Link to="/" className="text-sm font-medium uppercase tracking-widest hover:text-brand-primary transition-colors">
+            <nav className="hidden md:flex items-center gap-6">
+              <Link to="/" className="text-sm font-normal text-foreground hover:text-brand-primary transition-colors">
                 Shop
               </Link>
-              <a href="#collections" className="text-sm font-medium uppercase tracking-widest hover:text-brand-primary transition-colors">
+              <a href="#collections" className="text-sm font-normal text-foreground hover:text-brand-primary transition-colors">
                 Collections
               </a>
-              <a href="#about" className="text-sm font-medium uppercase tracking-widest hover:text-brand-primary transition-colors">
+              <a href="#about" className="text-sm font-normal text-foreground hover:text-brand-primary transition-colors">
                 About
               </a>
-              <a href="#sustainability" className="text-sm font-medium uppercase tracking-widest hover:text-brand-primary transition-colors">
+              <a href="#sustainability" className="text-sm font-normal text-foreground hover:text-brand-primary transition-colors">
                 Sustainability
               </a>
             </nav>
@@ -45,7 +45,7 @@ export default function Header() {
                 <div className="hidden md:flex items-center gap-4">
                   {isAdmin && (
                     <Link to="/admin">
-                      <Button variant="ghost" size="sm" className="font-heading uppercase tracking-wider hover:text-brand-primary rounded-none">
+                      <Button variant="ghost" size="sm" className="font-normal hover:text-brand-primary rounded-none">
                         Admin
                       </Button>
                     </Link>
@@ -54,7 +54,7 @@ export default function Header() {
                     variant="ghost"
                     size="sm"
                     onClick={() => signOut()}
-                    className="font-heading uppercase tracking-wider hover:text-brand-primary rounded-none"
+                    className="font-normal hover:text-brand-primary rounded-none"
                   >
                     Sign Out
                   </Button>

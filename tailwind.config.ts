@@ -15,17 +15,19 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        heading: ['Oswald', 'sans-serif'],
+        // SHEIN Style: Web Safe, Neutral Sans-Serif
+        sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+        // 'heading' alias kept for compatibility but maps to same stack
+        heading: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
       },
       colors: {
         // Charming Seaside Palette
-        "brand-primary": "#85D1DB",  // Medium Cyan
-        "brand-secondary": "#B3EBF2", // Light Blue
-        "brand-accent": "#B6F2D1",   // Pale Green
-        "brand-highlight": "#C9FDF2", // Light Cyan
+        "brand-primary": "#85D1DB",
+        "brand-secondary": "#B3EBF2",
+        "brand-accent": "#B6F2D1",
+        "brand-highlight": "#C9FDF2",
 
-        "brand-dark": "#0F172A", // Dark Slate for text (readable on white)
+        "brand-dark": "#0F172A",
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

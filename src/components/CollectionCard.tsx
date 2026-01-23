@@ -45,16 +45,16 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
       {/* Details - Minimal & Sharp */}
       <div className="flex justify-between items-start pt-2">
         <div>
-          <h3 className="font-heading text-lg font-bold leading-none uppercase tracking-wide group-hover:text-brand-primary transition-colors">
+          <h3 className="text-sm font-medium leading-none text-foreground group-hover:text-brand-primary transition-colors">
             <Link to={`/product/${collection.id}`}>
               {collection.name}
             </Link>
           </h3>
-          <p className="text-xs text-muted-foreground uppercase tracking-wider mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             {collection.stock_quantity > 0 ? 'In Stock' : 'Sold Out'}
           </p>
         </div>
-        <span className="font-bold text-sm tracking-tight">${Number(collection.price).toFixed(2)}</span>
+        <span className="font-semibold text-sm">${Number(collection.price).toFixed(2)}</span>
       </div>
     </div>
   );

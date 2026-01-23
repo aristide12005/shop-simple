@@ -110,16 +110,16 @@ export default function ProductDetails() {
                 <span className="text-xs uppercase tracking-widest ml-2 text-muted-foreground">Top Rated</span>
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-heading font-bold text-foreground leading-[0.9] uppercase tracking-tighter">
+              <h1 className="text-3xl md:text-5xl font-bold text-foreground leading-tight tracking-tight">
                 {product.name}
               </h1>
-              <p className="text-2xl font-bold text-brand-primary font-heading tracking-wide">
+              <p className="text-2xl font-bold text-brand-primary">
                 ${Number(product.price).toFixed(2)}
               </p>
             </div>
 
             <div className="space-y-6">
-              <h3 className="font-heading text-lg font-bold uppercase tracking-widest border-l-4 border-brand-primary pl-3">Description</h3>
+              <h3 className="text-base font-bold border-l-4 border-brand-primary pl-3">Description</h3>
               <p className="text-brand-dark/80 leading-relaxed text-sm md:text-base">
                 {product.description || 'Constructed with premium materials for durability and style. This piece embodies the essence of modern streetwear luxury.'}
               </p>
