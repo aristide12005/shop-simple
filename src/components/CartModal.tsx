@@ -31,6 +31,19 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
       return;
     }
 
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(customerEmail.trim())) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
+    // Validate customer name if provided
+    if (customerName && customerName.trim().length > 100) {
+      toast.error('Name must be less than 100 characters');
+      return;
+    }
+
     setIsProcessing(true);
 
     try {
@@ -38,8 +51,8 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
-          customer_email: customerEmail,
-          customer_name: customerName || null,
+          customer_email: customerEmail.trim(),
+          customer_name: customerName.trim() || null,
           total_amount: totalAmount,
           status: 'pending',
         })
@@ -63,18 +76,27 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
 
       if (itemsError) throw itemsError;
 
-      // Open PayPal in new window
-      const paypalClientId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
-      if (paypalClientId) {
-        // Create PayPal order URL
-        const paypalUrl = `https://www.paypal.com/checkoutnow?token=${order.id}&amount=${totalAmount}`;
-        window.open(paypalUrl, '_blank');
+      // Create PayPal order via secure edge function
+      const { data: paypalData, error: paypalError } = await supabase.functions.invoke(
+        'create-paypal-order',
+        { body: { orderId: order.id } }
+      );
+
+      if (paypalError) {
+        console.error('PayPal order creation error:', paypalError);
+        toast.error('Failed to initialize payment. Please try again.');
+        return;
       }
 
-      toast.success('Order created! Please complete payment with PayPal.');
-      clearCart();
-      onClose();
-      setIsCheckout(false);
+      if (paypalData.approvalUrl) {
+        // Clear cart and redirect to PayPal
+        clearCart();
+        onClose();
+        setIsCheckout(false);
+        window.location.href = paypalData.approvalUrl;
+      } else {
+        toast.error('Failed to get payment URL. Please try again.');
+      }
     } catch (error) {
       console.error('Checkout error:', error);
       toast.error('Failed to process checkout. Please try again.');
