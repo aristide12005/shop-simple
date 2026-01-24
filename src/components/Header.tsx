@@ -14,7 +14,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-design-bg py-6 px-4 md:px-12">
+      <header className="sticky top-0 z-50 bg-design-bg py-4 px-4 md:px-12">
         <div className="container mx-auto flex items-center justify-between">
 
           {/* 1. Logo (Left) */}
