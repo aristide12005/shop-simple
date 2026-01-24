@@ -17,31 +17,8 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-design-bg text-foreground font-sans">
       <Header />
-      <main className="space-y-20 pb-20">
+      <main className="pb-0 overflow-hidden">
         <HeroSection />
-
-
-
-        <div id="collections" className="pt-20">
-
-          <CollectionsGrid />
-        </div>
-
-        <section id="about" className="container mx-auto px-4 md:px-8 text-center py-20 bg-muted/30 rounded-none mx-4 border border-border">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-foreground uppercase">
-            ANCESTRAL MODERNITY
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-8 text-lg">
-            We don't just sell clothes; we export culture. Join the movement redefining African silhouette on the global stage.
-          </p>
-          <Button
-            onClick={scrollToCollections}
-            size="lg"
-            className="rounded-none bg-foreground text-background hover:bg-brand-secondary hover:text-brand-dark px-10 h-14 text-lg font-bold shadow-none uppercase tracking-widest"
-          >
-            JOIN THE TRIBE <ArrowRight className="ml-2" />
-          </Button>
-        </section>
       </main>
       <Footer />
     </div>

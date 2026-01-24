@@ -28,9 +28,9 @@ export default function Header() {
           {/* 2. Navigation Pill (Center) */}
           <nav className="hidden md:flex items-center bg-[#85D1DB]/50 backdrop-blur-sm rounded-full px-8 py-3 gap-8 shadow-sm">
             <Link to="/" className="text-black font-medium hover:text-design-red transition-colors">Home</Link>
-            <Link to="/" className="text-black font-medium hover:text-design-red transition-colors">Shop</Link>
-            <a href="#collections" className="text-black font-medium hover:text-design-red transition-colors">Collections</a>
-            <a href="#about" className="text-black font-medium hover:text-design-red transition-colors">About Us</a>
+            <Link to="/shop" className="text-black font-medium hover:text-design-red transition-colors">Shop</Link>
+            <Link to="/collections" className="text-black font-medium hover:text-design-red transition-colors">Collections</Link>
+            <Link to="/shop" className="text-black font-medium hover:text-design-red transition-colors">About Us</Link>
           </nav>
 
           {/* 3. Actions Pill (Right) */}
@@ -73,9 +73,9 @@ export default function Header() {
         {isMobileMenuOpen && (
           <div className="fixed inset-0 bg-design-bg z-40 flex flex-col items-center justify-center space-y-8 animate-in slide-in-from-top-10 duration-300">
             <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">Home</Link>
-            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">Shop</Link>
-            <a href="#collections" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">Collections</a>
-            <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">About Us</a>
+            <Link to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">Shop</Link>
+            <Link to="/collections" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">Collections</Link>
+            <Link to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">About Us</Link>
             <div className="flex gap-6 mt-8">
               <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}><User className="h-8 w-8" /></Link>
               <button onClick={() => { setIsCartOpen(true); setIsMobileMenuOpen(false); }}><ShoppingBag className="h-8 w-8" /></button>

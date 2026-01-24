@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function HeroSection() {
     const scrollToCollections = () => {
@@ -71,17 +72,20 @@ export function HeroSection() {
                     </p>
 
                     <div className="flex flex-wrap gap-4 pt-4">
-                        <Button
-                            onClick={scrollToCollections}
-                            className="h-16 px-10 bg-design-red hover:bg-[#7a1b1e] text-white text-xl font-medium rounded-full shadow-lg transition-transform hover:scale-105"
-                        >
-                            Shop Now
-                        </Button>
-                        <Button
-                            className="h-16 px-10 bg-[#188FA7] hover:bg-[#137488] text-white text-xl font-medium rounded-full shadow-lg transition-transform hover:scale-105"
-                        >
-                            Contact Us
-                        </Button>
+                        <Link to="/shop">
+                            <Button
+                                className="h-16 px-10 bg-design-red hover:bg-[#7a1b1e] text-white text-xl font-medium rounded-full shadow-lg transition-transform hover:scale-105"
+                            >
+                                Shop Now
+                            </Button>
+                        </Link>
+                        <Link to="/shop">
+                            <Button
+                                className="h-16 px-10 bg-[#188FA7] hover:bg-[#137488] text-white text-xl font-medium rounded-full shadow-lg transition-transform hover:scale-105"
+                            >
+                                Contact Us
+                            </Button>
+                        </Link>
                     </div>
 
                     <p className="text-sm text-gray-500 italic pt-4">
