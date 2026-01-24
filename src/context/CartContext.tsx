@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
-import { CartItem, Collection } from '@/types/database';
+import { CartItem, CollectionWithImages } from '@/types/database';
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (collection: Collection) => void;
+  addToCart: (collection: CollectionWithImages) => void;
   removeFromCart: (collectionId: string) => void;
   updateQuantity: (collectionId: string, quantity: number) => void;
   clearCart: () => void;
@@ -19,7 +19,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const addToCart = useCallback((collection: Collection) => {
+  const addToCart = useCallback((collection: CollectionWithImages) => {
     setItems(prev => {
       const existing = prev.find(item => item.collection.id === collection.id);
       if (existing) {

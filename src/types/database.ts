@@ -33,7 +33,7 @@ export interface CollectionWithImages extends Collection {
 }
 
 export interface CartItem {
-  collection: Collection;
+  collection: CollectionWithImages;
   quantity: number;
 }
 
