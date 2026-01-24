@@ -14,16 +14,7 @@ export default function Shop() {
             <Header />
 
             {/* 1. Header Section: Crafted for Kings & Queens */}
-            <section className="bg-white pt-10 pb-8 border-b border-gray-100">
-                <div className="container mx-auto px-4 md:px-8 text-center">
-                    <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4 tracking-tight">
-                        CRAFTED FOR KINGS & QUEENS
-                    </h2>
-                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-serif">
-                        Authentic craftsmanship from Dakar to Lagos. Every stitch tells a story.
-                    </p>
-                </div>
-            </section>
+
 
             {/* 2. Mega Menu (Visual Navigation) */}
             <ShopMegaMenu />
