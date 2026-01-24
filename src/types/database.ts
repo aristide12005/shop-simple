@@ -34,6 +34,7 @@ export interface CollectionWithImages extends Collection {
 
 export interface CartItem {
   collection: CollectionWithImages;
+  variant?: ProductVariant;
   quantity: number;
 }
 
