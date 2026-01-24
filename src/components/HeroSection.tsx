@@ -83,7 +83,7 @@ export function HeroSection() {
                                 Shop Now
                             </Button>
                         </Link>
-                        <Link to="/shop">
+                        <Link to="/contact">
                             <Button
                                 className="h-12 md:h-14 px-8 bg-[#188FA7] hover:bg-[#137488] text-white text-base md:text-lg font-bold rounded-full shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95 duration-300"
                             >
