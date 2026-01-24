@@ -20,34 +20,7 @@ export default function Index() {
       <main className="space-y-20 pb-20">
         <HeroSection />
 
-        {/* Promotional Banner */}
-        <section className="container mx-auto px-4 md:px-8">
-          <div className="bg-brand-primary text-brand-dark p-8 md:p-12 rounded-none relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="z-10 space-y-4 max-w-xl">
-              <h2 className="text-4xl md:text-6xl font-bold uppercase leading-none">
-                The Harmattan <br /> Collection
-              </h2>
-              <p className="text-brand-dark/80 text-lg">
-                Warm earth tones and heavy woven cottons designed to shield you from the wind while you stand out in the crowd.
-              </p>
-              <Button
-                onClick={scrollToCollections}
-                variant="secondary"
-                className="rounded-none font-bold px-8 bg-brand-dark text-white hover:bg-white hover:text-brand-dark uppercase tracking-widest"
-              >
-                SHOP THE SEASON
-              </Button>
-            </div>
-            {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl transform -translate-x-1/2 translate-y-1/2" />
 
-            {/* Image Placeholder or Graphic */}
-            <div className="relative z-10 w-full max-w-md aspect-video bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 flex items-center justify-center">
-              <span className="text-2xl font-bold">New Drop</span>
-            </div>
-          </div>
-        </section>
 
         <div id="collections" className="pt-20">
           <div className="container mx-auto px-4 md:px-8 text-center mb-12">
