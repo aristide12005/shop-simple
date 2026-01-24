@@ -9,12 +9,15 @@ interface CartContextType {
   clearCart: () => void;
   totalItems: number;
   totalAmount: number;
+  isCartOpen: boolean;
+  setIsCartOpen: (isOpen: boolean) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = useCallback((collection: Collection) => {
     setItems(prev => {
@@ -28,6 +31,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...prev, { collection, quantity: 1 }];
     });
+    setIsCartOpen(true); // Auto-open cart
   }, []);
 
   const removeFromCart = useCallback((collectionId: string) => {
@@ -68,6 +72,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         clearCart,
         totalItems,
         totalAmount,
+        isCartOpen,
+        setIsCartOpen,
       }}
     >
       {children}

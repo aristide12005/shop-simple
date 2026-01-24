@@ -7,9 +7,8 @@ import { useAuth } from '@/hooks/useAuth';
 import CartModal from './CartModal';
 
 export default function Header() {
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { totalItems } = useCart();
+  const { totalItems, setIsCartOpen } = useCart();
   const { user, signOut } = useAuth();
 
   return (
@@ -83,7 +82,7 @@ export default function Header() {
           </div>
         )}
       </header>
-      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CartModal />
     </>
   );
 }

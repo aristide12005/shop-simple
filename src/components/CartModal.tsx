@@ -4,26 +4,26 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
 import { useCart } from '@/context/CartContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
-interface CartModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export default function CartModal({ isOpen, onClose }: CartModalProps) {
-  const { items, removeFromCart, updateQuantity, clearCart, totalAmount } = useCart();
+export default function CartModal() {
+  const { items, removeFromCart, updateQuantity, clearCart, totalAmount, isCartOpen, setIsCartOpen } = useCart();
   const [isCheckout, setIsCheckout] = useState(false);
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerName, setCustomerName] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleClose = () => {
+    setIsCartOpen(false);
+    setIsCheckout(false);
+  }
 
   const handleCheckout = async () => {
     if (!customerEmail) {
@@ -91,8 +91,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
       if (paypalData.approvalUrl) {
         // Clear cart and redirect to PayPal
         clearCart();
-        onClose();
-        setIsCheckout(false);
+        handleClose();
         window.location.href = paypalData.approvalUrl;
       } else {
         toast.error('Failed to get payment URL. Please try again.');
@@ -106,139 +105,158 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="font-serif text-2xl">
-            {isCheckout ? 'Checkout' : 'Shopping Cart'}
-          </DialogTitle>
-        </DialogHeader>
+    <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
+      <SheetContent className="w-full sm:max-w-md flex flex-col h-full bg-white">
+        <SheetHeader className="pb-4 border-b">
+          <SheetTitle className="font-serif text-2xl uppercase tracking-widest text-left">
+            {isCheckout ? 'Checkout' : 'Your Bag'} ({items.length})
+          </SheetTitle>
+        </SheetHeader>
 
-        {items.length === 0 ? (
-          <div className="py-8 text-center text-muted-foreground">
-            Your cart is empty
-          </div>
-        ) : isCheckout ? (
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email Address *</Label>
-              <Input
-                id="email"
-                type="email"
-                value={customerEmail}
-                onChange={(e) => setCustomerEmail(e.target.value)}
-                placeholder="your@email.com"
-                required
-              />
+        {/* Content Area - Scrollable */}
+        <div className="flex-1 overflow-y-auto -mx-6 px-6 py-4">
+          {items.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
+              <h3 className="font-bold text-lg text-gray-400 uppercase">Bag is Empty</h3>
+              <p className="text-gray-500 text-sm">Looks like you haven't added anything yet.</p>
+              <Button variant="outline" onClick={handleClose}>Continue Shopping</Button>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
-              <Input
-                id="name"
-                type="text"
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-                placeholder="John Doe"
-              />
-            </div>
-
-            <div className="border-t pt-4 mt-4">
-              <div className="flex justify-between text-lg font-bold mb-4">
-                <span>Total</span>
-                <span className="text-primary">${totalAmount.toFixed(2)}</span>
+          ) : isCheckout ? (
+            <div className="space-y-6 animate-in slide-in-from-right-8 duration-300">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email Address *</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={customerEmail}
+                  onChange={(e) => setCustomerEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  required
+                  className="bg-gray-50 border-gray-200"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  placeholder="John Doe"
+                  className="bg-gray-50 border-gray-200"
+                />
               </div>
 
+              <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500">Subtotal</span>
+                  <span>${totalAmount.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500">Shipping</span>
+                  <span className="text-green-600 text-xs font-bold uppercase">Pay on Delivery</span>
+                </div>
+                <div className="border-t pt-2 mt-2 flex justify-between font-bold text-lg">
+                  <span>Total</span>
+                  <span>${totalAmount.toFixed(2)}</span>
+                </div>
+              </div>
+
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {items.map((item) => (
+                <div
+                  key={item.collection.id}
+                  className="flex gap-4 group"
+                >
+                  {/* Image */}
+                  <div className="w-20 h-24 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
+                    <img
+                      src={item.collection.collection_images?.[0]?.image_url || "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=200"}
+                      alt={item.collection.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  <div className="flex-1 min-w-0 flex flex-col justify-between py-1">
+                    <div>
+                      <h4 className="font-bold text-sm text-foreground uppercase tracking-wide truncate">
+                        {item.collection.name}
+                      </h4>
+                      <p className="text-sm text-muted-foreground font-serif">
+                        ${Number(item.collection.price).toFixed(2)}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 border border-gray-200 rounded px-2 h-8">
+                        <button
+                          className="h-full px-1 hover:text-design-teal"
+                          onClick={() => updateQuantity(item.collection.id, item.quantity - 1)}
+                        >
+                          <Minus className="h-3 w-3" />
+                        </button>
+                        <span className="text-sm font-medium w-4 text-center">{item.quantity}</span>
+                        <button
+                          className="h-full px-1 hover:text-design-teal"
+                          onClick={() => updateQuantity(item.collection.id, item.quantity + 1)}
+                        >
+                          <Plus className="h-3 w-3" />
+                        </button>
+                      </div>
+                      <button
+                        className="text-gray-400 hover:text-red-500 transition-colors"
+                        onClick={() => removeFromCart(item.collection.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Footer Area - Fixed Button */}
+        {items.length > 0 && (
+          <div className="pt-4 border-t space-y-4">
+            {!isCheckout ? (
+              <>
+                <div className="flex justify-between text-lg font-bold">
+                  <span>Total</span>
+                  <span className="text-primary">${totalAmount.toFixed(2)}</span>
+                </div>
+                <Button
+                  onClick={() => setIsCheckout(true)}
+                  className="w-full h-12 bg-black hover:bg-gray-900 text-white uppercase tracking-widest text-sm font-bold rounded-none"
+                >
+                  Checkout Now
+                </Button>
+              </>
+            ) : (
               <div className="flex gap-2">
                 <Button
                   variant="outline"
                   onClick={() => setIsCheckout(false)}
-                  className="flex-1"
+                  className="flex-1 h-12 rounded-none"
                 >
-                  Back to Cart
+                  Back
                 </Button>
                 <Button
                   onClick={handleCheckout}
                   disabled={isProcessing}
-                  className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground"
+                  className="flex-1 h-12 bg-design-teal hover:bg-[#238b7e] text-white uppercase tracking-widest text-sm font-bold rounded-none"
                 >
-                  {isProcessing ? (
-                    'Processing...'
-                  ) : (
-                    <>
-                      <CreditCard className="h-4 w-4 mr-2" />
-                      Pay with PayPal
-                    </>
-                  )}
+                  {isProcessing ? 'Processing' : 'Pay Now'}
                 </Button>
               </div>
-            </div>
+            )}
           </div>
-        ) : (
-          <>
-            <div className="space-y-4 py-4">
-              {items.map((item) => (
-                <div
-                  key={item.collection.id}
-                  className="flex items-center gap-4 p-3 bg-muted/50 rounded-lg"
-                >
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-medium text-foreground truncate">
-                      {item.collection.name}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      ${Number(item.collection.price).toFixed(2)} each
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="h-8 w-8"
-                      onClick={() => updateQuantity(item.collection.id, item.quantity - 1)}
-                    >
-                      <Minus className="h-3 w-3" />
-                    </Button>
-                    <span className="w-8 text-center font-medium">{item.quantity}</span>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="h-8 w-8"
-                      onClick={() => updateQuantity(item.collection.id, item.quantity + 1)}
-                    >
-                      <Plus className="h-3 w-3" />
-                    </Button>
-                  </div>
-
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 text-destructive hover:text-destructive"
-                    onClick={() => removeFromCart(item.collection.id)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
-            </div>
-
-            <div className="border-t pt-4">
-              <div className="flex justify-between text-lg font-bold mb-4">
-                <span>Total</span>
-                <span className="text-primary">${totalAmount.toFixed(2)}</span>
-              </div>
-
-              <Button
-                onClick={() => setIsCheckout(true)}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-                size="lg"
-              >
-                Proceed to Checkout
-              </Button>
-            </div>
-          </>
         )}
-      </DialogContent>
-    </Dialog>
+
+      </SheetContent>
+    </Sheet>
   );
 }
