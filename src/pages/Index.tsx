@@ -23,10 +23,7 @@ export default function Index() {
 
 
         <div id="collections" className="pt-20">
-          <div className="container mx-auto px-4 md:px-8 text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">CRAFTED FOR KINGS & QUEENS</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Authentic craftsmanship from Dakar to Lagos. Every stitch tells a story.</p>
-          </div>
+
           <CollectionsGrid />
         </div>
 
