@@ -30,7 +30,7 @@ export default function Header() {
             <Link to="/" className="text-black/80 font-medium hover:text-white transition-colors">Home</Link>
             <Link to="/shop" className="text-black/80 font-medium hover:text-white transition-colors">Shop</Link>
             <Link to="/collections" className="text-black/80 font-medium hover:text-white transition-colors">Collections</Link>
-            <Link to="/shop" className="text-black/80 font-medium hover:text-white transition-colors">About Us</Link>
+            <Link to="/about" className="text-black/80 font-medium hover:text-white transition-colors">About Us</Link>
           </nav>
 
           {/* 3. Actions Pill (Right) */}
@@ -75,7 +75,7 @@ export default function Header() {
             <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">Home</Link>
             <Link to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">Shop</Link>
             <Link to="/collections" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">Collections</Link>
-            <Link to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">About Us</Link>
+            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold uppercase">About Us</Link>
             <div className="flex gap-6 mt-8">
               <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}><User className="h-8 w-8" /></Link>
               <button onClick={() => { setIsCartOpen(true); setIsMobileMenuOpen(false); }}><ShoppingBag className="h-8 w-8" /></button>
