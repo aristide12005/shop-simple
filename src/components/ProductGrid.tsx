@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useCollections } from "@/hooks/useCollections";
 
-export default function ProductGrid() {
+interface ProductGridProps {
+    sortBy?: string;
+}
+
+export default function ProductGrid({ sortBy = "featured" }: ProductGridProps) {
     const { data: products, isLoading } = useCollections();
 
     if (isLoading) {
@@ -23,9 +27,23 @@ export default function ProductGrid() {
         );
     }
 
+    // Sort products
+    const sortedProducts = [...products].sort((a, b) => {
+        switch (sortBy) {
+            case "price-low":
+                return Number(a.price) - Number(b.price);
+            case "price-high":
+                return Number(b.price) - Number(a.price);
+            case "newest":
+                return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+            default: // featured / default
+                return 0;
+        }
+    });
+
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product) => {
+            {sortedProducts.map((product) => {
                 // Use the first image if available, otherwise a placeholder
                 const imageUrl = product.collection_images?.[0]?.image_url || "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600&auto=format&fit=crop";
 

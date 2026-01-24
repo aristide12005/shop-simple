@@ -11,7 +11,12 @@ import {
 import { Slider } from "@/components/ui/slider";
 import { useState } from "react";
 
-export default function ShopFilters() {
+interface ShopFiltersProps {
+    sortBy: string;
+    onSortChange: (value: string) => void;
+}
+
+export default function ShopFilters({ sortBy, onSortChange }: ShopFiltersProps) {
     const [priceRange, setPriceRange] = useState([0, 500]);
 
     return (
@@ -45,9 +50,9 @@ export default function ShopFilters() {
             {/* Sort */}
             <div className="space-y-2">
                 <h3 className="font-bold text-sm uppercase tracking-wide">Sort By</h3>
-                <Select>
+                <Select value={sortBy} onValueChange={onSortChange}>
                     <SelectTrigger className="bg-gray-50 border-gray-200">
-                        <SelectValue placeholder="Featured" />
+                        <SelectValue placeholder="Sort order" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="featured">Featured</SelectItem>

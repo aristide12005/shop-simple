@@ -1,4 +1,4 @@
-
+import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ShopMegaMenu from '@/components/ShopMegaMenu';
@@ -9,11 +9,13 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 export default function Shop() {
+    const [sortBy, setSortBy] = useState("featured");
+
     return (
         <div className="min-h-screen bg-design-bg text-foreground font-sans">
             <Header />
 
-            {/* 1. Header Section: Crafted for Kings & Queens */}
+            {/* 1. Header Section: Crafted for Kings & Queens (Removed) */}
 
 
             {/* 2. Mega Menu (Visual Navigation) */}
@@ -24,16 +26,16 @@ export default function Shop() {
 
                     {/* Sidebar: Filters (1 Col) */}
                     <aside className="hidden md:block md:col-span-1">
-                        <ShopFilters />
+                        <ShopFilters sortBy={sortBy} onSortChange={setSortBy} />
                     </aside>
 
                     {/* Main Content: Product Grid (3 Cols) */}
                     <div className="md:col-span-3">
                         <div className="mb-6 flex items-center justify-between">
-                            <p className="text-gray-500 text-sm">Showing 6 results</p>
+                            <p className="text-gray-500 text-sm">Showing results</p>
                             {/* Mobile Filter Toggle could go here */}
                         </div>
-                        <ProductGrid />
+                        <ProductGrid sortBy={sortBy} />
 
                         {/* Pagination / Load More */}
                         <div className="mt-12 text-center">
