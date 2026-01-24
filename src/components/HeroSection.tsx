@@ -17,12 +17,12 @@ export function HeroSection() {
             <div className="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 h-full items-center">
 
                 {/* 1. LEFT SIDE: 3-Image Stack on Teal Pill (cols 1-5) */}
-                <div className="md:col-span-5 relative h-[90%] w-full flex items-center justify-center hidden md:flex">
-                    {/* Teal Vertical Pill Background */}
-                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[70%] bg-[#188FA7] rounded-t-full rounded-b-full z-0"></div>
+                <div className="md:col-span-5 relative h-[90%] w-full flex items-center justify-center hidden md:flex animate-in fade-in slide-in-from-left-10 duration-1000 ease-out">
+                    {/* Teal Vertical Pill Background with Gradient/Depth */}
+                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[70%] bg-gradient-to-br from-[#188FA7] to-[#0f6c80] rounded-t-full rounded-b-full z-0 shadow-2xl skew-y-0"></div>
 
                     {/* Image 1: Light Blue Shirt (Top, Circular) */}
-                    <div className="absolute top-[8%] -left-[5%] w-[50%] aspect-square rounded-full border-4 border-[#F1F1F1] shadow-xl z-20 bg-white overflow-hidden">
+                    <div className="absolute top-[8%] -left-[5%] w-[50%] aspect-square rounded-full border-4 border-[#F1F1F1] shadow-xl z-20 bg-white overflow-hidden animate-in zoom-in-50 duration-700 delay-300 fill-mode-backwards hover:scale-105 transition-transform">
                         <img
                             src="https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?q=80&w=600&auto=format&fit=crop"
                             alt="Light Blue Shirt"
@@ -31,7 +31,7 @@ export function HeroSection() {
                     </div>
 
                     {/* Image 2: Cream Tunic (Middle, Rounded Rect) */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%] aspect-[3/4] rounded-[40px] border-4 border-[#F1F1F1] shadow-2xl z-30 bg-white overflow-hidden">
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%] aspect-[3/4] rounded-[40px] border-4 border-[#F1F1F1] shadow-2xl z-30 bg-white overflow-hidden animate-in zoom-in-50 duration-700 delay-500 fill-mode-backwards hover:scale-105 transition-transform">
                         <img
                             src="https://plus.unsplash.com/premium_photo-1690338237128-b32fedb44d55?q=80&w=600&auto=format&fit=crop"
                             alt="Cream Tunic"
@@ -40,7 +40,7 @@ export function HeroSection() {
                     </div>
 
                     {/* Image 3: Purple Shirt (Bottom, Circular) */}
-                    <div className="absolute bottom-[8%] -right-[5%] w-[50%] aspect-square rounded-full border-4 border-[#F1F1F1] shadow-xl z-20 bg-white overflow-hidden">
+                    <div className="absolute bottom-[8%] -right-[5%] w-[50%] aspect-square rounded-full border-4 border-[#F1F1F1] shadow-xl z-20 bg-white overflow-hidden animate-in zoom-in-50 duration-700 delay-700 fill-mode-backwards hover:scale-105 transition-transform">
                         <img
                             src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=600&auto=format&fit=crop"
                             alt="Purple Shirt"
@@ -52,47 +52,47 @@ export function HeroSection() {
                 {/* 2. RIGHT SIDE: Typography & Content (cols 6-12) */}
                 <div className="col-span-1 md:col-span-7 flex flex-col space-y-4 md:space-y-6 z-10 pl-0 md:pl-8 justify-center h-full text-center md:text-left">
                     <div className="space-y-2">
-                        <div className="flex items-center gap-4 flex-wrap justify-center md:justify-start">
+                        <div className="flex items-center gap-4 flex-wrap justify-center md:justify-start animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 fill-mode-backwards">
                             <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight text-black">
                                 WELCOME TO
                             </h1>
                             {/* Red Arrow Pill */}
-                            <div className="h-12 md:h-16 lg:h-20 px-8 md:px-12 bg-design-red rounded-full flex items-center justify-center">
+                            <div className="h-12 md:h-16 lg:h-20 px-8 md:px-12 bg-design-red rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
                                 <MoveRight className="text-white w-8 h-8 md:w-12 md:h-12" />
                             </div>
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold tracking-tight text-design-teal">
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold tracking-tight text-design-teal animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 fill-mode-backwards">
                             ACCICOA
                         </h1>
 
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-sans font-normal tracking-tight text-black pt-1">
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-sans font-normal tracking-tight text-black pt-1 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400 fill-mode-backwards">
                             CORNER OF AFRICA
                         </h1>
                     </div>
 
-                    <p className="text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed mx-auto md:mx-0">
+                    <p className="text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed mx-auto md:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500 fill-mode-backwards">
                         Discover premium African products crafted with excellence. Each piece tells a story of heritage, artistry, and culture.
                     </p>
 
-                    <div className="flex flex-wrap gap-4 pt-4 justify-center md:justify-start">
+                    <div className="flex flex-wrap gap-4 pt-4 justify-center md:justify-start animate-in fade-in slide-in-from-bottom-4 duration-700 delay-700 fill-mode-backwards">
                         <Link to="/shop">
                             <Button
-                                className="h-14 md:h-16 px-10 bg-design-red hover:bg-[#7a1b1e] text-white text-lg md:text-xl font-medium rounded-full shadow-lg transition-transform hover:scale-105"
+                                className="h-14 md:h-16 px-10 bg-design-red hover:bg-[#7a1b1e] text-white text-lg md:text-xl font-bold rounded-full shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95 duration-300"
                             >
                                 Shop Now
                             </Button>
                         </Link>
                         <Link to="/shop">
                             <Button
-                                className="h-14 md:h-16 px-10 bg-[#188FA7] hover:bg-[#137488] text-white text-lg md:text-xl font-medium rounded-full shadow-lg transition-transform hover:scale-105"
+                                className="h-14 md:h-16 px-10 bg-[#188FA7] hover:bg-[#137488] text-white text-lg md:text-xl font-bold rounded-full shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95 duration-300"
                             >
                                 Contact Us
                             </Button>
                         </Link>
                     </div>
 
-                    <p className="text-sm text-gray-500 italic pt-2">
+                    <p className="text-sm text-gray-500 italic pt-2 animate-in fade-in duration-1000 delay-1000 fill-mode-backwards">
                         Your gateway to authentic African artistry.
                     </p>
                 </div>
