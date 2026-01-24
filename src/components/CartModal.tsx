@@ -14,7 +14,6 @@ import { useCart } from '@/context/CartContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
-// PayPal icon component
 const PayPalIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
     <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .757-.65h6.193c2.105 0 3.729.577 4.82 1.712.477.496.818 1.06 1.02 1.686.204.626.26 1.37.167 2.21-.016.152-.038.31-.066.477-.044.267-.093.547-.152.843a8.36 8.36 0 0 1-.35 1.274 6.726 6.726 0 0 1-.598 1.166c-.26.392-.567.739-.92 1.038a5.13 5.13 0 0 1-1.322.81c-.49.203-1.038.36-1.634.468-.597.108-1.25.162-1.951.162H8.534a.77.77 0 0 0-.757.65l-.7 4.771z"/>
@@ -67,13 +66,17 @@ export default function CartModal() {
 
       if (orderError) throw orderError;
 
-      const orderItems = items.map((item) => ({
-        order_id: order.id,
-        collection_id: item.collection.id,
-        collection_name: item.collection.name,
-        price: item.collection.price,
-        quantity: item.quantity,
-      }));
+      const orderItems = items.map((item) => {
+        const price = item.variant?.price ?? item.collection.price;
+        const variantSuffix = item.variant ? ` (${item.variant.name})` : '';
+        return {
+          order_id: order.id,
+          collection_id: item.collection.id,
+          collection_name: `${item.collection.name}${variantSuffix}`,
+          price: price,
+          quantity: item.quantity,
+        };
+      });
 
       const { error: itemsError } = await supabase
         .from('order_items')
@@ -111,6 +114,10 @@ export default function CartModal() {
       setIsProcessing(false);
     }
   };
+
+  // Get item key for unique identification
+  const getItemKey = (item: typeof items[0]) => 
+    item.variant ? `${item.collection.id}-${item.variant.id}` : item.collection.id;
 
   return (
     <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
@@ -196,52 +203,62 @@ export default function CartModal() {
             </div>
           ) : (
             <div className="space-y-6">
-              {items.map((item) => (
-                <div key={item.collection.id} className="flex gap-4 group">
-                  <div className="w-20 h-24 bg-muted rounded-md overflow-hidden flex-shrink-0">
-                    <img
-                      src={item.collection.collection_images?.[0]?.image_url || "/placeholder.svg"}
-                      alt={item.collection.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  <div className="flex-1 min-w-0 flex flex-col justify-between py-1">
-                    <div>
-                      <h4 className="font-bold text-sm text-foreground uppercase tracking-wide truncate">
-                        {item.collection.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground font-serif">
-                        ${Number(item.collection.price).toFixed(2)}
-                      </p>
+              {items.map((item) => {
+                const price = item.variant?.price ?? item.collection.price;
+                const itemKey = getItemKey(item);
+                
+                return (
+                  <div key={itemKey} className="flex gap-4 group">
+                    <div className="w-20 h-24 bg-muted rounded-md overflow-hidden flex-shrink-0">
+                      <img
+                        src={item.collection.collection_images?.[0]?.image_url || "/placeholder.svg"}
+                        alt={item.collection.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
 
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 border border-border rounded px-2 h-8">
+                    <div className="flex-1 min-w-0 flex flex-col justify-between py-1">
+                      <div>
+                        <h4 className="font-bold text-sm text-foreground uppercase tracking-wide truncate">
+                          {item.collection.name}
+                        </h4>
+                        {item.variant && (
+                          <p className="text-xs text-muted-foreground">
+                            {item.variant.name}
+                          </p>
+                        )}
+                        <p className="text-sm text-muted-foreground font-serif">
+                          ${Number(price).toFixed(2)}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 border border-border rounded px-2 h-8">
+                          <button
+                            className="h-full px-1 hover:text-primary"
+                            onClick={() => updateQuantity(item.collection.id, item.quantity - 1, item.variant?.id)}
+                          >
+                            <Minus className="h-3 w-3" />
+                          </button>
+                          <span className="text-sm font-medium w-4 text-center">{item.quantity}</span>
+                          <button
+                            className="h-full px-1 hover:text-primary"
+                            onClick={() => updateQuantity(item.collection.id, item.quantity + 1, item.variant?.id)}
+                          >
+                            <Plus className="h-3 w-3" />
+                          </button>
+                        </div>
                         <button
-                          className="h-full px-1 hover:text-primary"
-                          onClick={() => updateQuantity(item.collection.id, item.quantity - 1)}
+                          className="text-muted-foreground hover:text-destructive transition-colors"
+                          onClick={() => removeFromCart(item.collection.id, item.variant?.id)}
                         >
-                          <Minus className="h-3 w-3" />
-                        </button>
-                        <span className="text-sm font-medium w-4 text-center">{item.quantity}</span>
-                        <button
-                          className="h-full px-1 hover:text-primary"
-                          onClick={() => updateQuantity(item.collection.id, item.quantity + 1)}
-                        >
-                          <Plus className="h-3 w-3" />
+                          <Trash2 className="h-4 w-4" />
                         </button>
                       </div>
-                      <button
-                        className="text-muted-foreground hover:text-destructive transition-colors"
-                        onClick={() => removeFromCart(item.collection.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
