@@ -26,31 +26,31 @@ export default function Header() {
           </Link>
 
           {/* 2. Navigation Pill (Center) */}
-          <nav className="hidden md:flex items-center bg-[#85D1DB]/50 backdrop-blur-sm rounded-full px-8 py-3 gap-8 shadow-sm">
-            <Link to="/" className="text-black font-medium hover:text-design-red transition-colors">Home</Link>
-            <Link to="/shop" className="text-black font-medium hover:text-design-red transition-colors">Shop</Link>
-            <Link to="/collections" className="text-black font-medium hover:text-design-red transition-colors">Collections</Link>
-            <Link to="/shop" className="text-black font-medium hover:text-design-red transition-colors">About Us</Link>
+          <nav className="hidden md:flex items-center bg-[#85D1DB] rounded-full px-8 py-3 gap-8 shadow-sm">
+            <Link to="/" className="text-black/80 font-medium hover:text-white transition-colors">Home</Link>
+            <Link to="/shop" className="text-black/80 font-medium hover:text-white transition-colors">Shop</Link>
+            <Link to="/collections" className="text-black/80 font-medium hover:text-white transition-colors">Collections</Link>
+            <Link to="/shop" className="text-black/80 font-medium hover:text-white transition-colors">About Us</Link>
           </nav>
 
           {/* 3. Actions Pill (Right) */}
           <div className="hidden md:flex items-center gap-4">
-            <div className="bg-[#85D1DB] rounded-lg p-2 px-4 flex items-center gap-4 shadow-sm border border-[#6FBCC9]">
+            <div className="bg-[#85D1DB] rounded-lg p-2 px-4 flex items-center gap-4 shadow-sm">
               {user ? (
                 <button onClick={() => signOut()} title="Sign Out">
-                  <User className="h-6 w-6 text-black/80 hover:text-design-red transition-colors" />
+                  <User className="h-6 w-6 text-black/80 hover:text-white transition-colors" />
                 </button>
               ) : (
                 <Link to="/auth">
-                  <User className="h-6 w-6 text-black/80 hover:text-design-red transition-colors" />
+                  <User className="h-6 w-6 text-black/80 hover:text-white transition-colors" />
                 </Link>
               )}
-              <div className="w-px h-6 bg-black/20"></div>
+              <div className="w-px h-6 bg-black/10"></div>
               <button
                 onClick={() => setIsCartOpen(true)}
                 className="relative group"
               >
-                <ShoppingBag className="h-6 w-6 text-black/80 hover:text-design-red transition-colors" />
+                <ShoppingBag className="h-6 w-6 text-black/80 hover:text-white transition-colors" />
                 {totalItems > 0 && (
                   <span className="absolute -top-1 -right-1 bg-design-red text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full">
                     {totalItems}
