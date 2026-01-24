@@ -50,49 +50,49 @@ export function HeroSection() {
                 </div>
 
                 {/* 2. RIGHT SIDE: Typography & Content (cols 6-12) */}
-                <div className="col-span-1 md:col-span-7 flex flex-col space-y-4 md:space-y-6 z-10 pl-0 md:pl-8 justify-center h-full text-center md:text-left">
-                    <div className="space-y-2">
-                        <div className="flex items-center gap-4 flex-wrap justify-center md:justify-start animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 fill-mode-backwards">
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight text-black">
+                <div className="col-span-1 md:col-span-7 flex flex-col space-y-2 md:space-y-4 z-10 pl-0 md:pl-8 justify-center h-full text-center md:text-left">
+                    <div className="space-y-1">
+                        <div className="flex items-center gap-3 flex-wrap justify-center md:justify-start animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 fill-mode-backwards">
+                            <h1 className="text-4xl md:text-5xl lg:text-7xl font-sans font-normal tracking-tight text-black">
                                 WELCOME TO
                             </h1>
                             {/* Red Arrow Pill */}
-                            <div className="h-12 md:h-16 lg:h-20 px-8 md:px-12 bg-design-red rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-                                <MoveRight className="text-white w-8 h-8 md:w-12 md:h-12" />
+                            <div className="h-10 md:h-14 lg:h-16 px-6 md:px-10 bg-design-red rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                                <MoveRight className="text-white w-6 h-6 md:w-10 md:h-10" />
                             </div>
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold tracking-tight text-design-teal animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 fill-mode-backwards">
+                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-sans font-bold tracking-tight text-design-teal animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 fill-mode-backwards">
                             ACCICOA
                         </h1>
 
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-sans font-normal tracking-tight text-black pt-1 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400 fill-mode-backwards">
+                        <h1 className="text-3xl md:text-4xl lg:text-6xl font-sans font-normal tracking-tight text-black pt-1 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400 fill-mode-backwards">
                             CORNER OF AFRICA
                         </h1>
                     </div>
 
-                    <p className="text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed mx-auto md:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500 fill-mode-backwards">
+                    <p className="text-base md:text-lg text-gray-600 max-w-xl leading-relaxed mx-auto md:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500 fill-mode-backwards">
                         Discover premium African products crafted with excellence. Each piece tells a story of heritage, artistry, and culture.
                     </p>
 
-                    <div className="flex flex-wrap gap-4 pt-4 justify-center md:justify-start animate-in fade-in slide-in-from-bottom-4 duration-700 delay-700 fill-mode-backwards">
+                    <div className="flex flex-wrap gap-3 pt-2 justify-center md:justify-start animate-in fade-in slide-in-from-bottom-4 duration-700 delay-700 fill-mode-backwards">
                         <Link to="/shop">
                             <Button
-                                className="h-14 md:h-16 px-10 bg-design-red hover:bg-[#7a1b1e] text-white text-lg md:text-xl font-bold rounded-full shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95 duration-300"
+                                className="h-12 md:h-14 px-8 bg-design-red hover:bg-[#7a1b1e] text-white text-base md:text-lg font-bold rounded-full shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95 duration-300"
                             >
                                 Shop Now
                             </Button>
                         </Link>
                         <Link to="/shop">
                             <Button
-                                className="h-14 md:h-16 px-10 bg-[#188FA7] hover:bg-[#137488] text-white text-lg md:text-xl font-bold rounded-full shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95 duration-300"
+                                className="h-12 md:h-14 px-8 bg-[#188FA7] hover:bg-[#137488] text-white text-base md:text-lg font-bold rounded-full shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95 duration-300"
                             >
                                 Contact Us
                             </Button>
                         </Link>
                     </div>
 
-                    <p className="text-sm text-gray-500 italic pt-2 animate-in fade-in duration-1000 delay-1000 fill-mode-backwards">
+                    <p className="text-xs md:text-sm text-gray-500 italic pt-1 animate-in fade-in duration-1000 delay-1000 fill-mode-backwards">
                         Your gateway to authentic African artistry.
                     </p>
                 </div>
