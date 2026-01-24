@@ -24,7 +24,7 @@ export function HeroSection() {
                     {/* Image 1: Light Blue Shirt (Top, Circular) */}
                     <div className="absolute top-[8%] -left-[5%] w-[50%] aspect-square rounded-full border-4 border-[#F1F1F1] shadow-xl z-20 bg-white overflow-hidden animate-in zoom-in-50 duration-700 delay-300 fill-mode-backwards hover:scale-105 transition-transform">
                         <img
-                            src="https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?q=80&w=600&auto=format&fit=crop"
+                            src="/hero-images/hero-blue.jpg"
                             alt="Light Blue Shirt"
                             className="w-full h-full object-cover"
                         />
@@ -33,7 +33,7 @@ export function HeroSection() {
                     {/* Image 2: Cream Tunic (Middle, Rounded Rect) */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%] aspect-[3/4] rounded-[40px] border-4 border-[#F1F1F1] shadow-2xl z-30 bg-white overflow-hidden animate-in zoom-in-50 duration-700 delay-500 fill-mode-backwards hover:scale-105 transition-transform">
                         <img
-                            src="https://plus.unsplash.com/premium_photo-1690338237128-b32fedb44d55?q=80&w=600&auto=format&fit=crop"
+                            src="/hero-images/hero-cream.jpg"
                             alt="Cream Tunic"
                             className="w-full h-full object-cover"
                         />
@@ -42,7 +42,7 @@ export function HeroSection() {
                     {/* Image 3: Purple Shirt (Bottom, Circular) */}
                     <div className="absolute bottom-[8%] -right-[5%] w-[50%] aspect-square rounded-full border-4 border-[#F1F1F1] shadow-xl z-20 bg-white overflow-hidden animate-in zoom-in-50 duration-700 delay-700 fill-mode-backwards hover:scale-105 transition-transform">
                         <img
-                            src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=600&auto=format&fit=crop"
+                            src="/hero-images/hero-purple.jpg"
                             alt="Purple Shirt"
                             className="w-full h-full object-cover"
                         />
