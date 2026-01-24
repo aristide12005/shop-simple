@@ -2,7 +2,6 @@
 import Header from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
 import CollectionsGrid from '@/components/CollectionsGrid';
-import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
@@ -20,7 +19,7 @@ export default function Index() {
       <main className="pb-0 overflow-hidden">
         <HeroSection />
       </main>
-      <Footer />
+
     </div>
   );
 }
