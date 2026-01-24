@@ -1,7 +1,8 @@
 
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useCollections } from '@/hooks/useCollections';
 
 const CATEGORIES = [
     { name: "All Products", href: "/shop" },
@@ -11,17 +12,12 @@ const CATEGORIES = [
     { name: "Footwear", href: "/shop?category=footwear" },
 ];
 
-const BRANDS = [
-    { name: "Sahel Edit", icon: "S", color: "bg-orange-500", href: "/collections" },
-    { name: "Royal Agbada", icon: "R", color: "bg-purple-600", href: "/collections" },
-    { name: "Urban Dakar", icon: "U", color: "bg-teal-500", href: "/collections" },
-    { name: "Lagos Street", icon: "L", color: "bg-yellow-500", href: "/collections" },
-    { name: "Accicoa Luxe", icon: "A", color: "bg-design-red", href: "/collections" },
-    { name: "Heritage", icon: "H", color: "bg-stone-500", href: "/collections" },
-];
-
 export default function ShopMegaMenu() {
     const [isOpen, setIsOpen] = useState(false);
+    const { data: products, isLoading } = useCollections();
+
+    // Get first 6 items for the menu
+    const menuItems = products?.slice(0, 6) || [];
 
     return (
         <div
@@ -36,7 +32,7 @@ export default function ShopMegaMenu() {
                 </span>
                 <span className="text-gray-400">|</span>
                 <span className="uppercase text-gray-500 text-xs tracking-widest hidden md:inline-block">
-                    Quick Navigate the Collection
+                    Direct Product Access
                 </span>
             </div>
 
@@ -64,29 +60,44 @@ export default function ShopMegaMenu() {
                         </ul>
                     </div>
 
-                    {/* Column 2: Visual Brands (Takes up 3 cols) */}
+                    {/* Column 2: Visual Products (Takes up 3 cols) */}
                     <div className="md:col-span-3">
-                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Featured Collections</h3>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            {BRANDS.map((brand) => (
-                                <Link
-                                    key={brand.name}
-                                    to={brand.href}
-                                    className="group flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100"
-                                >
-                                    {/* Visual Icon (Placeholder for Logo) */}
-                                    <div className={`w-12 h-12 rounded-full ${brand.color} text-white flex items-center justify-center font-bold text-lg shadow-md group-hover:scale-110 transition-transform`}>
-                                        {brand.icon}
-                                    </div>
-                                    <div>
-                                        <span className="block font-bold text-gray-900 group-hover:text-design-teal transition-colors">
-                                            {brand.name}
-                                        </span>
-                                        <span className="text-xs text-gray-500">View Collection</span>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
+                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Featured Items</h3>
+
+                        {isLoading ? (
+                            <div className="flex items-center justify-center h-20">
+                                <Loader2 className="w-6 h-6 animate-spin text-design-teal" />
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                {menuItems.map((product) => {
+                                    const imageUrl = product.collection_images?.[0]?.image_url || "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600&auto=format&fit=crop";
+
+                                    return (
+                                        <Link
+                                            key={product.id}
+                                            to={`/product/${product.id}`}
+                                            className="group flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100"
+                                        >
+                                            {/* Visual Icon (Product Image) */}
+                                            <div className="w-12 h-12 rounded-full overflow-hidden border border-gray-100 shadow-sm group-hover:scale-110 transition-transform">
+                                                <img
+                                                    src={imageUrl}
+                                                    alt={product.name}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </div>
+                                            <div>
+                                                <span className="block font-bold text-gray-900 group-hover:text-design-teal transition-colors line-clamp-1">
+                                                    {product.name}
+                                                </span>
+                                                <span className="text-xs text-gray-500">View Product</span>
+                                            </div>
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
