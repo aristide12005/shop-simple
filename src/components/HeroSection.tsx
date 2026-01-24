@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 
 export function HeroSection() {
     const scrollToCollections = () => {
@@ -11,101 +11,88 @@ export function HeroSection() {
     };
 
     return (
-        <section className="w-full bg-background pt-4 pb-12 px-2 md:px-4">
+        <section className="w-full bg-design-bg min-h-[calc(100vh-100px)] flex items-center justify-center overflow-hidden relative px-4 md:px-12 py-12">
+            <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-            {/* 1. TOP MARQUEE BANNER (Scrolling Text) */}
-            <div className="w-full overflow-hidden bg-foreground text-background py-2 mb-4">
-                <div className="animate-marquee whitespace-nowrap flex gap-8 items-center text-sm font-bold tracking-widest uppercase">
-                    <span>HANDCRAFTED IN THE MOTHERLAND</span> • <span>GLOBAL PAN-AFRICAN SHIPPING</span> • <span>AUTHENTIC TEXTILES</span> • <span>LIMITED ROYAL EDITIONS</span> • <span>WEAR YOUR ROOTS</span> •
-                    <span>HANDCRAFTED IN THE MOTHERLAND</span> • <span>GLOBAL PAN-AFRICAN SHIPPING</span> • <span>AUTHENTIC TEXTILES</span> • <span>LIMITED ROYAL EDITIONS</span> • <span>WEAR YOUR ROOTS</span>
+                {/* 1. LEFT SIDE: Geometric Composition */}
+                <div className="relative h-[600px] w-full flex items-center justify-center">
+                    {/* Teal Vertical Pill Background */}
+                    <div className="absolute top-0 bottom-0 left-1/4 w-1/2 bg-[#188FA7] rounded-[100px] transform -rotate-0 z-0 opacity-90"></div>
+
+                    {/* Circle Image 1 (Top Left) */}
+                    <div className="absolute top-10 left-0 w-64 h-64 rounded-full overflow-hidden border-4 border-[#F1F1F1] shadow-xl z-10 bg-white">
+                        <img
+                            src="https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?q=80&w=600&auto=format&fit=crop"
+                            alt="African Shirt Blue"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+
+                    {/* Circle Image 2 (Bottom Left) */}
+                    <div className="absolute bottom-10 left-10 w-64 h-64 rounded-full overflow-hidden border-4 border-[#F1F1F1] shadow-xl z-20 bg-white">
+                        <img
+                            src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=600&auto=format&fit=crop"
+                            alt="African Shirt Purple"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+
+                    {/* Circle Image 3 (Center overlay - Optional based on design complexity, using the main teal shape instead) */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-56 h-80 rounded-[100px] overflow-hidden border-4 border-white/20 z-0">
+                        {/* Placeholder for the main tailored shirt if needed, or just let the teal shape be */}
+                    </div>
                 </div>
-            </div>
 
-            <div className="container mx-auto max-w-[1600px]">
-                {/* BENTO GRID LAYOUT */}
-                <div className="grid grid-cols-1 md:grid-cols-12 grid-rows-12 md:grid-rows-2 gap-2 h-auto md:h-[800px]">
-
-                    {/* A. HERO TEXT BLOCK (Top Left) */}
-                    <div className="md:col-span-8 md:row-span-2 relative bg-secondary/30 p-8 md:p-16 flex flex-col justify-between group overflow-hidden">
-                        {/* Background Image with Overlay */}
-                        <div className="absolute inset-0 z-0">
-                            <img
-                                src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2000&auto=format&fit=crop"
-                                alt="Hero Model"
-                                className="w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105 filter grayscale contrast-125"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                        </div>
-
-                        <div className="relative z-10">
-                            <span className="inline-block px-3 py-1 bg-brand-primary text-brand-dark text-xs font-bold uppercase tracking-wider mb-4">
-                                2026 Collection
-                            </span>
-                        </div>
-
-                        <div className="relative z-10 max-w-2xl">
-                            <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-tight mb-6 uppercase">
-                                WEAR YOUR <br />
-                                LEGACY <br />
-                                UNAPOLOGETICALLY
+                {/* 2. RIGHT SIDE: Typography & Content */}
+                <div className="flex flex-col space-y-8 z-10 pl-0 md:pl-12">
+                    <div className="space-y-2">
+                        <h1 className="text-6xl md:text-8xl font-sans font-normal tracking-tight text-black">
+                            WELCOME
+                        </h1>
+                        <div className="flex items-center gap-4 flex-wrap">
+                            <h1 className="text-6xl md:text-8xl font-sans font-normal tracking-tight text-black">
+                                TO
                             </h1>
-                            <p className="text-white/90 text-lg mb-6 max-w-lg font-medium">
-                                Where ancestral threads meet modern cuts. The new definition of African luxury.
-                            </p>
-                            <Button
-                                onClick={scrollToCollections}
-                                className="h-12 px-8 bg-white text-brand-dark hover:bg-brand-secondary hover:text-brand-dark transition-colors text-base font-semibold rounded-none uppercase"
-                            >
-                                EXPLORE THE LINEAGE <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                        </div>
-                    </div>
-
-                    {/* B. SECONDARY PROMO (Top Right) */}
-                    <div className="md:col-span-4 md:row-span-1 bg-brand-primary text-brand-dark p-8 flex flex-col justify-center relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-4 opacity-20">
-                            <ArrowRight className="w-24 h-24 -rotate-45" />
-                        </div>
-                        <h3 className="text-4xl font-bold mb-2 uppercase">THE SAHEL <span className="text-white">EDIT</span></h3>
-                        <p className="text-brand-dark/80 mb-6 max-w-xs">Breezy linens and structured cottons for the modern nomad.</p>
-                        <div className="flex gap-2 mt-auto">
-                            <Button
-                                onClick={scrollToCollections}
-                                variant="outline"
-                                className="border-brand-dark text-brand-dark hover:bg-white hover:text-brand-dark rounded-none w-full font-bold uppercase"
-                            >
-                                VIEW LOOKBOOK
-                            </Button>
-                        </div>
-                    </div>
-
-                    {/* C. FEATURED ITEM (Bottom Right) */}
-                    <div className="md:col-span-4 md:row-span-1 bg-brand-highlight p-6 relative group border border-border">
-                        <div className="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 className="text-2xl font-bold uppercase">ROYAL AGBADA</h4>
-                                <span className="text-sm text-brand-dark/70 font-semibold">V3.0 / MIDNIGHT BLUE</span>
+                            {/* Red Arrow Pill */}
+                            <div className="h-16 md:h-20 px-12 bg-design-red rounded-full flex items-center justify-center">
+                                <MoveRight className="text-white w-10 h-10 md:w-12 md:h-12" />
                             </div>
-                            <span className="font-bold text-xl">$120</span>
+                            <h1 className="text-6xl md:text-8xl font-sans font-bold tracking-tight text-design-teal">
+                                ACCICOA
+                            </h1>
                         </div>
-                        <div className="absolute bottom-0 right-0 w-3/4 h-3/4 translate-y-4 translate-x-4">
-                            <img
-                                src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=500&auto=format&fit=crop"
-                                alt="Product"
-                                className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
-                            />
-                        </div>
+                        <h1 className="text-5xl md:text-7xl font-sans font-normal tracking-tight text-black pt-2">
+                            CORNER OF AFRICA
+                        </h1>
+                    </div>
+
+                    <p className="text-xl md:text-2xl text-gray-600 max-w-2xl leading-relaxed">
+                        Discover premium African products crafted with excellence. Each piece tells a story of heritage, artistry, and culture.
+                    </p>
+
+                    <div className="flex flex-wrap gap-4 pt-4">
                         <Button
                             onClick={scrollToCollections}
-                            size="icon"
-                            className="absolute bottom-6 left-6 rounded-none bg-brand-dark text-white hover:bg-brand-primary hover:text-brand-dark"
+                            className="h-16 px-10 bg-design-red hover:bg-[#7a1b1e] text-white text-xl font-medium rounded-full shadow-lg transition-transform hover:scale-105"
                         >
-                            <MoveRight className="h-4 w-4" />
+                            Shop Now
+                        </Button>
+                        <Button
+                            className="h-16 px-10 bg-[#188FA7] hover:bg-[#137488] text-white text-xl font-medium rounded-full shadow-lg transition-transform hover:scale-105"
+                        >
+                            Contact Us
                         </Button>
                     </div>
 
+                    <p className="text-sm text-gray-500 italic pt-4">
+                        Your gateway to authentic African artistry.
+                    </p>
                 </div>
+
             </div>
+
+            {/* Background Decor (White Circle Top) */}
+            <div className="absolute -top-20 left-1/3 w-96 h-96 bg-white rounded-full blur-3xl opacity-60 pointer-events-none"></div>
         </section>
     );
 }

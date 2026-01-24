@@ -15,7 +15,7 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-design-bg text-foreground font-sans">
       <Header />
       <main className="space-y-20 pb-20">
         <HeroSection />

@@ -21,13 +21,17 @@ export default {
         heading: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
       },
       colors: {
-        // Charming Seaside Palette
+        // Charming Seaside Palette & Design Specs
         "brand-primary": "#85D1DB",
         "brand-secondary": "#B3EBF2",
         "brand-accent": "#B6F2D1",
         "brand-highlight": "#C9FDF2",
-
         "brand-dark": "#0F172A",
+
+        // Specific Design Colors
+        "design-teal": "#2A9D8F",
+        "design-red": "#9B2226",
+        "design-bg": "#F1F1F1",
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
