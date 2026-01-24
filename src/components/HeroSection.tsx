@@ -57,9 +57,7 @@ export function HeroSection() {
                                 WELCOME TO
                             </h1>
                             {/* Red Arrow Pill */}
-                            <div className="h-10 md:h-14 lg:h-16 px-6 md:px-10 bg-design-red rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-                                <MoveRight className="text-white w-6 h-6 md:w-10 md:h-10" />
-                            </div>
+
                         </div>
 
                         <h1 className="text-4xl md:text-5xl lg:text-7xl font-sans font-bold tracking-tight text-design-teal animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 fill-mode-backwards">
