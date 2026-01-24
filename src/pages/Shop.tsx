@@ -1,27 +1,62 @@
 
 import Header from '@/components/Header';
-import CollectionsGrid from '@/components/CollectionsGrid';
 import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/button';
+import ShopMegaMenu from '@/components/ShopMegaMenu';
+import ShopFilters from '@/components/ShopFilters';
+import ProductGrid from '@/components/ProductGrid';
 import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 export default function Shop() {
     return (
         <div className="min-h-screen bg-design-bg text-foreground font-sans">
             <Header />
-            <main className="pb-20 pt-10">
 
-                {/* Collections Grid Section */}
-                <div className="container mx-auto px-4 md:px-8 text-center mb-12">
-                    <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">CRAFTED FOR KINGS & QUEENS</h2>
-                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Authentic craftsmanship from Dakar to Lagos. Every stitch tells a story.</p>
+            {/* 1. Header Section: Crafted for Kings & Queens */}
+            <section className="bg-white pt-10 pb-8 border-b border-gray-100">
+                <div className="container mx-auto px-4 md:px-8 text-center">
+                    <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4 tracking-tight">
+                        CRAFTED FOR KINGS & QUEENS
+                    </h2>
+                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-serif">
+                        Authentic craftsmanship from Dakar to Lagos. Every stitch tells a story.
+                    </p>
                 </div>
-                <CollectionsGrid />
+            </section>
 
-                {/* Ancestral Modernity Section */}
-                <section className="container mx-auto px-4 md:px-8 text-center py-20 bg-muted/30 rounded-none mx-4 border border-border mt-20">
-                    <h2 className="text-4xl md:text-6xl font-bold mb-6 text-foreground uppercase">
+            {/* 2. Mega Menu (Visual Navigation) */}
+            <ShopMegaMenu />
+
+            <main className="container mx-auto px-4 md:px-8 py-12">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+                    {/* Sidebar: Filters (1 Col) */}
+                    <aside className="hidden md:block md:col-span-1">
+                        <ShopFilters />
+                    </aside>
+
+                    {/* Main Content: Product Grid (3 Cols) */}
+                    <div className="md:col-span-3">
+                        <div className="mb-6 flex items-center justify-between">
+                            <p className="text-gray-500 text-sm">Showing 6 results</p>
+                            {/* Mobile Filter Toggle could go here */}
+                        </div>
+                        <ProductGrid />
+
+                        {/* Pagination / Load More */}
+                        <div className="mt-12 text-center">
+                            <Button variant="outline" className="px-8 border-design-teal text-design-teal hover:bg-design-teal hover:text-white uppercase tracking-widest">
+                                Load More Products
+                            </Button>
+                        </div>
+                    </div>
+
+                </div>
+
+                {/* Ancestral Modernity Section (Retained from previous design) */}
+                <section className="mt-20 py-20 bg-muted/30 rounded-none border border-border text-center">
+                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground uppercase">
                         ANCESTRAL MODERNITY
                     </h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto mb-8 text-lg">
@@ -36,6 +71,7 @@ export default function Shop() {
                         </Button>
                     </Link>
                 </section>
+
             </main>
             <Footer />
         </div>
