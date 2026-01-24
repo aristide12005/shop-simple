@@ -1,4 +1,4 @@
-
+import { forwardRef } from "react";
 import { ShoppingBag, Eye, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ interface ProductGridProps {
     sortBy?: string;
 }
 
-export default function ProductGrid({ sortBy = "featured" }: ProductGridProps) {
+const ProductGrid = forwardRef<HTMLDivElement, ProductGridProps>(({ sortBy = "featured" }, ref) => {
     const { data: products, isLoading } = useCollections();
 
     if (isLoading) {
@@ -42,7 +42,7 @@ export default function ProductGrid({ sortBy = "featured" }: ProductGridProps) {
     });
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {sortedProducts.map((product) => {
                 // Use the first image if available, otherwise a placeholder
                 const imageUrl = product.collection_images?.[0]?.image_url || "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600&auto=format&fit=crop";
@@ -82,4 +82,8 @@ export default function ProductGrid({ sortBy = "featured" }: ProductGridProps) {
             })}
         </div>
     );
-}
+});
+
+ProductGrid.displayName = "ProductGrid";
+
+export default ProductGrid;

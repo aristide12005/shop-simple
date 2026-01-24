@@ -1,8 +1,9 @@
+import { forwardRef } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
-export default function Footer() {
+const Footer = forwardRef<HTMLElement>((_, ref) => {
   return (
-    <footer id="contact" className="bg-foreground text-background py-12">
+    <footer ref={ref} id="contact" className="bg-foreground text-background py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
@@ -78,4 +79,8 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+});
+
+Footer.displayName = "Footer";
+
+export default Footer;
