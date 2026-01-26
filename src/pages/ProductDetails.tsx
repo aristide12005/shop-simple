@@ -6,29 +6,36 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ChevronLeft, ShoppingCart, Loader2, Star, Truck, ShieldCheck, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ProductVariant } from '@/types/database';
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
   const { data: product, isLoading, error } = useCollection(id || '');
   const { addToCart } = useCart();
   const { data: allProducts } = useCollections();
 
   // Get related products (prioritize same collection, then same category, then random)
-  const relatedProducts = allProducts
-    ?.filter(p => p.id !== product.id)
-    .sort((a, b) => {
-      // Prioritize same collection
-      if (product.collection_id && a.collection_id === product.collection_id && b.collection_id !== product.collection_id) return -1;
-      if (product.collection_id && b.collection_id === product.collection_id && a.collection_id !== product.collection_id) return 1;
-      // Then same category
-      if (product.category_id && a.category_id === product.category_id && b.category_id !== product.category_id) return -1;
-      if (product.category_id && b.category_id === product.category_id && a.category_id !== product.category_id) return 1;
-      return 0.5 - Math.random();
-    })
-    .slice(0, 4) || [];
+  const relatedProducts = (allProducts && product)
+    ? allProducts.filter(p => p.id !== product.id)
+      .sort((a, b) => {
+        // Prioritize same collection
+        if (product.collection_id && a.collection_id === product.collection_id && b.collection_id !== product.collection_id) return -1;
+        if (product.collection_id && b.collection_id === product.collection_id && a.collection_id !== product.collection_id) return 1;
+        // Then same category
+        if (product.category_id && a.category_id === product.category_id && b.category_id !== product.category_id) return -1;
+        if (product.category_id && b.category_id === product.category_id && a.category_id !== product.category_id) return 1;
+        return 0.5 - Math.random();
+      })
+      .slice(0, 4)
+    : [];
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
