@@ -53,7 +53,7 @@ export default function Shop() {
                             sortBy={sortBy}
                             searchQuery={searchQuery}
                             priceRange={priceRange}
-                            category={categoryDetail}
+                            categorySlug={categoryDetail}
                         />
 
                         {/* Pagination / Load More */}

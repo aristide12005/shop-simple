@@ -1,24 +1,25 @@
-
 import { ShoppingBag, Eye, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useCollections } from "@/hooks/useCollections";
+import { useProducts } from "@/hooks/useProducts";
 import { useCart } from "@/context/CartContext";
 
 interface ProductGridProps {
     sortBy?: string;
     searchQuery?: string;
     priceRange?: number[];
-    category?: string | null;
+    categorySlug?: string | null;
+    collectionId?: string | null;
 }
 
 export default function ProductGrid({
     sortBy = "featured",
     searchQuery = "",
     priceRange = [0, 1000],
-    category = null
+    categorySlug = null,
+    collectionId = null
 }: ProductGridProps) {
-    const { data: products, isLoading } = useCollections();
+    const { data: products, isLoading } = useProducts();
     const { addToCart } = useCart();
 
     if (isLoading) {
@@ -50,8 +51,15 @@ export default function ProductGrid({
             return false;
         }
 
-        // Filter by Category - currently not implemented in schema
-        // TODO: Add category field to products table for proper filtering
+        // Filter by Category (using slug)
+        if (categorySlug && product.category?.slug !== categorySlug) {
+            return false;
+        }
+
+        // Filter by Collection
+        if (collectionId && product.collection_id !== collectionId) {
+            return false;
+        }
 
         return true;
     });
@@ -113,6 +121,12 @@ export default function ProductGrid({
 
                         {/* Product Info */}
                         <div className="p-4 text-center">
+                            {/* Category Badge */}
+                            {product.category && (
+                                <p className="text-xs text-gray-500 uppercase tracking-widest mb-1">
+                                    {product.category.name}
+                                </p>
+                            )}
                             <h3 className="font-bold text-lg mb-1 group-hover:text-design-teal transition-colors line-clamp-1">{product.name}</h3>
                             <p className="font-serif text-design-red font-medium">${Number(product.price).toFixed(2)}</p>
                         </div>
