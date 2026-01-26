@@ -1,5 +1,5 @@
 
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useCollection } from '@/hooks/useCollections';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
@@ -57,14 +57,14 @@ export default function ProductDetails() {
       <Header />
 
       <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
-        <Button
-          variant="ghost"
-          onClick={() => navigate('/')}
-          className="mb-8 hover:bg-transparent pl-0 -ml-4 text-muted-foreground hover:text-brand-red uppercase tracking-widest text-xs rounded-none"
-        >
-          <ChevronLeft className="h-4 w-4 mr-2" />
-          Back to Collections
-        </Button>
+        {/* Breadcrumbs */}
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-8 text-xs uppercase tracking-widest">
+          <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
+          <span className="text-gray-300">/</span>
+          <Link to="/shop" className="hover:text-foreground transition-colors">Shop</Link>
+          <span className="text-gray-300">/</span>
+          <span className="text-foreground font-medium truncate max-w-[200px]">{product.name}</span>
+        </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           {/* Gallery Section - Industrial/Bento Feel */}
@@ -157,6 +157,29 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
+
+        {/* Related Products Section */}
+        <section className="mt-24 border-t border-border pt-16">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 uppercase tracking-wider text-center">You Might Also Like</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {/* Placeholder Related Items - In a real app, fetch similar items */}
+            {[1, 2, 3, 4].map((item) => (
+              <div key={item} className="group cursor-pointer">
+                <div className="aspect-[3/4] bg-gray-100 mb-4 overflow-hidden rounded-sm relative">
+                  <div className="absolute inset-0 bg-neutral-200 animate-pulse" /> {/* Placeholder loading state appearance if no image */}
+                  {/* Mock Image */}
+                  <img
+                    src={`https://images.unsplash.com/photo-${item === 1 ? '1617137984095-74e4e5e3613f' : item === 2 ? '1541533848490-bc8115cd1b8d' : item === 3 ? '1576053139778-7e32f2ae3cfd' : '1523381210434-271e8be1f52b'}?q=80&w=400&auto=format&fit=crop`}
+                    alt="Related Product"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 absolute inset-0"
+                  />
+                </div>
+                <h3 className="font-bold text-sm uppercase tracking-wide group-hover:text-brand-primary transition-colors">Classic Essential {item}</h3>
+                <p className="text-muted-foreground text-xs mt-1">$120.00</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
 
       <Footer />

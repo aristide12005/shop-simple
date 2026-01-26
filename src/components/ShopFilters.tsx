@@ -14,10 +14,20 @@ import { useState } from "react";
 interface ShopFiltersProps {
     sortBy: string;
     onSortChange: (value: string) => void;
+    priceRange: number[];
+    setPriceRange: (value: number[]) => void;
+    searchQuery: string;
+    setSearchQuery: (value: string) => void;
 }
 
-export default function ShopFilters({ sortBy, onSortChange }: ShopFiltersProps) {
-    const [priceRange, setPriceRange] = useState([0, 500]);
+export default function ShopFilters({
+    sortBy,
+    onSortChange,
+    priceRange,
+    setPriceRange,
+    searchQuery,
+    setSearchQuery
+}: ShopFiltersProps) {
 
     return (
         <div className="space-y-8 p-6 bg-white border border-gray-100 rounded-lg shadow-sm sticky top-24">
@@ -27,7 +37,12 @@ export default function ShopFilters({ sortBy, onSortChange }: ShopFiltersProps) 
                 <h3 className="font-bold text-sm uppercase tracking-wide">Search</h3>
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <Input className="pl-9 bg-gray-50 border-gray-200" placeholder="Find products..." />
+                    <Input
+                        className="pl-9 bg-gray-50 border-gray-200"
+                        placeholder="Find products..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
                 </div>
             </div>
 
@@ -38,7 +53,7 @@ export default function ShopFilters({ sortBy, onSortChange }: ShopFiltersProps) 
                     <span className="text-xs text-gray-500">${priceRange[0]} - ${priceRange[1]}</span>
                 </div>
                 <Slider
-                    defaultValue={[0, 500]}
+                    defaultValue={[0, 1000]}
                     max={1000}
                     step={10}
                     value={priceRange}

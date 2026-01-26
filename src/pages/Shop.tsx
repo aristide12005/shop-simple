@@ -6,10 +6,15 @@ import ShopFilters from '@/components/ShopFilters';
 import ProductGrid from '@/components/ProductGrid';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 export default function Shop() {
+    const [searchParams] = useSearchParams();
+    const categoryDetail = searchParams.get('category');
+
     const [sortBy, setSortBy] = useState("featured");
+    const [priceRange, setPriceRange] = useState([0, 1000]);
+    const [searchQuery, setSearchQuery] = useState("");
 
     return (
         <div className="min-h-screen bg-design-bg text-foreground font-sans">
@@ -26,16 +31,30 @@ export default function Shop() {
 
                     {/* Sidebar: Filters (1 Col) */}
                     <aside className="hidden md:block md:col-span-1">
-                        <ShopFilters sortBy={sortBy} onSortChange={setSortBy} />
+                        <ShopFilters
+                            sortBy={sortBy}
+                            onSortChange={setSortBy}
+                            priceRange={priceRange}
+                            setPriceRange={setPriceRange}
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
+                        />
                     </aside>
 
                     {/* Main Content: Product Grid (3 Cols) */}
                     <div className="md:col-span-3">
                         <div className="mb-6 flex items-center justify-between">
-                            <p className="text-gray-500 text-sm">Showing results</p>
+                            <p className="text-gray-500 text-sm">
+                                {categoryDetail ? `Showing results for ${categoryDetail}` : "Showing all results"}
+                            </p>
                             {/* Mobile Filter Toggle could go here */}
                         </div>
-                        <ProductGrid sortBy={sortBy} />
+                        <ProductGrid
+                            sortBy={sortBy}
+                            searchQuery={searchQuery}
+                            priceRange={priceRange}
+                            category={categoryDetail}
+                        />
 
                         {/* Pagination / Load More */}
                         <div className="mt-12 text-center">
