@@ -1,5 +1,5 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useCollection } from '@/hooks/useCollections';
+import { useCollection, useCollections } from '@/hooks/useCollections';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -14,6 +14,13 @@ export default function ProductDetails() {
   const navigate = useNavigate();
   const { data: product, isLoading, error } = useCollection(id || '');
   const { addToCart } = useCart();
+  const { data: allProducts } = useCollections();
+
+  // Get related products (exclude current, take 4 random/first ones)
+  const relatedProducts = allProducts
+    ?.filter(p => p.id !== product.id)
+    .slice(0, 4) || [];
+
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
 
@@ -238,24 +245,37 @@ export default function ProductDetails() {
         {/* Related Products Section */}
         <section className="mt-24 border-t border-border pt-16 mb-16 container mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 uppercase tracking-wider text-center">You Might Also Like</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {/* Placeholder Related Items - In a real app, fetch similar items */}
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="group cursor-pointer">
-                <div className="aspect-[3/4] bg-gray-100 mb-4 overflow-hidden rounded-sm relative">
-                  <div className="absolute inset-0 bg-neutral-200 animate-pulse" /> {/* Placeholder loading state appearance if no image */}
-                  {/* Mock Image */}
-                  <img
-                    src={`https://images.unsplash.com/photo-${item === 1 ? '1617137984095-74e4e5e3613f' : item === 2 ? '1541533848490-bc8115cd1b8d' : item === 3 ? '1576053139778-7e32f2ae3cfd' : '1523381210434-271e8be1f52b'}?q=80&w=400&auto=format&fit=crop`}
-                    alt="Related Product"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 absolute inset-0"
-                  />
-                </div>
-                <h3 className="font-bold text-sm uppercase tracking-wide group-hover:text-brand-primary transition-colors">Classic Essential {item}</h3>
-                <p className="text-muted-foreground text-xs mt-1">$120.00</p>
-              </div>
-            ))}
-          </div>
+
+          {relatedProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              {relatedProducts.map((related) => {
+                const imageUrl = related.collection_images?.[0]?.image_url || "/placeholder.svg";
+                return (
+                  <div
+                    key={related.id}
+                    className="group cursor-pointer"
+                    onClick={() => {
+                      navigate(`/product/${related.id}`);
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    <div className="aspect-[3/4] bg-gray-100 mb-4 overflow-hidden rounded-sm relative">
+                      {/* Mock Image */}
+                      <img
+                        src={imageUrl}
+                        alt={related.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 absolute inset-0"
+                      />
+                    </div>
+                    <h3 className="font-bold text-sm uppercase tracking-wide group-hover:text-primary transition-colors line-clamp-1">{related.name}</h3>
+                    <p className="text-muted-foreground text-xs mt-1 font-serif">${Number(related.price).toFixed(2)}</p>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center text-muted-foreground">No related products found.</div>
+          )}
         </section>
       </main>
 
