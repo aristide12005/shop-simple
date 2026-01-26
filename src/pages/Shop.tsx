@@ -11,6 +11,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 export default function Shop() {
     const [searchParams] = useSearchParams();
     const categoryDetail = searchParams.get('category');
+    const collectionId = searchParams.get('collection');
 
     const [sortBy, setSortBy] = useState("featured");
     const [priceRange, setPriceRange] = useState([0, 1000]);
@@ -45,7 +46,11 @@ export default function Shop() {
                     <div className="md:col-span-3">
                         <div className="mb-6 flex items-center justify-between">
                             <p className="text-gray-500 text-sm">
-                                {categoryDetail ? `Showing results for ${categoryDetail}` : "Showing all results"}
+                                {categoryDetail
+                                    ? `Showing results for ${categoryDetail}`
+                                    : collectionId
+                                        ? "Showing collection items"
+                                        : "Showing all results"}
                             </p>
                             {/* Mobile Filter Toggle could go here */}
                         </div>
@@ -54,6 +59,7 @@ export default function Shop() {
                             searchQuery={searchQuery}
                             priceRange={priceRange}
                             categorySlug={categoryDetail}
+                            collectionId={collectionId}
                         />
 
                         {/* Pagination / Load More */}

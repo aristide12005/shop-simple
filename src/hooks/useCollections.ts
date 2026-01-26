@@ -11,7 +11,9 @@ export function useCollections() {
         .select(`
           *,
           collection_images (*),
-          product_variants (*)
+          product_variants (*),
+          categories (*),
+          product_collections (*)
         `)
         .order('created_at', { ascending: false });
 
@@ -30,7 +32,9 @@ export function useCollection(id: string) {
         .select(`
           *,
           collection_images (*),
-          product_variants (*)
+          product_variants (*),
+          categories (*),
+          product_collections (*)
         `)
         .eq('id', id)
         .maybeSingle();

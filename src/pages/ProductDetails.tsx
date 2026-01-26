@@ -16,9 +16,18 @@ export default function ProductDetails() {
   const { addToCart } = useCart();
   const { data: allProducts } = useCollections();
 
-  // Get related products (exclude current, take 4 random/first ones)
+  // Get related products (prioritize same collection, then same category, then random)
   const relatedProducts = allProducts
     ?.filter(p => p.id !== product.id)
+    .sort((a, b) => {
+      // Prioritize same collection
+      if (product.collection_id && a.collection_id === product.collection_id && b.collection_id !== product.collection_id) return -1;
+      if (product.collection_id && b.collection_id === product.collection_id && a.collection_id !== product.collection_id) return 1;
+      // Then same category
+      if (product.category_id && a.category_id === product.category_id && b.category_id !== product.category_id) return -1;
+      if (product.category_id && b.category_id === product.category_id && a.category_id !== product.category_id) return 1;
+      return 0.5 - Math.random();
+    })
     .slice(0, 4) || [];
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -88,10 +97,31 @@ export default function ProductDetails() {
 
       <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
         {/* Breadcrumbs */}
-        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-8 text-xs uppercase tracking-widest">
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-8 text-xs uppercase tracking-widest flex-wrap">
           <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
           <span className="text-gray-300">/</span>
           <Link to="/shop" className="hover:text-foreground transition-colors">Shop</Link>
+
+          {/* Category Breadcrumb */}
+          {product.categories && (
+            <>
+              <span className="text-gray-300">/</span>
+              <Link to={`/shop?category=${product.categories.slug}`} className="hover:text-foreground transition-colors">
+                {product.categories.name}
+              </Link>
+            </>
+          )}
+
+          {/* Collection Breadcrumb */}
+          {product.product_collections && (
+            <>
+              <span className="text-gray-300">/</span>
+              <Link to={`/shop?collection=${product.product_collections.id}`} className="hover:text-foreground transition-colors">
+                {product.product_collections.name}
+              </Link>
+            </>
+          )}
+
           <span className="text-gray-300">/</span>
           <span className="text-foreground font-medium truncate max-w-[200px]">{product.name}</span>
         </nav>
@@ -140,6 +170,14 @@ export default function ProductDetails() {
                 {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 fill-primary text-primary" />)}
                 <span className="text-xs uppercase tracking-widest ml-2 text-muted-foreground">Top Rated</span>
               </div>
+
+              {product.product_collections && (
+                <Link to={`/shop?collection=${product.product_collections.id}`} className="inline-block">
+                  <span className="bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary px-2 py-1 rounded text-[10px] uppercase tracking-widest font-bold transition-colors">
+                    {product.product_collections.name} Collection
+                  </span>
+                </Link>
+              )}
 
               <h1 className="text-3xl md:text-5xl font-bold text-foreground leading-tight tracking-tight">
                 {product.name}

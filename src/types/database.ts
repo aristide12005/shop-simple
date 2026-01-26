@@ -57,8 +57,8 @@ export interface ProductImage {
 export interface ProductWithDetails extends Product {
   collection_images: ProductImage[];
   product_variants?: ProductVariant[];
-  product_collection?: ProductCollection;
-  category?: Category;
+  product_collections?: ProductCollection;
+  categories?: Category;
 }
 
 // Legacy type alias for backward compatibility
