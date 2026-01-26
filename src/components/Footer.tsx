@@ -5,7 +5,6 @@ export default function Footer() {
     <footer id="contact" className="bg-foreground text-background py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
           <div>
             <h3 className="font-serif text-2xl font-bold mb-4">Accicoa</h3>
             <p className="text-background/70 text-sm">
@@ -14,7 +13,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Contact Info */}
           <div>
             <h4 className="font-semibold text-lg mb-4">Contact Us</h4>
             <ul className="space-y-3 text-sm text-background/70">
@@ -37,7 +35,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Social Links */}
           <div>
             <h4 className="font-semibold text-lg mb-4">Follow Us</h4>
             <div className="flex gap-4">
