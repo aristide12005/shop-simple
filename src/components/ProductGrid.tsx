@@ -50,16 +50,8 @@ export default function ProductGrid({
             return false;
         }
 
-        // Filter by Category (if implemented in schema)
-        // Since schema might not have 'category' yet, we skip this check or check if 'collection' name matches
-        // For now, let's assume 'collection' implies category if utilizing that field
-        // Adjust logic based on actual data structure available
-        if (category && product.collection?.name.toLowerCase() !== category.toLowerCase()) {
-            // Fallback: If no direct category field, maybe we don't filter or we mock it.
-            // Given the "Identity Crisis" issue detailed in task, strict filtering might yield 0 results.
-            // Let's rely on loose matching or just skip if data is missing to avoid empty grid everywhere.
-            // Ideally: return product.category === category;
-        }
+        // Filter by Category - currently not implemented in schema
+        // TODO: Add category field to products table for proper filtering
 
         return true;
     });
@@ -121,8 +113,6 @@ export default function ProductGrid({
 
                         {/* Product Info */}
                         <div className="p-4 text-center">
-                            {/* Optional: Add category if available in future schema */}
-                            <p className="text-xs text-gray-500 uppercase tracking-widest mb-1">{product.collection?.name || 'Collection'}</p>
                             <h3 className="font-bold text-lg mb-1 group-hover:text-design-teal transition-colors line-clamp-1">{product.name}</h3>
                             <p className="font-serif text-design-red font-medium">${Number(product.price).toFixed(2)}</p>
                         </div>
