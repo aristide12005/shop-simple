@@ -1,16 +1,40 @@
-export interface Collection {
+// Product Collection (Level 1 - Container)
+export interface ProductCollection {
+  id: string;
+  name: string;
+  description: string | null;
+  banner_image_url: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+// Category (Level 2 - Tag/Attribute)
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  display_order: number;
+  created_at: string;
+}
+
+// Product (Level 3 - Parent item, formerly "collections")
+export interface Product {
   id: string;
   name: string;
   description: string | null;
   price: number;
+  stock_quantity: number;
+  collection_id: string | null;
+  category_id: string | null;
   created_at: string;
   updated_at: string;
-  stock_quantity: number;
 }
 
+// Product Variant (Level 4 - Physical SKU)
 export interface ProductVariant {
   id: string;
-  collection_id: string;
+  collection_id: string; // This is actually product_id (legacy naming)
   name: string;
   sku: string | null;
   stock_quantity: number;
@@ -19,21 +43,31 @@ export interface ProductVariant {
   updated_at: string;
 }
 
-export interface CollectionImage {
+// Product Image (can be linked to variant for variant-specific images)
+export interface ProductImage {
   id: string;
-  collection_id: string;
+  collection_id: string; // This is actually product_id (legacy naming)
+  variant_id: string | null;
   image_url: string;
   display_order: number;
   created_at: string;
 }
 
-export interface CollectionWithImages extends Collection {
-  collection_images: CollectionImage[];
+// Extended types with relationships
+export interface ProductWithDetails extends Product {
+  collection_images: ProductImage[];
   product_variants?: ProductVariant[];
+  product_collection?: ProductCollection;
+  category?: Category;
 }
 
+// Legacy type alias for backward compatibility
+export type Collection = Product;
+export type CollectionImage = ProductImage;
+export type CollectionWithImages = ProductWithDetails;
+
 export interface CartItem {
-  collection: CollectionWithImages;
+  collection: ProductWithDetails;
   variant?: ProductVariant;
   quantity: number;
 }

@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      categories: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
       collection_images: {
         Row: {
           collection_id: string
@@ -21,6 +45,7 @@ export type Database = {
           display_order: number
           id: string
           image_url: string
+          variant_id: string | null
         }
         Insert: {
           collection_id: string
@@ -28,6 +53,7 @@ export type Database = {
           display_order?: number
           id?: string
           image_url: string
+          variant_id?: string | null
         }
         Update: {
           collection_id?: string
@@ -35,6 +61,7 @@ export type Database = {
           display_order?: number
           id?: string
           image_url?: string
+          variant_id?: string | null
         }
         Relationships: [
           {
@@ -44,10 +71,19 @@ export type Database = {
             referencedRelation: "collections"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "collection_images_variant_id_fkey"
+            columns: ["variant_id"]
+            isOneToOne: false
+            referencedRelation: "product_variants"
+            referencedColumns: ["id"]
+          },
         ]
       }
       collections: {
         Row: {
+          category_id: string | null
+          collection_id: string | null
           created_at: string
           description: string | null
           id: string
@@ -57,6 +93,8 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          category_id?: string | null
+          collection_id?: string | null
           created_at?: string
           description?: string | null
           id?: string
@@ -66,6 +104,8 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          category_id?: string | null
+          collection_id?: string | null
           created_at?: string
           description?: string | null
           id?: string
@@ -74,7 +114,22 @@ export type Database = {
           stock_quantity?: number
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "collections_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "collections_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "product_collections"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       order_items: {
         Row: {
@@ -145,6 +200,36 @@ export type Database = {
           paypal_order_id?: string | null
           status?: string
           total_amount?: number
+        }
+        Relationships: []
+      }
+      product_collections: {
+        Row: {
+          banner_image_url: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          banner_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          banner_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -224,7 +309,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      product_category: "mens_wear" | "womens_wear" | "accessories" | "footwear"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -351,6 +436,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      product_category: ["mens_wear", "womens_wear", "accessories", "footwear"],
+    },
   },
 } as const
