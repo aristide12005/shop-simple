@@ -1,53 +1,4 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
-
-// ... (existing imports)
-
-export default function ProductDetails() {
-  // ... (existing state)
-
-  // ... (error handling)
-
-  // ... (render)
-    <div className="min-h-screen bg-background flex flex-col font-sans">
-      <Header />
-
-      <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
-        {/* Breadcrumbs */}
-        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-8 text-xs uppercase tracking-widest">
-            <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
-            <span className="text-gray-300">/</span>
-            <Link to="/shop" className="hover:text-foreground transition-colors">Shop</Link>
-            <span className="text-gray-300">/</span>
-            <span className="text-foreground font-medium truncate max-w-[200px]">{product.name}</span>
-        </nav>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-          {/* ... (existing gallery and info) */}
-        </div>
-
-        {/* Related Products Section */}
-        <section className="mt-24 border-t border-border pt-16">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 uppercase tracking-wider text-center">You Might Also Like</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                {/* Placeholder Related Items - In a real app, fetch similar items */}
-                {[1, 2, 3, 4].map((item) => (
-                    <div key={item} className="group cursor-pointer">
-                        <div className="aspect-[3/4] bg-gray-100 mb-4 overflow-hidden rounded-sm relative">
-                             <div className="absolute inset-0 bg-neutral-200 animate-pulse" /> {/* Placeholder loading state appearance if no image */}
-                             {/* Mock Image */}
-                             <img 
-                                src={`https://images.unsplash.com/photo-${item === 1 ? '1617137984095-74e4e5e3613f' : item === 2 ? '1541533848490-bc8115cd1b8d' : item === 3 ? '1576053139778-7e32f2ae3cfd' : '1523381210434-271e8be1f52b'}?q=80&w=400&auto=format&fit=crop`}
-                                alt="Related Product"
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 absolute inset-0"
-                             />
-                        </div>
-                        <h3 className="font-bold text-sm uppercase tracking-wide group-hover:text-brand-primary transition-colors">Classic Essential {item}</h3>
-                        <p className="text-muted-foreground text-xs mt-1">$120.00</p>
-                    </div>
-                ))}
-            </div>
-        </section>
-      </main>
 import { useCollection } from '@/hooks/useCollections';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
@@ -95,12 +46,12 @@ export default function ProductDetails() {
 
   const variants = product.product_variants || [];
   const hasVariants = variants.length > 0;
-  
+
   // Calculate current price based on selected variant
   const currentPrice = selectedVariant?.price ?? product.price;
-  
+
   // Check stock
-  const isInStock = hasVariants 
+  const isInStock = hasVariants
     ? (selectedVariant ? selectedVariant.stock_quantity > 0 : variants.some(v => v.stock_quantity > 0))
     : product.stock_quantity > 0;
 
@@ -109,12 +60,12 @@ export default function ProductDetails() {
       toast.error('Please select an option before adding to cart');
       return;
     }
-    
+
     if (selectedVariant && selectedVariant.stock_quantity <= 0) {
       toast.error('This variant is out of stock');
       return;
     }
-    
+
     addToCart(product, selectedVariant || undefined);
     const variantText = selectedVariant ? ` (${selectedVariant.name})` : '';
     toast.success(`${product.name}${variantText} added to cart!`);
@@ -129,14 +80,14 @@ export default function ProductDetails() {
       <Header />
 
       <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
-        <Button
-          variant="ghost"
-          onClick={() => navigate(-1)}
-          className="mb-8 hover:bg-transparent pl-0 -ml-4 text-muted-foreground hover:text-primary uppercase tracking-widest text-xs rounded-none"
-        >
-          <ChevronLeft className="h-4 w-4 mr-2" />
-          Back
-        </Button>
+        {/* Breadcrumbs */}
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-8 text-xs uppercase tracking-widest">
+          <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
+          <span className="text-gray-300">/</span>
+          <Link to="/shop" className="hover:text-foreground transition-colors">Shop</Link>
+          <span className="text-gray-300">/</span>
+          <span className="text-foreground font-medium truncate max-w-[200px]">{product.name}</span>
+        </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           {/* Gallery Section */}
@@ -147,9 +98,8 @@ export default function ProductDetails() {
                   <button
                     key={img.id}
                     onClick={() => setSelectedImageIndex(idx)}
-                    className={`relative w-24 h-24 md:w-20 md:h-32 flex-shrink-0 bg-muted transition-all ${
-                      selectedImageIndex === idx ? 'ring-2 ring-primary ring-offset-2' : 'hover:opacity-80'
-                    }`}
+                    className={`relative w-24 h-24 md:w-20 md:h-32 flex-shrink-0 bg-muted transition-all ${selectedImageIndex === idx ? 'ring-2 ring-primary ring-offset-2' : 'hover:opacity-80'
+                      }`}
                   >
                     <img
                       src={img.image_url}
@@ -220,7 +170,7 @@ export default function ProductDetails() {
                     {variants.map(variant => {
                       const isSelected = selectedVariant?.id === variant.id;
                       const isOutOfStock = variant.stock_quantity <= 0;
-                      
+
                       return (
                         <button
                           key={variant.id}
@@ -229,8 +179,8 @@ export default function ProductDetails() {
                           className={`
                             min-w-14 h-14 px-4 border flex items-center justify-center font-bold 
                             uppercase tracking-widest text-sm transition-all relative
-                            ${isSelected 
-                              ? 'bg-foreground text-background border-foreground' 
+                            ${isSelected
+                              ? 'bg-foreground text-background border-foreground'
                               : 'border-border hover:bg-muted hover:border-foreground'
                             }
                             ${isOutOfStock ? 'opacity-40 cursor-not-allowed line-through' : 'cursor-pointer'}
@@ -271,9 +221,9 @@ export default function ProductDetails() {
                   disabled={!isInStock || (hasVariants && !selectedVariant)}
                   className="h-16 rounded-none bg-foreground text-background hover:bg-primary hover:text-primary-foreground text-lg font-bold uppercase tracking-[0.2em] shadow-none transition-all disabled:opacity-50"
                 >
-                  {!isInStock 
-                    ? 'Out of Stock' 
-                    : hasVariants && !selectedVariant 
+                  {!isInStock
+                    ? 'Out of Stock'
+                    : hasVariants && !selectedVariant
                       ? 'Select an Option'
                       : `Add to Cart — $${Number(currentPrice).toFixed(2)}`
                   }
@@ -285,6 +235,28 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
+        {/* Related Products Section */}
+        <section className="mt-24 border-t border-border pt-16 mb-16 container mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 uppercase tracking-wider text-center">You Might Also Like</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {/* Placeholder Related Items - In a real app, fetch similar items */}
+            {[1, 2, 3, 4].map((item) => (
+              <div key={item} className="group cursor-pointer">
+                <div className="aspect-[3/4] bg-gray-100 mb-4 overflow-hidden rounded-sm relative">
+                  <div className="absolute inset-0 bg-neutral-200 animate-pulse" /> {/* Placeholder loading state appearance if no image */}
+                  {/* Mock Image */}
+                  <img
+                    src={`https://images.unsplash.com/photo-${item === 1 ? '1617137984095-74e4e5e3613f' : item === 2 ? '1541533848490-bc8115cd1b8d' : item === 3 ? '1576053139778-7e32f2ae3cfd' : '1523381210434-271e8be1f52b'}?q=80&w=400&auto=format&fit=crop`}
+                    alt="Related Product"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 absolute inset-0"
+                  />
+                </div>
+                <h3 className="font-bold text-sm uppercase tracking-wide group-hover:text-brand-primary transition-colors">Classic Essential {item}</h3>
+                <p className="text-muted-foreground text-xs mt-1">$120.00</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
 
       <Footer />
