@@ -91,6 +91,10 @@ export default function ProductDetails() {
     ? product.collection_images
     : [{ id: 'placeholder', image_url: '/placeholder.svg', collection_id: '', display_order: 0, created_at: '' }];
 
+  // Helper to safely access single relation (supbase sometimes returns array)
+  const category = Array.isArray(product.categories) ? product.categories[0] : (product.categories as any);
+  const collection = Array.isArray(product.product_collections) ? product.product_collections[0] : (product.product_collections as any);
+
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans">
       <Header />
@@ -103,21 +107,21 @@ export default function ProductDetails() {
           <Link to="/shop" className="hover:text-foreground transition-colors">Shop</Link>
 
           {/* Category Breadcrumb */}
-          {product.categories && (
+          {category && (
             <>
               <span className="text-gray-300">/</span>
-              <Link to={`/shop?category=${product.categories.slug}`} className="hover:text-foreground transition-colors">
-                {product.categories.name}
+              <Link to={`/shop?category=${category.slug}`} className="hover:text-foreground transition-colors">
+                {category.name}
               </Link>
             </>
           )}
 
           {/* Collection Breadcrumb */}
-          {product.product_collections && (
+          {collection && (
             <>
               <span className="text-gray-300">/</span>
-              <Link to={`/shop?collection=${product.product_collections.id}`} className="hover:text-foreground transition-colors">
-                {product.product_collections.name}
+              <Link to={`/shop?collection=${collection.id}`} className="hover:text-foreground transition-colors">
+                {collection.name}
               </Link>
             </>
           )}
@@ -171,10 +175,10 @@ export default function ProductDetails() {
                 <span className="text-xs uppercase tracking-widest ml-2 text-muted-foreground">Top Rated</span>
               </div>
 
-              {product.product_collections && (
-                <Link to={`/shop?collection=${product.product_collections.id}`} className="inline-block">
+              {collection && (
+                <Link to={`/shop?collection=${collection.id}`} className="inline-block">
                   <span className="bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary px-2 py-1 rounded text-[10px] uppercase tracking-widest font-bold transition-colors">
-                    {product.product_collections.name} Collection
+                    {collection.name} Collection
                   </span>
                 </Link>
               )}

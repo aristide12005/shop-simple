@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "db:schema": "type supabase\\\\migrations\\\\20240126_create_collections_schema.sql"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
