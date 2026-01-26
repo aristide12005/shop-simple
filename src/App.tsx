@@ -17,6 +17,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/Dashboard";
 import ProductsManagement from "./pages/admin/Products";
 import IncomeTracking from "./pages/admin/Income";
+import CollectionsManagement from "./pages/admin/Collections";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="products" element={<ProductsManagement />} />
+              <Route path="collections" element={<CollectionsManagement />} />
               <Route path="income" element={<IncomeTracking />} />
             </Route>
             <Route path="/payment-success" element={<PaymentSuccess />} />

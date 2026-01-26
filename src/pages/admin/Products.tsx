@@ -42,13 +42,24 @@ import {
   useUploadImage,
   useDeleteImage,
 } from "@/hooks/useCollections";
+import { useCategories } from "@/hooks/useCategories";
+import { useProductCollections } from "@/hooks/useProductCollections";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { VariantManager } from "@/components/admin/VariantManager";
 import { CollectionWithImages } from "@/types/database";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 
 export default function ProductsManagement() {
-  const { data: collections, isLoading } = useCollections();
+  const { data: products, isLoading } = useCollections();
+  const { data: categories } = useCategories();
+  const { data: productCollections } = useProductCollections();
   const createCollection = useCreateCollection();
   const updateCollection = useUpdateCollection();
   const deleteCollection = useDeleteCollection();
@@ -65,23 +76,25 @@ export default function ProductsManagement() {
     description: "",
     price: "",
     stock_quantity: "0",
+    category_id: "none",
+    collection_id: "none",
   });
 
-  const filteredProducts = collections?.filter((p) =>
+  const filteredProducts = products?.filter((p) =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Stats
-  const totalProducts = collections?.length || 0;
-  const totalStock = collections?.reduce((sum, p) => {
+  const totalProducts = products?.length || 0;
+  const totalStock = products?.reduce((sum, p) => {
     const variantStock = p.product_variants?.reduce((vs, v) => vs + v.stock_quantity, 0) || 0;
     return sum + (p.stock_quantity || 0) + variantStock;
   }, 0) || 0;
-  const lowStockCount = collections?.filter((p) => {
+  const lowStockCount = products?.filter((p) => {
     const totalQty = (p.stock_quantity || 0) + (p.product_variants?.reduce((s, v) => s + v.stock_quantity, 0) || 0);
     return totalQty > 0 && totalQty < 10;
   }).length || 0;
-  const outOfStockCount = collections?.filter((p) => {
+  const outOfStockCount = products?.filter((p) => {
     const totalQty = (p.stock_quantity || 0) + (p.product_variants?.reduce((s, v) => s + v.stock_quantity, 0) || 0);
     return totalQty === 0;
   }).length || 0;
@@ -94,10 +107,12 @@ export default function ProductsManagement() {
         description: product.description || "",
         price: product.price.toString(),
         stock_quantity: (product.stock_quantity || 0).toString(),
+        category_id: product.category_id || "none",
+        collection_id: product.collection_id || "none",
       });
     } else {
       setEditingProduct(null);
-      setFormData({ name: "", description: "", price: "", stock_quantity: "0" });
+      setFormData({ name: "", description: "", price: "", stock_quantity: "0", category_id: "none", collection_id: "none" });
     }
     setIsDialogOpen(true);
   };
@@ -115,6 +130,8 @@ export default function ProductsManagement() {
         description: formData.description,
         price: parseFloat(formData.price),
         stock_quantity: parseInt(formData.stock_quantity) || 0,
+        category_id: formData.category_id === "none" ? null : formData.category_id,
+        collection_id: formData.collection_id === "none" ? null : formData.collection_id,
       };
 
       if (editingProduct) {
@@ -414,6 +431,48 @@ export default function ProductsManagement() {
                       </div>
                     </div>
 
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="category">Category</Label>
+                        <Select
+                          value={formData.category_id}
+                          onValueChange={(value) => setFormData({ ...formData, category_id: value })}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Category" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">None</SelectItem>
+                            {categories?.map((category) => (
+                              <SelectItem key={category.id} value={category.id}>
+                                {category.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="collection">Collection</Label>
+                        <Select
+                          value={formData.collection_id}
+                          onValueChange={(value) => setFormData({ ...formData, collection_id: value })}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Collection" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">None</SelectItem>
+                            {productCollections?.map((collection) => (
+                              <SelectItem key={collection.id} value={collection.id}>
+                                {collection.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
                     <Button type="submit" className="w-full">
                       Save Changes
                     </Button>
@@ -543,6 +602,48 @@ export default function ProductsManagement() {
                       onChange={(e) => setFormData({ ...formData, stock_quantity: e.target.value })}
                       placeholder="0"
                     />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="category">Category</Label>
+                    <Select
+                      value={formData.category_id}
+                      onValueChange={(value) => setFormData({ ...formData, category_id: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">None</SelectItem>
+                        {categories?.map((category) => (
+                          <SelectItem key={category.id} value={category.id}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="collection">Collection</Label>
+                    <Select
+                      value={formData.collection_id}
+                      onValueChange={(value) => setFormData({ ...formData, collection_id: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Collection" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">None</SelectItem>
+                        {productCollections?.map((collection) => (
+                          <SelectItem key={collection.id} value={collection.id}>
+                            {collection.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 
