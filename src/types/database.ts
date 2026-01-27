@@ -79,6 +79,9 @@ export interface Order {
   total_amount: number;
   paypal_order_id: string | null;
   status: string;
+  shipping_address: string | null;
+  shipping_city: string | null;
+  shipping_country: string | null;
   created_at: string;
 }
 

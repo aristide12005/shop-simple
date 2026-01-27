@@ -80,10 +80,13 @@ export default function CartModal() {
         .from('orders')
         .insert({
           customer_email: customerEmail.trim(),
-          customer_name: customerName.trim() || null,
+          customer_name: customerName.trim(),
           total_amount: totalAmount,
           status: 'pending',
-        })
+          shipping_address: shippingAddress.trim(),
+          shipping_city: shippingCity.trim(),
+          shipping_country: shippingCountry.trim(),
+        } as any)
         .select()
         .single();
 
