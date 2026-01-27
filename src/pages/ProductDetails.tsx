@@ -98,9 +98,9 @@ export default function ProductDetails() {
     ? product.collection_images
     : [{ id: 'placeholder', image_url: '/placeholder.svg', collection_id: '', display_order: 0, created_at: '' }];
 
-  // Helper to safely access single relation (supbase sometimes returns array)
-  const category = Array.isArray(product.categories) ? product.categories[0] : (product.categories as any);
-  const collection = Array.isArray(product.product_collections) ? product.product_collections[0] : (product.product_collections as any);
+  // Helper to safely access single relation (supabase sometimes returns array)
+  const category = Array.isArray(product.category) ? product.category[0] : (product.category as any);
+  const collection = Array.isArray(product.product_collection) ? product.product_collection[0] : (product.product_collection as any);
 
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans">
