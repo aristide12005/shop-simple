@@ -53,6 +53,7 @@ export default function Collections() {
                                 </Link>
                             ))}
                         </div>
+                    )}
                 </div>
             </main>
             <Footer />
