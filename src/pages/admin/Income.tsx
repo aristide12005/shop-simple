@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, TrendingUp, ShoppingBag, CreditCard } from "lucide-react";
+import { DollarSign, TrendingUp, ShoppingBag, CreditCard, Eye, MapPin, Package } from "lucide-react";
 import { useOrders } from "@/hooks/useOrders";
+import { useOrderItems } from "@/hooks/useOrderItems";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { format, parseISO, subDays, isAfter, startOfDay } from 'date-fns';
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -13,9 +16,121 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Order } from "@/types/database";
+
+// Order Details Component
+function OrderDetailsDialog({ order, open, onOpenChange }: { 
+  order: Order | null; 
+  open: boolean; 
+  onOpenChange: (open: boolean) => void; 
+}) {
+  const { data: orderItems, isLoading } = useOrderItems(order?.id || '');
+  
+  if (!order) return null;
+  
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="font-serif text-xl">Order Details</DialogTitle>
+        </DialogHeader>
+        
+        <div className="space-y-6">
+          {/* Order Info */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm text-muted-foreground">Order Date</p>
+              <p className="font-medium">{format(parseISO(order.created_at), 'PPP p')}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Status</p>
+              <Badge variant={order.status === 'completed' ? 'default' : order.status === 'pending' ? 'secondary' : 'destructive'}>
+                {order.status}
+              </Badge>
+            </div>
+          </div>
+          
+          {/* Customer Info */}
+          <div className="border rounded-lg p-4 space-y-2">
+            <h4 className="font-medium flex items-center gap-2">
+              <ShoppingBag className="h-4 w-4" /> Customer Information
+            </h4>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p className="text-muted-foreground">Name</p>
+                <p className="font-medium">{order.customer_name || 'Not provided'}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Email</p>
+                <p className="font-medium">{order.customer_email}</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Shipping Address */}
+          {(order.shipping_address || order.shipping_city || order.shipping_country) && (
+            <div className="border rounded-lg p-4 space-y-2">
+              <h4 className="font-medium flex items-center gap-2">
+                <MapPin className="h-4 w-4" /> Shipping Address
+              </h4>
+              <div className="text-sm">
+                <p>{order.shipping_address}</p>
+                <p>{order.shipping_city}, {order.shipping_country}</p>
+              </div>
+            </div>
+          )}
+          
+          {/* Order Items */}
+          <div className="border rounded-lg p-4 space-y-3">
+            <h4 className="font-medium flex items-center gap-2">
+              <Package className="h-4 w-4" /> Order Items
+            </h4>
+            {isLoading ? (
+              <p className="text-sm text-muted-foreground">Loading items...</p>
+            ) : orderItems && orderItems.length > 0 ? (
+              <div className="space-y-2">
+                {orderItems.map((item) => (
+                  <div key={item.id} className="flex justify-between items-center py-2 border-b last:border-0">
+                    <div>
+                      <p className="font-medium">{item.collection_name}</p>
+                      <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
+                    </div>
+                    <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">No items found</p>
+            )}
+          </div>
+          
+          {/* Total */}
+          <div className="flex justify-between items-center text-lg font-bold border-t pt-4">
+            <span>Total</span>
+            <span className="text-primary">${order.total_amount.toFixed(2)}</span>
+          </div>
+          
+          {/* PayPal ID */}
+          {order.paypal_order_id && (
+            <div className="text-xs text-muted-foreground">
+              PayPal Transaction: <span className="font-mono">{order.paypal_order_id}</span>
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 export default function IncomeTracking() {
   const { data: orders, isLoading } = useOrders();
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   if (isLoading) {
     return (
@@ -219,15 +334,16 @@ export default function IncomeTracking() {
               <TableRow>
                 <TableHead>Date</TableHead>
                 <TableHead>Customer</TableHead>
+                <TableHead>Shipping</TableHead>
                 <TableHead>Amount</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>PayPal ID</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {orders?.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center h-24 text-muted-foreground">
+                  <TableCell colSpan={6} className="text-center h-24 text-muted-foreground">
                     No orders yet.
                   </TableCell>
                 </TableRow>
@@ -243,6 +359,16 @@ export default function IncomeTracking() {
                         <p className="text-sm text-muted-foreground">{order.customer_email}</p>
                       </div>
                     </TableCell>
+                    <TableCell>
+                      {order.shipping_city ? (
+                        <div className="text-sm">
+                          <p>{order.shipping_city}</p>
+                          <p className="text-muted-foreground">{order.shipping_country}</p>
+                        </div>
+                      ) : (
+                        <span className="text-muted-foreground text-sm">—</span>
+                      )}
+                    </TableCell>
                     <TableCell className="font-bold">${order.total_amount.toFixed(2)}</TableCell>
                     <TableCell>
                       <Badge
@@ -255,8 +381,14 @@ export default function IncomeTracking() {
                         {order.status}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-muted-foreground text-xs font-mono">
-                      {order.paypal_order_id || '—'}
+                    <TableCell className="text-right">
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={() => setSelectedOrder(order)}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))
@@ -265,6 +397,13 @@ export default function IncomeTracking() {
           </Table>
         </CardContent>
       </Card>
+
+      {/* Order Details Dialog */}
+      <OrderDetailsDialog 
+        order={selectedOrder} 
+        open={!!selectedOrder} 
+        onOpenChange={(open) => !open && setSelectedOrder(null)} 
+      />
     </div>
   );
 }
