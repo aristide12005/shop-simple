@@ -118,7 +118,7 @@ export default function ProductGrid({
                         </div>
 
                         {/* Product Info - Clean & Readable */}
-                        <div className="space-y-1">
+                        <div className="space-y-1 text-center">
                             {product.category && (
                                 <p className="text-xs text-muted-foreground uppercase tracking-widest">
                                     {product.category.name}
