@@ -5,10 +5,13 @@ import FeaturedEssentials from '@/components/FeaturedEssentials';
 import BrandTrust from '@/components/BrandTrust';
 import LifestyleMessage from '@/components/LifestyleMessage';
 import Footer from '@/components/Footer';
-
 export default function Index() {
+<<<<<<< HEAD
   return (
     <div className="min-h-screen bg-white text-foreground font-sans selection:bg-logo-ochre/20">
+=======
+  return <div className="min-h-screen bg-white text-foreground font-sans selection:bg-design-teal/20">
+>>>>>>> 81ed2e081ab0852f52d6c532a52e477b74e2ae74
       <Header />
 
       <main>
@@ -18,8 +21,13 @@ export default function Index() {
         {/* 2. Top Categories (Collections - Limit 4) */}
         <section id="collections" className="py-10 bg-white">
           <div className="container mx-auto px-4 md:px-8">
+<<<<<<< HEAD
             <h2 className="font-heading text-2xl md:text-3xl text-center text-brand-dark mb-8 leading-relaxed max-w-3xl mx-auto">
               Explore our curated selection of authentic African craftsmanship
+=======
+            <h2 className="font-heading text-2xl md:text-3xl text-center text-brand-dark mb-12 leading-relaxed max-w-3xl mx-auto">
+              Our New Featured Collections   
+>>>>>>> 81ed2e081ab0852f52d6c532a52e477b74e2ae74
             </h2>
             <CollectionsGrid limit={4} hideHeader={true} />
           </div>
@@ -37,6 +45,5 @@ export default function Index() {
 
       {/* 6. Footer (Clean) */}
       <Footer />
-    </div>
-  );
+    </div>;
 }
