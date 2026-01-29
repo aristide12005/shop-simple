@@ -1,5 +1,3 @@
-
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { CollectionWithImages, ProductCollection } from '@/types/database';
@@ -39,80 +37,70 @@ export default function CollectionCard({ collection, variant = 'default' }: Coll
 
   if (variant === 'featured') {
     return (
-      <div className="group relative aspect-[3/4] overflow-hidden rounded-md cursor-pointer">
+      <div className="group relative aspect-[3/4] overflow-hidden bg-neutral-100 cursor-pointer">
         <Link to={linkTarget} className="block w-full h-full">
-          {/* Background Image */}
+          {/* Background Image - Parallax Scale */}
           <img
             src={displayImage}
             alt={collection.name}
-            className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
           />
 
-          {/* Dark Overlay Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+          {/* Elegant Dark Overlay */}
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
 
           {/* Content Overlay */}
-          <div className="absolute inset-0 flex flex-col justify-end p-6 text-center pb-8">
-            <h3 className="text-2xl font-heading font-medium text-white mb-2 tracking-wide transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+          <div className="absolute inset-0 p-8 flex flex-col justify-end items-start">
+            <span className="text-logo-gold text-xs font-bold uppercase tracking-[0.2em] mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-2 group-hover:translate-y-0 delay-100">
+              Collection
+            </span>
+
+            <h3 className="font-heading text-3xl md:text-4xl text-white mb-4 leading-tight drop-shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
               {collection.name}
             </h3>
 
-            {collection.description && (
-              <p className="text-sm text-gray-200 line-clamp-2 max-w-[90%] mx-auto mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 h-0 group-hover:h-auto overflow-hidden">
-                {collection.description}
-              </p>
-            )}
-
-            <div className="mt-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-150">
-              <span className="inline-block border-b hover:border-b-2 border-white text-white text-xs uppercase tracking-widest pb-1 font-semibold">
-                View Collection
-              </span>
-            </div>
+            {/* Animated Underline */}
+            <div className="w-0 group-hover:w-20 h-0.5 bg-white transition-all duration-700 ease-out" />
           </div>
         </Link>
       </div>
     );
   }
 
-  // Default Variant (Shop/Product style with Price & Add to Cart) - ONLY for Products
-  if (!isProduct) return null; // Should not happen in 'default' mode if logic is correct, or handle gracefully
+  // Default Variant (Shop/Product style) - Kept Clean but updated colors
+  if (!isProduct) return null;
 
   const product = collection as CollectionWithImages;
 
   return (
-    <div className="group flex flex-col gap-2 relative">
-      {/* Image Container with Grayscale Effect */}
-      <Link to={linkTarget} className="block relative aspect-[3/4] overflow-hidden bg-secondary">
+    <div className="group flex flex-col gap-3 relative">
+      <Link to={linkTarget} className="block relative aspect-[3/4] overflow-hidden bg-neutral-50 mb-2">
         <img
           src={displayImage}
           alt={product.name}
-          className="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700 ease-in-out"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
 
-        {/* Quick Add Button - Slides Up on Hover */}
-        <div className="absolute inset-x-0 bottom-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-10">
+        {/* Ghost 'Add to Cart' */}
+        <div className="absolute inset-x-0 bottom-6 px-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
           <Button
             onClick={handleAddToCart}
-            className="w-full h-12 rounded-none bg-brand-primary text-white hover:bg-brand-highlight hover:text-brand-dark uppercase tracking-widest font-bold text-xs"
+            className="w-full bg-white/95 backdrop-blur text-logo-charcoal hover:bg-logo-charcoal hover:text-white uppercase tracking-widest text-xs font-bold shadow-md rounded-none py-6"
           >
-            Add to Cart — ${Number(product.price).toFixed(2)}
+            Add to Cart
           </Button>
         </div>
       </Link>
 
-      {/* Details - Minimal & Sharp */}
-      <div className="flex justify-between items-start pt-2">
-        <div>
-          <h3 className="text-sm font-medium leading-none text-foreground group-hover:text-brand-primary transition-colors">
-            <Link to={linkTarget}>
-              {product.name}
-            </Link>
-          </h3>
-          <p className="text-xs text-muted-foreground mt-1">
-            {product.stock_quantity > 0 ? 'In Stock' : 'Sold Out'}
-          </p>
-        </div>
-        <span className="font-semibold text-sm">${Number(product.price).toFixed(2)}</span>
+      <div className="text-center">
+        <h3 className="text-base font-medium text-logo-charcoal group-hover:text-logo-gold transition-colors duration-300">
+          <Link to={linkTarget}>
+            {product.name}
+          </Link>
+        </h3>
+        <p className="text-sm text-gray-500 mt-1 font-light">
+          ${Number(product.price).toFixed(2)}
+        </p>
       </div>
     </div>
   );

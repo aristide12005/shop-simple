@@ -21,23 +21,20 @@ export default {
       },
       colors: {
         // Colors kept exactly as is
-        // Logo-derived palette
-        "logo-brown": "#8D5B4C", // Warm Earth
-        "logo-ochre": "#E3A82B", // mustard/gold accent
-        "logo-blue": "#1B3B5A",  // Deep Blue
-        "logo-black": "#1A1A1A", // Soft Black
+        // Premium Redesign Palette
+        "logo-brown": "#8D5B4C", // Kept as tertiary accent
+        "logo-gold": "#C4A052",  // New Primary Accent (Warm Gold)
+        "logo-charcoal": "#1A1A1A", // New Primary Dark (Deep Charcoal)
+        "logo-cream": "#F9F9F9", // Soft Off-White
 
-        // Neutral palette for "Clean Air"
-        "neutral-50": "#F9FAFB",
-        "neutral-100": "#F3F4F6",
+        // Brand colors re-mapped to Premium Strategy
+        "brand-primary": "#1A1A1A",    // Main is now Charcoal
+        "brand-secondary": "#8D5B4C",  // Secondary is Logo Brown
+        "brand-accent": "#C4A052",     // Accent is Warm Gold
+        "brand-highlight": "#F5F5F7",  // Backgrounds now soft gray (Apple style)
+        "brand-dark": "#111111",       // Almost Black
 
-        // Brand colors re-mapped to logo strategy
-        "brand-primary": "#8D5B4C",    // Main accent now brown
-        "brand-secondary": "#1B3B5A",  // Secondary now deep blue
-        "brand-accent": "#E3A82B",     // Highlights now ochre
-        "brand-highlight": "#F7F7F7",  // Backgrounds now off-white
-        "brand-dark": "#1A1A1A",
-        "design-teal": "#2A9D8F",
+        "design-teal": "#C4A052", // Deprecated: mapped to Gold
         "design-red": "#9B2226",
         "design-bg": "#F1F1F1",
         border: "hsl(var(--border))",

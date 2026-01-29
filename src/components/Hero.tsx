@@ -1,48 +1,51 @@
-import { Button } from '@/components/ui/button';
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 export default function Hero() {
-  const scrollToCollections = () => {
-    document.getElementById('collections')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <section className="relative min-h-[85vh] flex flex-col lg:flex-row bg-[#FAF9F6]">
-      {/* LEFT: Content (Editorial Style) */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16 order-2 lg:order-1">
-        <div className="max-w-xl text-left space-y-8">
-          <div className="hidden lg:block w-20 h-1 bg-logo-brown mb-8" />
-
-          <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl text-brand-dark leading-[1.1] animate-fade-in-up">
-            <span className="block text-logo-brown text-2xl md:text-3xl font-sans font-medium mb-4 tracking-widest uppercase">
-              The African Corner
-            </span>
-            Authentic craft, <br />
-            <span className="italic text-slate-500">modern soul.</span>
-          </h1>
-
-          <p className="text-lg text-muted-foreground leading-relaxed max-w-md animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Discover a curated collection of premium African products, where traditional artistry meets contemporary design.
-          </p>
-
-          <div className="pt-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            <Button
-              onClick={scrollToCollections}
-              className="bg-brand-dark text-white rounded-none px-10 py-7 text-sm uppercase tracking-[0.2em] hover:bg-logo-brown transition-colors duration-500"
-            >
-              Explore Collection
-            </Button>
-          </div>
-        </div>
+    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+      {/* Background Image with Parallax-like fixed feel - Apple Style */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] hover:scale-105"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2800&auto=format&fit=crop')",
+          backgroundPosition: "center 30%"
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 md:bg-black/40" />
       </div>
 
-      {/* RIGHT: Visual (Immersive Image) */}
-      <div className="w-full lg:w-1/2 h-[50vh] lg:h-auto relative order-1 lg:order-2 overflow-hidden">
-        <div className="absolute inset-0 bg-brand-dark/10 z-10" />
-        <img
-          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1288&auto=format&fit=crop"
-          alt="African Fashion Lifestyle"
-          className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-[2s]"
-        />
+      <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">
+
+        {/* Subtle Brand Tag - Aesop Style Typography */}
+        <span className="mb-8 inline-block text-logo-gold text-xs md:text-sm font-bold tracking-[0.3em] uppercase opacity-0 animate-fade-in-up border-b border-logo-gold pb-2" style={{ animationDelay: '0.2s' }}>
+          Modern African Luxury
+        </span>
+
+        {/* Cinematic Heading - Massive Serif */}
+        <h1 className="font-heading text-5xl md:text-7xl lg:text-9xl text-white font-bold leading-none mb-8 tracking-tight opacity-0 animate-fade-in-up drop-shadow-2xl" style={{ animationDelay: '0.4s' }}>
+          Elegance <br className="md:hidden" /> Redefined.
+        </h1>
+
+        {/* Refined Subtitle */}
+        <p className="max-w-xl text-lg md:text-xl text-neutral-200 font-light leading-relaxed mb-12 opacity-0 animate-fade-in-up tracking-wide" style={{ animationDelay: '0.6s' }}>
+          Timeless pieces crafted with heritage and designed for the contemporary soul.
+        </p>
+
+        {/* Primary Action - Ghost/Glass Button */}
+        <div className="flex flex-col md:flex-row gap-6 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+          <Link to="/shop">
+            <Button size="lg" className="bg-white/10 backdrop-blur-md border border-white/30 text-white hover:bg-white hover:text-logo-charcoal hover:scale-105 transition-all duration-500 rounded-full px-12 py-8 text-sm uppercase tracking-widest font-bold min-w-[220px]">
+              Explore Collection
+            </Button>
+          </Link>
+        </div>
+
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+        <div className="w-[1px] h-20 bg-gradient-to-b from-transparent via-white/50 to-transparent" />
       </div>
     </section>
   );

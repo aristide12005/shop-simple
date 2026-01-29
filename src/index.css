@@ -7,31 +7,40 @@
 
 @layer base {
   :root {
-    /* Logo-Inspired Earthy Theme */
+    /* Premium Minimal Theme */
     --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --foreground: 0 0% 10%;
+    /* #1A1A1A Charcoal */
+
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 0 0% 10%;
+
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 14 30% 43%;
-    /* #8D5B4C (Brown) converted to HSL approx */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 54% 23%;
-    /* #1B3B5A (Deep Blue) converted to HSL approx */
-    --secondary-foreground: 0 0% 100%;
-    --muted: 210 20% 96%;
-    /* Very light gray/blue neutral */
-    --muted-foreground: 215 16% 47%;
-    --accent: 41 76% 53%;
-    /* #E3A82B (Ochre) converted to HSL approx */
-    --accent-foreground: 222 47% 11%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 0 0% 10%;
+    /* Main Actions: Charcoal */
+    --primary-foreground: 40 20% 97%;
+    /* Off-white text */
+
+    --secondary: 0 0% 96%;
+    /* #F5F5F7 Light Gray (Apple-like) */
+    --secondary-foreground: 0 0% 10%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 41 50% 55%;
+    /* #C4A052 Warm Gold */
+    --accent-foreground: 0 0% 100%;
+
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 210 20% 90%;
-    --input: 210 20% 90%;
-    --ring: 14 30% 43%;
-    /* Ring matches primary brown */
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 41 50% 55%;
+    /* Focus ring is Gold */
 
     /* UPDATED: Increased radius for a softer, more comfortable feel (was 0px) */
     --radius: 0.75rem;
