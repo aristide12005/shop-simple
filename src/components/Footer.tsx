@@ -40,7 +40,9 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-muted-foreground">
               <li><Link to="/contact" className="hover:text-design-teal transition-colors">Contact Us</Link></li>
               <li><Link to="/about" className="hover:text-design-teal transition-colors">Our Story</Link></li>
+              <li><Link to="/size-guide" className="hover:text-design-teal transition-colors">Size Guide</Link></li>
               <li><Link to="/shipping" className="hover:text-design-teal transition-colors">Shipping & Returns</Link></li>
+              <li><Link to="/privacy" className="hover:text-design-teal transition-colors">Privacy</Link></li>
             </ul>
           </div>
 

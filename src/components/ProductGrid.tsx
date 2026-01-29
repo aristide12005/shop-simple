@@ -10,6 +10,7 @@ interface ProductGridProps {
     priceRange?: number[];
     categorySlug?: string | null;
     collectionId?: string | null;
+    limit?: number;
 }
 
 export default function ProductGrid({
@@ -17,7 +18,8 @@ export default function ProductGrid({
     searchQuery = "",
     priceRange = [0, 1000],
     categorySlug = null,
-    collectionId = null
+    collectionId = null,
+    limit
 }: ProductGridProps) {
     const { data: products, isLoading } = useProducts();
     const navigate = useNavigate();
@@ -66,9 +68,11 @@ export default function ProductGrid({
         }
     });
 
+    const displayedProducts = limit ? sortedProducts.slice(0, limit) : sortedProducts;
+
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sortedProducts.map((product) => {
+            {displayedProducts.map((product) => {
                 const imageUrl = product.collection_images?.[0]?.image_url || "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600&auto=format&fit=crop";
 
                 return (

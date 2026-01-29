@@ -19,7 +19,7 @@ export default function FeaturedEssentials() {
                 {/* Note: Ideally pass a 'limit' prop to ProductGrid, or just let it flow. 
             For now, we let it display 3-6 items cleanly. */}
                 <div className="min-h-[400px]">
-                    <ProductGrid sortBy="featured" priceRange={[0, 1000]} />
+                    <ProductGrid sortBy="featured" priceRange={[0, 1000]} limit={3} />
                 </div>
 
                 {/* The Action: "View All" */}
