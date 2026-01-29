@@ -1,8 +1,8 @@
 import { ShoppingBag, Eye, Loader2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useProducts } from "@/hooks/useProducts";
-import { useCart } from "@/context/CartContext";
+// import { useCart } from "@/context/CartContext"; // Cart context no longer needed here
 
 interface ProductGridProps {
     sortBy?: string;
@@ -20,7 +20,8 @@ export default function ProductGrid({
     collectionId = null
 }: ProductGridProps) {
     const { data: products, isLoading } = useProducts();
-    const { addToCart } = useCart();
+    const navigate = useNavigate();
+    // const { addToCart } = useCart(); // Cart context no longer needed here
 
     if (isLoading) {
         return (
@@ -84,9 +85,9 @@ export default function ProductGrid({
                             <div className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <Button
                                     className="w-full bg-white/90 text-black hover:bg-white hover:text-design-teal shadow-sm backdrop-blur-sm"
-                                    onClick={() => addToCart(product)}
+                                    onClick={() => navigate(`/product/${product.id}`)}
                                 >
-                                    Add to Bag
+                                    View Details
                                 </Button>
                             </div>
                         </div>
