@@ -80,12 +80,12 @@ export default function Shop() {
                     <p className="text-muted-foreground max-w-2xl mx-auto mb-8 text-lg">
                         We don't just sell clothes; we export culture. Join the movement redefining African silhouette on the global stage.
                     </p>
-                    <Link to="/collections">
+                    <Link to="/auth">
                         <Button
                             size="lg"
                             className="rounded-none bg-foreground text-background hover:bg-brand-secondary hover:text-brand-dark px-10 h-14 text-lg font-bold shadow-none uppercase tracking-widest"
                         >
-                            JOIN THE TRIBE <ArrowRight className="ml-2" />
+                            Sign Up to Get Started <ArrowRight className="ml-2" />
                         </Button>
                     </Link>
                 </section>
