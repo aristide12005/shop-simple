@@ -16,6 +16,7 @@ import About from "./pages/About";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/Dashboard";
 import ProductsManagement from "./pages/admin/Products";
+import CategoriesManagement from "./pages/admin/Categories";
 import IncomeTracking from "./pages/admin/Income";
 import CollectionsManagement from "./pages/admin/Collections";
 import NotFound from "./pages/NotFound";
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="products" element={<ProductsManagement />} />
+              <Route path="categories" element={<CategoriesManagement />} />
               <Route path="collections" element={<CollectionsManagement />} />
               <Route path="income" element={<IncomeTracking />} />
             </Route>
