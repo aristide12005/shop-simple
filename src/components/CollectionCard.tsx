@@ -8,9 +8,10 @@ import { toast } from 'sonner';
 
 interface CollectionCardProps {
   collection: CollectionWithImages;
+  variant?: 'default' | 'featured';
 }
 
-export default function CollectionCard({ collection }: CollectionCardProps) {
+export default function CollectionCard({ collection, variant = 'default' }: CollectionCardProps) {
   const { addToCart } = useCart();
   const images = collection.collection_images || [];
   const displayImage = images.length > 0 ? images[0].image_url : '/placeholder.svg';
@@ -21,6 +22,38 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
     toast.success(`${collection.name} added to cart!`);
   };
 
+  if (variant === 'featured') {
+    return (
+      <div className="group flex flex-col gap-4 relative">
+        <Link to={`/product/${collection.id}`} className="block relative aspect-[3/4] overflow-hidden rounded-md bg-secondary">
+          <img
+            src={displayImage}
+            alt={collection.name}
+            className="w-full h-full object-cover filter brightness-[0.95] contrast-[1.05] group-hover:scale-105 transition-all duration-700 ease-in-out"
+          />
+        </Link>
+        <div className="text-center space-y-3 px-2">
+          <h3 className="text-xl font-heading font-medium text-brand-dark">
+            <Link to={`/product/${collection.id}`}>
+              {collection.name}
+            </Link>
+          </h3>
+          {collection.description && (
+            <p className="text-sm text-muted-foreground line-clamp-2 max-w-[90%] mx-auto">
+              {collection.description}
+            </p>
+          )}
+          <Link to={`/product/${collection.id}`} className="inline-block pt-2">
+            <Button variant="outline" className="border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white uppercase text-xs tracking-widest px-6 h-10">
+              View Collection
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Default Variant (Shop/Product style with Price & Add to Cart)
   return (
     <div className="group flex flex-col gap-2 relative">
       {/* Image Container with Grayscale Effect */}
