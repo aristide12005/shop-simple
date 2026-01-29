@@ -20,15 +20,14 @@ export default function Index() {
         </div>
 
         {/* 3. The Exploration: Guided Categories */}
+        {/* 3. The Exploration: Guided Categories */}
         <section id="collections" className="py-20 bg-white">
           <div className="container mx-auto px-4 md:px-8">
-            <h2 className="font-heading text-3xl md:text-4xl text-center text-brand-dark mb-4">
-              Curated Collections
+            {/* Header simplified as requested */}
+            <h2 className="font-heading text-2xl md:text-3xl text-center text-brand-dark mb-12 leading-relaxed max-w-3xl mx-auto">
+              Explore our curated selection of authentic African craftsmanship
             </h2>
-            <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-12 text-lg">
-              Explore our range of thoughtfully designed pieces, crafted for the modern lifestyle.
-            </p>
-            <CollectionsGrid />
+            <CollectionsGrid limit={4} hideHeader={true} />
           </div>
         </section>
 

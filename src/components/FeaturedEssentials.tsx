@@ -12,9 +12,7 @@ export default function FeaturedEssentials() {
                     <span className="text-design-teal text-xs font-bold uppercase tracking-[0.2em] mb-2 block">
                         Selected for You
                     </span>
-                    <h2 className="font-heading text-3xl md:text-4xl text-brand-dark">
-                        Wardrobe Essentials
-                    </h2>
+                    {/* Title removed as per user request */}
                 </div>
 
                 {/* The Grid: Reusing ProductGrid but limiting items naturally via constraints */}
