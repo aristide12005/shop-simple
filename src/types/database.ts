@@ -57,8 +57,8 @@ export interface ProductImage {
 export interface ProductWithDetails extends Product {
   collection_images: ProductImage[];
   product_variants?: ProductVariant[];
-  product_collections?: ProductCollection;
-  categories?: Category;
+  product_collection?: ProductCollection;
+  category?: Category;
 }
 
 // Legacy type alias for backward compatibility
@@ -79,6 +79,9 @@ export interface Order {
   total_amount: number;
   paypal_order_id: string | null;
   status: string;
+  shipping_address: string | null;
+  shipping_city: string | null;
+  shipping_country: string | null;
   created_at: string;
 }
 

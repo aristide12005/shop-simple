@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Package, DollarSign, LogOut, Store, ShoppingBag, Layers } from "lucide-react";
+import { LayoutDashboard, Package, DollarSign, LogOut, ShoppingBag, Layers, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { Separator } from "@/components/ui/separator";
+import logo from "@/assets/logo.png";
 const sidebarItems = [{
   title: "Dashboard",
   href: "/admin",
@@ -12,6 +13,10 @@ const sidebarItems = [{
   title: "Products",
   href: "/admin/products",
   icon: Package
+}, {
+  title: "Categories",
+  href: "/admin/categories",
+  icon: Tag
 }, {
   title: "Collections",
   href: "/admin/collections",
@@ -29,7 +34,7 @@ export function AdminSidebar() {
   return <div className="flex h-screen flex-col justify-between border-r bg-card w-64 p-4">
     <div className="space-y-6">
       <div className="flex items-center gap-2 px-2">
-        <Store className="h-6 w-6 text-primary" />
+        <img src={logo} alt="Accicoa" className="h-8 w-auto" />
         <div>
           <span className="text-lg font-bold font-serif text-foreground">Accicoa</span>
           <span className="ml-2 text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">Admin</span>

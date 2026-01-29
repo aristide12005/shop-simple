@@ -25,6 +25,9 @@ export default function CartModal() {
   const [isCheckout, setIsCheckout] = useState(false);
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerName, setCustomerName] = useState('');
+  const [shippingAddress, setShippingAddress] = useState('');
+  const [shippingCity, setShippingCity] = useState('');
+  const [shippingCountry, setShippingCountry] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<'paypal' | 'card'>('paypal');
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -45,8 +48,28 @@ export default function CartModal() {
       return;
     }
 
-    if (customerName && customerName.trim().length > 100) {
+    if (!customerName || customerName.trim().length < 2) {
+      toast.error('Please enter your full name');
+      return;
+    }
+
+    if (customerName.trim().length > 100) {
       toast.error('Name must be less than 100 characters');
+      return;
+    }
+
+    if (!shippingAddress || shippingAddress.trim().length < 5) {
+      toast.error('Please enter your shipping address');
+      return;
+    }
+
+    if (!shippingCity || shippingCity.trim().length < 2) {
+      toast.error('Please enter your city');
+      return;
+    }
+
+    if (!shippingCountry || shippingCountry.trim().length < 2) {
+      toast.error('Please enter your country');
       return;
     }
 
@@ -57,10 +80,13 @@ export default function CartModal() {
         .from('orders')
         .insert({
           customer_email: customerEmail.trim(),
-          customer_name: customerName.trim() || null,
+          customer_name: customerName.trim(),
           total_amount: totalAmount,
           status: 'pending',
-        })
+          shipping_address: shippingAddress.trim(),
+          shipping_city: shippingCity.trim(),
+          shipping_country: shippingCountry.trim(),
+        } as any)
         .select()
         .single();
 
@@ -150,15 +176,58 @@ export default function CartModal() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">Full Name *</Label>
                 <Input
                   id="name"
                   type="text"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="John Doe"
+                  required
                   className="bg-muted border-border"
                 />
+              </div>
+
+              <div className="space-y-4 border-t border-border pt-4">
+                <h4 className="font-medium text-sm uppercase tracking-wider text-muted-foreground">Shipping Address</h4>
+                <div className="space-y-2">
+                  <Label htmlFor="address">Street Address *</Label>
+                  <Input
+                    id="address"
+                    type="text"
+                    value={shippingAddress}
+                    onChange={(e) => setShippingAddress(e.target.value)}
+                    placeholder="123 Main Street, Apt 4B"
+                    required
+                    className="bg-muted border-border"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="city">City *</Label>
+                    <Input
+                      id="city"
+                      type="text"
+                      value={shippingCity}
+                      onChange={(e) => setShippingCity(e.target.value)}
+                      placeholder="New York"
+                      required
+                      className="bg-muted border-border"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="country">Country *</Label>
+                    <Input
+                      id="country"
+                      type="text"
+                      value={shippingCountry}
+                      onChange={(e) => setShippingCountry(e.target.value)}
+                      placeholder="United States"
+                      required
+                      className="bg-muted border-border"
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="space-y-3">

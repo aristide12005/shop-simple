@@ -180,6 +180,9 @@ export type Database = {
           customer_name: string | null
           id: string
           paypal_order_id: string | null
+          shipping_address: string | null
+          shipping_city: string | null
+          shipping_country: string | null
           status: string
           total_amount: number
         }
@@ -189,6 +192,9 @@ export type Database = {
           customer_name?: string | null
           id?: string
           paypal_order_id?: string | null
+          shipping_address?: string | null
+          shipping_city?: string | null
+          shipping_country?: string | null
           status?: string
           total_amount: number
         }
@@ -198,6 +204,9 @@ export type Database = {
           customer_name?: string | null
           id?: string
           paypal_order_id?: string | null
+          shipping_address?: string | null
+          shipping_city?: string | null
+          shipping_country?: string | null
           status?: string
           total_amount?: number
         }
