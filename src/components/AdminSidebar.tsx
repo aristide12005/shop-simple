@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Package, DollarSign, LogOut, Store, ShoppingBag, Layers } from "lucide-react";
+import { LayoutDashboard, Package, DollarSign, LogOut, Store, ShoppingBag, Layers, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -12,6 +12,10 @@ const sidebarItems = [{
   title: "Products",
   href: "/admin/products",
   icon: Package
+}, {
+  title: "Categories",
+  href: "/admin/categories",
+  icon: Tag
 }, {
   title: "Collections",
   href: "/admin/collections",
