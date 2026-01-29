@@ -39,31 +39,37 @@ export default function CollectionCard({ collection, variant = 'default' }: Coll
 
   if (variant === 'featured') {
     return (
-      <div className="group flex flex-col gap-4 relative">
-        <Link to={linkTarget} className="block relative aspect-[3/4] overflow-hidden rounded-md bg-secondary">
+      <div className="group relative aspect-[3/4] overflow-hidden rounded-md cursor-pointer">
+        <Link to={linkTarget} className="block w-full h-full">
+          {/* Background Image */}
           <img
             src={displayImage}
             alt={collection.name}
-            className="w-full h-full object-cover filter brightness-[0.95] contrast-[1.05] group-hover:scale-105 transition-all duration-700 ease-in-out"
+            className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
           />
-        </Link>
-        <div className="text-center space-y-3 px-2">
-          <h3 className="text-xl font-heading font-medium text-brand-dark">
-            <Link to={linkTarget}>
+
+          {/* Dark Overlay Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+
+          {/* Content Overlay */}
+          <div className="absolute inset-0 flex flex-col justify-end p-6 text-center pb-8">
+            <h3 className="text-2xl font-heading font-medium text-white mb-2 tracking-wide transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
               {collection.name}
-            </Link>
-          </h3>
-          {collection.description && (
-            <p className="text-sm text-muted-foreground line-clamp-2 max-w-[90%] mx-auto">
-              {collection.description}
-            </p>
-          )}
-          <Link to={linkTarget} className="inline-block pt-2">
-            <Button variant="outline" className="border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white uppercase text-xs tracking-widest px-6 h-10">
-              View Collection
-            </Button>
-          </Link>
-        </div>
+            </h3>
+
+            {collection.description && (
+              <p className="text-sm text-gray-200 line-clamp-2 max-w-[90%] mx-auto mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 h-0 group-hover:h-auto overflow-hidden">
+                {collection.description}
+              </p>
+            )}
+
+            <div className="mt-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-150">
+              <span className="inline-block border-b hover:border-b-2 border-white text-white text-xs uppercase tracking-widest pb-1 font-semibold">
+                View Collection
+              </span>
+            </div>
+          </div>
+        </Link>
       </div>
     );
   }

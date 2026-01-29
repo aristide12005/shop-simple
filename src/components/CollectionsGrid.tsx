@@ -83,6 +83,16 @@ export default function CollectionsGrid({ limit, hideHeader = false }: Collectio
             <CollectionCard key={collection.id} collection={collection} variant="featured" />
           ))}
         </div>
+
+        {!hideHeader && (
+          <div className="mt-12 text-center">
+            <Link to="/collections">
+              <Button variant="outline" className="border-brand-dark/20 text-brand-dark hover:bg-brand-dark hover:text-white uppercase tracking-widest px-8">
+                View All Collections
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
