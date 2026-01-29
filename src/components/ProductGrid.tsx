@@ -33,102 +33,79 @@ export default function ProductGrid({
     if (!products || products.length === 0) {
         return (
             <div className="text-center py-12 col-span-full bg-gray-50 rounded-lg">
-                <p className="text-gray-500">No products found in the catalog.</p>
+                <p className="text-gray-500 font-sans">No products found in the catalog.</p>
             </div>
         );
     }
 
     // Filter products
     const filteredProducts = products.filter(product => {
-        // Filter by Search Query
-        if (searchQuery && !product.name.toLowerCase().includes(searchQuery.toLowerCase())) {
-            return false;
-        }
-
-        // Filter by Price Range
+        if (searchQuery && !product.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
         const price = Number(product.price);
-        if (price < priceRange[0] || price > priceRange[1]) {
-            return false;
-        }
-
-        // Filter by Category (using slug)
-        if (categorySlug && product.category?.slug !== categorySlug) {
-            return false;
-        }
-
-        // Filter by Collection
-        if (collectionId && product.collection_id !== collectionId) {
-            return false;
-        }
-
+        if (price < priceRange[0] || price > priceRange[1]) return false;
+        if (categorySlug && product.category?.slug !== categorySlug) return false;
+        if (collectionId && product.collection_id !== collectionId) return false;
         return true;
     });
 
     if (filteredProducts.length === 0) {
         return (
             <div className="text-center py-12 col-span-full bg-gray-50 rounded-lg">
-                <p className="text-gray-500">No products match your filters.</p>
+                <p className="text-gray-500 font-sans">No products match your filters.</p>
             </div>
         );
     }
 
-    // Sort products
     const sortedProducts = [...filteredProducts].sort((a, b) => {
         switch (sortBy) {
-            case "price-low":
-                return Number(a.price) - Number(b.price);
-            case "price-high":
-                return Number(b.price) - Number(a.price);
-            case "newest":
-                return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-            default: // featured / default
-                return 0;
+            case "price-low": return Number(a.price) - Number(b.price);
+            case "price-high": return Number(b.price) - Number(a.price);
+            case "newest": return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+            default: return 0;
         }
     });
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {sortedProducts.map((product) => {
-                // Use the first image if available, otherwise a placeholder
                 const imageUrl = product.collection_images?.[0]?.image_url || "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600&auto=format&fit=crop";
 
                 return (
-                    <div key={product.id} className="group relative bg-white border border-gray-100 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300">
+                    <div key={product.id} className="group relative bg-transparent">
                         {/* Image Container */}
-                        <div className="aspect-[3/4] overflow-hidden bg-gray-100 relative">
+                        <div className="aspect-[3/4] overflow-hidden rounded-md bg-gray-100 relative mb-4 shadow-sm group-hover:shadow-md transition-all duration-500">
                             <img
                                 src={imageUrl}
                                 alt={product.name}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                className="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-in-out"
                             />
 
-                            {/* Overlay Actions */}
-                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                            {/* Catalog Style: Button appears at bottom of image on hover */}
+                            <div className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <Button
-                                    size="icon"
-                                    className="bg-white text-black hover:bg-design-teal hover:text-white rounded-full"
+                                    className="w-full bg-white/90 text-black hover:bg-white hover:text-design-teal shadow-sm backdrop-blur-sm"
                                     onClick={() => addToCart(product)}
                                 >
-                                    <ShoppingBag className="w-5 h-5" />
+                                    Add to Bag
                                 </Button>
-                                <Link to={`/product/${product.id}`}>
-                                    <Button size="icon" className="bg-white text-black hover:bg-design-teal hover:text-white rounded-full">
-                                        <Eye className="w-5 h-5" />
-                                    </Button>
-                                </Link>
                             </div>
                         </div>
 
-                        {/* Product Info */}
-                        <div className="p-4 text-center">
-                            {/* Category Badge */}
+                        {/* Product Info - Clean & Readable */}
+                        <div className="space-y-1">
                             {product.category && (
-                                <p className="text-xs text-gray-500 uppercase tracking-widest mb-1">
+                                <p className="text-xs text-muted-foreground uppercase tracking-widest">
                                     {product.category.name}
                                 </p>
                             )}
-                            <h3 className="font-bold text-lg mb-1 group-hover:text-design-teal transition-colors line-clamp-1">{product.name}</h3>
-                            <p className="font-serif text-design-red font-medium">${Number(product.price).toFixed(2)}</p>
+                            <Link to={`/product/${product.id}`}>
+                                <h3 className="font-sans text-lg text-brand-dark group-hover:text-design-teal transition-colors duration-300">
+                                    {product.name}
+                                </h3>
+                            </Link>
+                            <p className="font-heading text-lg font-medium text-design-dark">
+                                ${Number(product.price).toFixed(2)}
+                            </p>
                         </div>
                     </div>
                 );

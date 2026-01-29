@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -15,24 +14,21 @@ export default {
     },
     extend: {
       fontFamily: {
-        // SHEIN Style: Web Safe, Neutral Sans-Serif
-        sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
-        // 'heading' alias kept for compatibility but maps to same stack
-        heading: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+        // UPDATED: Elegant Serif for headings
+        heading: ['"Playfair Display"', 'serif'],
+        // UPDATED: Readable Sans for body
+        sans: ['"Inter"', 'sans-serif'],
       },
       colors: {
-        // Charming Seaside Palette & Design Specs
+        // Colors kept exactly as is
         "brand-primary": "#85D1DB",
         "brand-secondary": "#B3EBF2",
         "brand-accent": "#B6F2D1",
         "brand-highlight": "#C9FDF2",
         "brand-dark": "#0F172A",
-
-        // Specific Design Colors
         "design-teal": "#2A9D8F",
         "design-red": "#9B2226",
         "design-bg": "#F1F1F1",
-
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -64,13 +60,13 @@ export default {
         },
       },
       borderRadius: {
-        lg: "0px",
-        md: "0px",
-        sm: "0px",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       animation: {
-        "marquee": "marquee 25s linear infinite",
-        "fade-in-up": "fadeInUp 0.5s ease-out forwards",
+        "marquee": "marquee 35s linear infinite", // Slowed down
+        "fade-in-up": "fadeInUp 0.8s ease-out forwards", // Slowed down
       },
       keyframes: {
         marquee: {
@@ -78,7 +74,7 @@ export default {
           "100%": { transform: "translateX(-100%)" },
         },
         fadeInUp: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "0%": { opacity: "0", transform: "translateY(15px)" }, // Reduced movement
           "100%": { opacity: "1", transform: "translateY(0)" },
         }
       },

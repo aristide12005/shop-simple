@@ -2,50 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* SHEIN Style: Removed Google Fonts @import. Using Native System Fonts. */
+/* Import Fonts: Playfair Display (Headings) and Inter (Body) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap');
 
 @layer base {
   :root {
-    /* Charming Seaside Theme */
+    /* Charming Seaside Theme - Colors kept as requested */
     --background: 0 0% 100%;
-    /* #FFFFFF White */
     --foreground: 222 47% 11%;
-    /* #0F172A Dark Slate for text */
-
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-
-    /* Primary: #85D1DB (HSL approx: 188 50% 69%) */
     --primary: 188 50% 69%;
     --primary-foreground: 222 47% 11%;
-
-    /* Secondary: #B3EBF2 (HSL approx: 186 65% 82%) */
     --secondary: 186 65% 82%;
     --secondary-foreground: 222 47% 11%;
-
     --muted: 186 65% 95%;
-    /* Very light blue wash */
     --muted-foreground: 215 16% 47%;
-
-    /* Accent: #B6F2D1 (HSL approx: 147 65% 83%) */
     --accent: 147 65% 83%;
     --accent-foreground: 222 47% 11%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 186 30% 90%;
     --input: 186 30% 90%;
     --ring: 188 50% 69%;
 
-    --radius: 0px;
+    /* UPDATED: Increased radius for a softer, more comfortable feel (was 0px) */
+    --radius: 0.75rem;
   }
 
   .dark {
-    /* Keeping Dark mode somewhat consistent but mapped to palette */
     --background: 222 47% 11%;
     --foreground: 0 0% 100%;
     --primary: 188 50% 69%;
@@ -60,19 +47,21 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /* UPDATED: Use Inter for readability */
+    font-family: 'Inter', sans-serif;
+    /* UPDATED: Increase line height for older eyes */
+    line-height: 1.7;
   }
 
-  /* Reset Headings to basic Sans */
+  /* UPDATED: Apply Serif font to headings */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    letter-spacing: normal;
-    /* SHEIN uses normal spacing, rarely tracked out */
+    font-family: 'Playfair Display', serif;
+    letter-spacing: -0.01em;
     font-weight: 700;
   }
 }
