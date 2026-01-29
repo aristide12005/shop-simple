@@ -2,7 +2,12 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -14,29 +19,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        // UPDATED: Elegant Serif for headings
-        heading: ['"Playfair Display"', 'serif'],
-        // UPDATED: Readable Sans for body
-        sans: ['"Inter"', 'sans-serif'],
+        serif: ["Playfair Display", "Georgia", "serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
       },
       colors: {
-        // Colors kept exactly as is
-        // Premium Redesign Palette
-        "logo-brown": "#8D5B4C", // Kept as tertiary accent
-        "logo-gold": "#C4A052",  // New Primary Accent (Warm Gold)
-        "logo-charcoal": "#1A1A1A", // New Primary Dark (Deep Charcoal)
-        "logo-cream": "#F9F9F9", // Soft Off-White
-
-        // Brand colors re-mapped to Premium Strategy
-        "brand-primary": "#1A1A1A",    // Main is now Charcoal
-        "brand-secondary": "#8D5B4C",  // Secondary is Logo Brown
-        "brand-accent": "#C4A052",     // Accent is Warm Gold
-        "brand-highlight": "#F5F5F7",  // Backgrounds now soft gray (Apple style)
-        "brand-dark": "#111111",       // Almost Black
-
-        "design-teal": "#C4A052", // Deprecated: mapped to Gold
-        "design-red": "#9B2226",
-        "design-bg": "#F1F1F1",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -49,6 +35,10 @@ export default {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -66,25 +56,68 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-background))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          primary: "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          accent: "hsl(var(--sidebar-accent))",
+          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          border: "hsl(var(--sidebar-border))",
+          ring: "hsl(var(--sidebar-ring))",
+        },
+        gold: "hsl(var(--gold))",
+        charcoal: "hsl(var(--charcoal))",
+        cream: "hsl(var(--cream))",
+        "warm-gray": "hsl(var(--warm-gray))",
+        // Keeping legacy names mapped for safety until full refactor
+        "logo-gold": "hsl(var(--gold))",
+        "logo-charcoal": "hsl(var(--charcoal))",
+        "logo-brown": "hsl(var(--accent))",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      animation: {
-        "marquee": "marquee 35s linear infinite", // Slowed down
-        "fade-in-up": "fadeInUp 0.8s ease-out forwards", // Slowed down
-      },
       keyframes: {
-        marquee: {
-          "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-100%)" },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
-        fadeInUp: {
-          "0%": { opacity: "0", transform: "translateY(15px)" }, // Reduced movement
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(30px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
-        }
+        },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "slide-up": {
+          "0%": { opacity: "0", transform: "translateY(100%)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "scale-in": {
+          "0%": { opacity: "0", transform: "scale(0.95)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-up": "fade-up 0.8s ease-out forwards",
+        "fade-in": "fade-in 1s ease-out forwards",
+        "slide-up": "slide-up 0.6s ease-out forwards",
+        "scale-in": "scale-in 0.5s ease-out forwards",
+      },
+      transitionDuration: {
+        "400": "400ms",
+        "600": "600ms",
+        "800": "800ms",
       },
     },
   },

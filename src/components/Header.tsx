@@ -1,157 +1,118 @@
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X, ShoppingBag } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ShoppingBag, Menu, X, User } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
-import { useAuth } from '@/hooks/useAuth';
-import CartModal from './CartModal';
-import logo from '@/assets/logo.png';
+const navLinks = [
+  { name: "Collections", href: "#collections" },
+  { name: "Shop", href: "/shop" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+];
 
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X, User, Search } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
-import { useAuth } from '@/hooks/useAuth';
-import CartModal from './CartModal';
-import logo from '@/assets/logo.png';
-
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X, User, Search } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
-import { useAuth } from '@/hooks/useAuth';
-import CartModal from './CartModal';
-import logo from '@/assets/logo.png';
-
-export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { totalItems, setIsCartOpen } = useCart();
-  const { user, signOut } = useAuth();
-  const location = useLocation();
 
-  // Scroll detection
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Shop', path: '/shop' },
-    { name: 'Collections', path: '/collections' },
-    { name: 'About', path: '/about' },
-  ];
-
-  const isHome = location.pathname === '/';
-  // Text color logic: On Home and not scrolled -> White, else -> Charcoal
-  const textColorClass = isHome && !isScrolled ? 'text-white hover:text-logo-gold' : 'text-logo-charcoal hover:text-logo-gold';
-  const logoTextClass = isHome && !isScrolled ? 'text-white' : 'text-logo-charcoal';
 
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-in-out ${isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm py-4'
-          : 'bg-transparent py-8'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+            ? "glass border-b border-white/10 py-4"
+            : "bg-transparent py-6"
           }`}
       >
-        <div className="container mx-auto px-4 md:px-12 flex items-center justify-between">
-
-          {/* 1. Logo (Left) */}
-          <Link to="/" className="flex items-center gap-3 z-50 group">
-            {/* Ideally replace with a white version of the logo for dark backgrounds if available, filtering for now */}
-            <img
-              src={logo}
-              alt="Accicoa"
-              className={`h-10 w-auto transition-all duration-300 ${isHome && !isScrolled ? 'brightness-0 invert' : ''}`}
-            />
-            <span className={`text-xl font-heading font-bold tracking-tight uppercase transition-colors duration-300 ${logoTextClass}`}>
-              Accicoa
+        <nav className="container-luxury flex items-center justify-between">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="font-serif text-2xl md:text-3xl font-medium tracking-wide"
+          >
+            <span className={isScrolled ? "text-foreground" : "text-white"}>
+              ACCICOA
             </span>
           </Link>
 
-          {/* 2. Navigation (Center) - Clean Text Links */}
-          <nav className="hidden md:flex items-center gap-10">
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex items-center gap-12">
             {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`relative text-sm font-medium tracking-[0.1em] uppercase transition-colors duration-300 group py-2 ${textColorClass}`}
-              >
-                {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-logo-gold transition-all duration-500 group-hover:w-full" />
-              </Link>
+              <li key={link.name}>
+                <Link
+                  to={link.href}
+                  className={`link-underline text-sm font-medium tracking-luxury uppercase transition-colors duration-300 ${isScrolled
+                      ? "text-foreground/80 hover:text-foreground"
+                      : "text-white/90 hover:text-white"
+                    }`}
+                >
+                  {link.name}
+                </Link>
+              </li>
             ))}
-          </nav>
+          </ul>
 
-          {/* 3. Actions (Right) - Minimal Icons */}
-          <div className={`hidden md:flex items-center gap-6 ${textColorClass}`}>
-            <button className="transition-colors duration-300 hover:text-logo-gold">
-              <Search className="w-5 h-5" />
-            </button>
-
-            {user ? (
-              <button onClick={() => signOut()} title="Sign Out" className="transition-colors duration-300 hover:text-logo-gold">
-                <User className="w-5 h-5" />
-              </button>
-            ) : (
-              <Link to="/auth" className="transition-colors duration-300 hover:text-logo-gold">
-                <User className="w-5 h-5" />
-              </Link>
-            )}
-
+          {/* Right Side */}
+          <div className="flex items-center gap-6">
+            {/* Cart */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative group transition-colors duration-300 hover:text-logo-gold"
+              className={`relative transition-colors duration-300 ${isScrolled ? "text-foreground" : "text-white"
+                }`}
+              aria-label="Shopping cart"
             >
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="w-5 h-5" strokeWidth={1.5} />
               {totalItems > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-logo-gold text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full animate-bounce">
+                <span className="absolute -top-2 -right-2 w-5 h-5 bg-accent text-accent-foreground text-xs rounded-full flex items-center justify-center font-medium">
                   {totalItems}
                 </span>
               )}
             </button>
-          </div>
 
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden z-50 p-2 transition-colors duration-300 ${isMobileMenuOpen ? 'text-logo-charcoal' : textColorClass}`}
-          >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Menu Overlay */}
-        <div
-          className={`fixed inset-0 bg-white z-40 transition-transform duration-700 cubic-bezier(0.77,0,0.175,1) flex flex-col items-center justify-center space-y-8 ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-            }`}
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-4xl font-heading font-medium text-logo-charcoal hover:text-logo-gold transition-colors tracking-tight"
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`md:hidden transition-colors duration-300 ${isScrolled ? "text-foreground" : "text-white"
+                }`}
+              aria-label="Toggle menu"
             >
-              {link.name}
-            </Link>
-          ))}
-          <div className="flex gap-8 mt-12 w-1/2 justify-center">
-            <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>
-              <User className="h-8 w-8 text-logo-charcoal hover:text-logo-gold transition-colors" />
-            </Link>
-            <button onClick={() => { setIsCartOpen(true); setIsMobileMenuOpen(false); }}>
-              <ShoppingBag className="h-8 w-8 text-logo-charcoal hover:text-logo-gold transition-colors" />
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
-        </div>
+        </nav>
       </header>
-      <CartModal />
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-background md:hidden animate-fade-in">
+          <nav className="flex flex-col items-center justify-center h-full gap-8">
+            {navLinks.map((link, index) => (
+              <Link
+                key={link.name}
+                to={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="font-serif text-3xl font-medium tracking-wide text-foreground hover:text-accent transition-colors animate-fade-up"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      )}
     </>
   );
-}
+};
+
+export default Header;

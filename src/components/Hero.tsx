@@ -1,52 +1,61 @@
-import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
+import { ChevronDown } from "lucide-react";
 
-export default function Hero() {
+const Hero = () => {
   return (
-    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-      {/* Background Image with Parallax-like fixed feel - Apple Style */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] hover:scale-105"
-        style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2800&auto=format&fit=crop')",
-          backgroundPosition: "center 30%"
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 md:bg-black/40" />
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1590735213920-68192a487bc2?q=80&w=2070&auto=format&fit=crop"
+          alt="African fashion model"
+          className="w-full h-full object-cover object-center animate-scale-in"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">
-
-        {/* Subtle Brand Tag - Aesop Style Typography */}
-        <span className="mb-8 inline-block text-logo-gold text-xs md:text-sm font-bold tracking-[0.3em] uppercase opacity-0 animate-fade-in-up border-b border-logo-gold pb-2" style={{ animationDelay: '0.2s' }}>
-          Modern African Luxury
+      {/* Content */}
+      <div className="relative h-full flex flex-col items-center justify-center text-center text-white px-6">
+        <span
+          className="text-sm md:text-base font-sans tracking-luxury uppercase text-white/80 mb-6 alpha opacity-0 animate-fade-up"
+          style={{ animationDelay: "300ms" }}
+        >
+          Premium African Fashion
         </span>
 
-        {/* Cinematic Heading - Massive Serif */}
-        <h1 className="font-heading text-5xl md:text-7xl lg:text-9xl text-white font-bold leading-none mb-8 tracking-tight opacity-0 animate-fade-in-up drop-shadow-2xl" style={{ animationDelay: '0.4s' }}>
-          Elegance <br className="md:hidden" /> Redefined.
+        <h1
+          className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight mb-6 text-balance max-w-4xl opacity-0 animate-fade-up"
+          style={{ animationDelay: "500ms" }}
+        >
+          Elegance Rooted in Heritage
         </h1>
 
-        {/* Refined Subtitle */}
-        <p className="max-w-xl text-lg md:text-xl text-neutral-200 font-light leading-relaxed mb-12 opacity-0 animate-fade-in-up tracking-wide" style={{ animationDelay: '0.6s' }}>
-          Timeless pieces crafted with heritage and designed for the contemporary soul.
+        <p
+          className="font-sans text-lg md:text-xl text-white/80 max-w-xl mb-12 font-light opacity-0 animate-fade-up"
+          style={{ animationDelay: "700ms" }}
+        >
+          Discover timeless pieces that celebrate African craftsmanship with contemporary sophistication
         </p>
 
-        {/* Primary Action - Ghost/Glass Button */}
-        <div className="flex flex-col md:flex-row gap-6 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
-          <Link to="/shop">
-            <Button size="lg" className="bg-white/10 backdrop-blur-md border border-white/30 text-white hover:bg-white hover:text-logo-charcoal hover:scale-105 transition-all duration-500 rounded-full px-12 py-8 text-sm uppercase tracking-widest font-bold min-w-[220px]">
-              Explore Collection
-            </Button>
-          </Link>
-        </div>
-
+        <a
+          href="#collections"
+          className="btn-gold opacity-0 animate-fade-up"
+          style={{ animationDelay: "900ms" }}
+        >
+          Explore Collections
+        </a>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
-        <div className="w-[1px] h-20 bg-gradient-to-b from-transparent via-white/50 to-transparent" />
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 opacity-0 animate-fade-in"
+        style={{ animationDelay: "1500ms" }}
+      >
+        <div className="animate-bounce duration-[2s]">
+          <ChevronDown className="w-6 h-6" />
+        </div>
       </div>
     </section>
   );
-}
+};
+
+export default Hero;

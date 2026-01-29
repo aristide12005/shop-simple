@@ -3,40 +3,32 @@ import Hero from '@/components/Hero';
 import CollectionsGrid from '@/components/CollectionsGrid';
 import FeaturedEssentials from '@/components/FeaturedEssentials';
 import BrandTrust from '@/components/BrandTrust';
-import LifestyleMessage from '@/components/LifestyleMessage';
 import BrandQuote from '@/components/BrandQuote';
 import Footer from '@/components/Footer';
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-white text-logo-charcoal font-sans selection:bg-logo-gold/30">
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent/30">
       <Header />
 
       <main>
-        {/* 1. Hero (Welcome) - Full Viewport */}
+        {/* 1. Hero (Welcome) */}
         <Hero />
 
-        {/* 2. Brand Quote (Narrative Anchor) */}
-        <BrandQuote />
+        {/* 2. Featured Collections */}
+        <CollectionsGrid limit={4} />
 
-        {/* 3. Top Categories (Collections) */}
-        <section id="collections" className="py-0 bg-white">
-          <div className="container mx-auto px-4 md:px-12">
-            <CollectionsGrid limit={3} hideHeader={true} />
-          </div>
-        </section>
-
-        {/* 4. Featured Items (Essentials) - Premium Grid */}
+        {/* 3. Selected Products (Essentials) */}
         <FeaturedEssentials />
 
-        {/* 5. Brand Trust (Why Buy Here) */}
+        {/* 4. Value Propositions (Brand Trust) */}
         <BrandTrust />
 
-        {/* 6. Lifestyle Message (Visual) */}
-        <LifestyleMessage />
+        {/* 5. Brand Quote */}
+        <BrandQuote />
       </main>
 
-      {/* 7. Footer (Clean) */}
+      {/* 6. Footer */}
       <Footer />
     </div>
   );
