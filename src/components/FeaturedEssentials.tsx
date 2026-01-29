@@ -4,11 +4,11 @@ import { Button } from "./ui/button";
 
 export default function FeaturedEssentials() {
     return (
-        <section className="py-24 bg-white border-t border-gray-50">
+        <section className="py-12 bg-white border-t border-gray-50">
             <div className="container mx-auto px-4 md:px-8">
 
                 {/* Header: Calm & Centered */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-8">
                     <span className="text-design-teal text-xs font-bold uppercase tracking-[0.2em] mb-2 block">
                         Selected for You
                     </span>

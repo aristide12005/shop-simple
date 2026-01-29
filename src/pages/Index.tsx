@@ -16,9 +16,9 @@ export default function Index() {
         <Hero />
 
         {/* 2. Top Categories (Collections - Limit 4) */}
-        <section id="collections" className="py-20 bg-white">
+        <section id="collections" className="py-10 bg-white">
           <div className="container mx-auto px-4 md:px-8">
-            <h2 className="font-heading text-2xl md:text-3xl text-center text-brand-dark mb-12 leading-relaxed max-w-3xl mx-auto">
+            <h2 className="font-heading text-2xl md:text-3xl text-center text-brand-dark mb-8 leading-relaxed max-w-3xl mx-auto">
               Explore our curated selection of authentic African craftsmanship
             </h2>
             <CollectionsGrid limit={4} hideHeader={true} />
