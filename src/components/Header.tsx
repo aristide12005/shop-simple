@@ -5,6 +5,7 @@ import { ShoppingBag, Menu, X, User } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/hooks/useAuth';
 import CartModal from './CartModal';
+import logo from '@/assets/logo.png';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,9 +19,9 @@ export default function Header() {
 
           {/* 1. Logo (Left) */}
           <Link to="/" className="flex items-center gap-2 z-50">
-            {/* Simple Text Logo based on image */}
-            <h1 className="text-3xl font-bold tracking-tight text-black uppercase font-sans">
-              <span className="text-4xl text-black">▵</span> ACCICOA
+            <img src={logo} alt="Accicoa" className="h-12 w-auto" />
+            <h1 className="text-2xl font-bold tracking-tight text-black uppercase font-sans">
+              ACCICOA
             </h1>
           </Link>
 
