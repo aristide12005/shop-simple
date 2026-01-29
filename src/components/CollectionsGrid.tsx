@@ -1,4 +1,4 @@
-import { useCollections } from '@/hooks/useCollections';
+import { useProductCollections } from '@/hooks/useProductCollections';
 import CollectionCard from './CollectionCard';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -8,7 +8,7 @@ interface CollectionsGridProps {
 }
 
 export default function CollectionsGrid({ limit, hideHeader = false }: CollectionsGridProps) {
-  const { data: collections, isLoading, error } = useCollections();
+  const { data: collections, isLoading, error } = useProductCollections();
 
   if (isLoading) {
     return (
