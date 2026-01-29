@@ -78,9 +78,15 @@ export default function CollectionsGrid({ limit, hideHeader = false }: Collectio
             </p>
           </>
         )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {displayedCollections.map((collection) => (
-            <CollectionCard key={collection.id} collection={collection} variant="featured" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[400px]">
+          {displayedCollections.map((collection, index) => (
+            <div
+              key={collection.id}
+              className={`relative group overflow-hidden rounded-none ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''
+                }`}
+            >
+              <CollectionCard collection={collection} variant="featured" />
+            </div>
           ))}
         </div>
 

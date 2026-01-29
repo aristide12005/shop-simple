@@ -28,7 +28,7 @@ export default function ProductGrid({
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-64 w-full col-span-full">
-                <Loader2 className="w-8 h-8 animate-spin text-design-teal" />
+                <Loader2 className="w-8 h-8 animate-spin text-logo-brown" />
             </div>
         );
     }
@@ -94,7 +94,7 @@ export default function ProductGrid({
                                 onClick={(e) => e.stopPropagation()} // Prevent navigating when clicking action area
                             >
                                 <Button
-                                    className="w-full bg-white/90 text-black hover:bg-white hover:text-design-teal shadow-sm backdrop-blur-sm"
+                                    className="w-full bg-white/95 text-black hover:bg-logo-brown hover:text-white shadow-sm backdrop-blur-sm transition-colors duration-300 rounded-none uppercase tracking-widest text-xs font-bold"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         addToCart(product);
@@ -105,7 +105,7 @@ export default function ProductGrid({
                                 </Button>
                                 <Button
                                     variant="secondary"
-                                    className="w-full bg-black/70 text-white hover:bg-black hover:text-white shadow-sm backdrop-blur-sm"
+                                    className="w-full bg-black/80 text-white hover:bg-black hover:text-white shadow-sm backdrop-blur-sm rounded-none uppercase tracking-widest text-xs"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         navigate(`/product/${product.id}`);
@@ -125,11 +125,11 @@ export default function ProductGrid({
                                 </p>
                             )}
                             <Link to={`/product/${product.id}`}>
-                                <h3 className="font-sans text-lg text-brand-dark group-hover:text-design-teal transition-colors duration-300">
+                                <h3 className="font-sans text-lg text-brand-dark group-hover:text-logo-brown transition-colors duration-300">
                                     {product.name}
                                 </h3>
                             </Link>
-                            <p className="font-heading text-lg font-medium text-design-dark">
+                            <p className="font-heading text-lg font-medium text-logo-brown">
                                 ${Number(product.price).toFixed(2)}
                             </p>
                         </div>

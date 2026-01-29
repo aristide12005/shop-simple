@@ -20,16 +20,16 @@ export default function BrandTrust() {
     ];
 
     return (
-        <section className="py-16 bg-[#F8F9FA]">
+        <section className="py-20 bg-white border-t border-gray-100">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {features.map((feature, idx) => (
-                        <div key={idx} className="flex flex-col items-center text-center space-y-4 p-6 rounded-lg hover:bg-white hover:shadow-sm transition-all duration-300">
-                            <div className="p-3 bg-white rounded-full shadow-sm">
+                        <div key={idx} className="group flex flex-col items-center text-center space-y-4 p-8 border border-gray-100 hover:border-logo-brown hover:shadow-sm transition-all duration-300 bg-white">
+                            <div className="p-4 bg-neutral-50 rounded-full group-hover:bg-logo-brown/5 transition-colors duration-300">
                                 {feature.icon}
                             </div>
-                            <h3 className="font-heading text-xl font-bold text-brand-dark">{feature.title}</h3>
-                            <p className="text-muted-foreground">{feature.text}</p>
+                            <h3 className="font-heading text-xl font-bold text-brand-dark uppercase tracking-wide">{feature.title}</h3>
+                            <p className="text-muted-foreground text-sm font-light leading-relaxed max-w-xs">{feature.text}</p>
                         </div>
                     ))}
                 </div>
