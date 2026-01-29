@@ -10,7 +10,7 @@ export default function Hero() {
       {/* Background - Kept clean/neutral as per "Mature UI" guide */}
 
       <div className="container mx-auto px-4 text-center relative z-10 py-12">
-        <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-brand-dark mb-6 animate-fade-in-up leading-tight tracking-wider">
+        <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl text-brand-dark mb-6 animate-fade-in-up leading-tight tracking-wider">
           Welcome to Acci Corner of Africa
         </h1>
 

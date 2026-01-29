@@ -60,13 +60,26 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 z-50"
-          >
-            {isMobileMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
-          </button>
+          {/* Mobile Actions (Right) */}
+          <div className="flex items-center gap-4 md:hidden z-50">
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2"
+            >
+              <ShoppingBag className="h-6 w-6 text-black" />
+              {totalItems > 0 && (
+                <span className="absolute top-0 right-0 bg-design-red text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2"
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu Overlay */}
