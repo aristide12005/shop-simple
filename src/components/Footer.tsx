@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
+import logo from '@/assets/logo.png';
 
 export default function Footer() {
   return (
@@ -6,7 +7,10 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-serif text-2xl font-bold mb-4">Accicoa</h3>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={logo} alt="Accicoa" className="h-10 w-auto" />
+              <h3 className="font-serif text-2xl font-bold">Accicoa</h3>
+            </div>
             <p className="text-background/70 text-sm">
               redefining streetwear with a minimalist, industrial edge.
               Designed for the modern silhouette.
