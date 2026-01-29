@@ -6,13 +6,14 @@ import { useCart } from "@/context/CartContext";
 import { Loader2, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import ProductGrid from "@/components/ProductGrid";
 
 const fetchProduct = async (id: string) => {
   const { data, error } = await supabase
     .from('collections') // Changed from 'products' to 'collections'
     .select(`
       *,
-      category:categories(name),
+      category:categories(name, slug),
       collection_images(image_url)
     `)
     .eq('id', id)
@@ -72,17 +73,18 @@ export default function ProductDetails() {
           <span className="text-black font-medium line-clamp-1">{product.name}</span>
         </nav>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 mb-24">
 
           {/* LEFT: Image Section */}
           {/* Fixed "Large Excess": Added max-w constraints so image doesn't explode on large screens */}
           <div className="md:col-span-7 space-y-6">
             <div className="relative bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 max-w-lg mx-auto md:mx-0 md:max-w-full">
-              <div className="aspect-[3/4] md:aspect-[4/5] relative">
+              {/* Constrained Height: max-h-[60vh] ensures it fits on screen without scrolling */}
+              <div className="relative h-[50vh] md:h-[60vh] w-full">
                 <img
                   src={mainImage}
                   alt={product.name}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-contain bg-gray-50"
                 />
               </div>
             </div>
@@ -159,7 +161,7 @@ export default function ProductDetails() {
 
                 <Button
                   size="lg"
-                  className="w-full bg-design-dark text-white hover:bg-design-dark/90 h-12 text-base shadow-md transition-transform active:scale-[0.98]"
+                  className="w-full bg-design-dark text-white hover:bg-[#33ADA0] h-12 text-base shadow-md transition-transform active:scale-[0.98]"
                   onClick={() => addToCart(product)}
                 >
                   <ShoppingBag className="mr-2 w-4 h-4" />
@@ -170,6 +172,17 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
+
+        {/* Suggested Products Section */}
+        <div className="border-t border-gray-200 pt-16">
+          <h2 className="text-3xl font-heading font-bold text-center mb-12">You Might Also Like</h2>
+          <ProductGrid
+            categorySlug={product.category?.slug}
+            searchQuery="" // Clear any search query
+            sortBy="featured"
+          />
+        </div>
+
       </div>
     </div>
   );
