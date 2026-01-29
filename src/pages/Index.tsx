@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-white text-foreground font-sans selection:bg-design-teal/20">
+    <div className="min-h-screen bg-white text-foreground font-sans selection:bg-logo-ochre/20">
       <Header />
 
       <main>

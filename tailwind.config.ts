@@ -21,11 +21,22 @@ export default {
       },
       colors: {
         // Colors kept exactly as is
-        "brand-primary": "#85D1DB",
-        "brand-secondary": "#B3EBF2",
-        "brand-accent": "#B6F2D1",
-        "brand-highlight": "#C9FDF2",
-        "brand-dark": "#0F172A",
+        // Logo-derived palette
+        "logo-brown": "#8D5B4C", // Warm Earth
+        "logo-ochre": "#E3A82B", // mustard/gold accent
+        "logo-blue": "#1B3B5A",  // Deep Blue
+        "logo-black": "#1A1A1A", // Soft Black
+
+        // Neutral palette for "Clean Air"
+        "neutral-50": "#F9FAFB",
+        "neutral-100": "#F3F4F6",
+
+        // Brand colors re-mapped to logo strategy
+        "brand-primary": "#8D5B4C",    // Main accent now brown
+        "brand-secondary": "#1B3B5A",  // Secondary now deep blue
+        "brand-accent": "#E3A82B",     // Highlights now ochre
+        "brand-highlight": "#F7F7F7",  // Backgrounds now off-white
+        "brand-dark": "#1A1A1A",
         "design-teal": "#2A9D8F",
         "design-red": "#9B2226",
         "design-bg": "#F1F1F1",

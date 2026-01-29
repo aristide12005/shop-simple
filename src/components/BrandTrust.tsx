@@ -3,17 +3,17 @@ import { ShieldCheck, Ruler, Truck } from "lucide-react";
 export default function BrandTrust() {
     const features = [
         {
-            icon: <ShieldCheck className="w-8 h-8 text-design-teal" />,
+            icon: <ShieldCheck className="w-8 h-8 text-logo-brown" />,
             title: "Quality Fabrics",
             text: "Premium materials that last."
         },
         {
-            icon: <Ruler className="w-8 h-8 text-design-teal" />,
+            icon: <Ruler className="w-8 h-8 text-logo-brown" />,
             title: "Perfect Fits",
             text: "Designed for everyday life."
         },
         {
-            icon: <Truck className="w-8 h-8 text-design-teal" />,
+            icon: <Truck className="w-8 h-8 text-logo-brown" />,
             title: "Easy Returns",
             text: "Shop with peace of mind."
         }

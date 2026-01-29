@@ -9,7 +9,7 @@ export default function FeaturedEssentials() {
 
                 {/* Header: Calm & Centered */}
                 <div className="text-center mb-8">
-                    <span className="text-design-teal text-xs font-bold uppercase tracking-[0.2em] mb-2 block">
+                    <span className="text-logo-ochre text-xs font-bold uppercase tracking-[0.2em] mb-2 block">
                         Selected for You
                     </span>
                     {/* Title removed as per user request */}

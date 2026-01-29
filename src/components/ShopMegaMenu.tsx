@@ -27,7 +27,7 @@ export default function ShopMegaMenu() {
         >
             {/* Trigger Bar */}
             <div className="container mx-auto px-4 md:px-8 py-3 flex items-center gap-6 text-sm font-medium tracking-wide">
-                <span className="flex items-center gap-2 cursor-pointer hover:text-design-teal transition-colors uppercase">
+                <span className="flex items-center gap-2 cursor-pointer hover:text-logo-brown transition-colors uppercase">
                     Shop By Category <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
                 </span>
                 <span className="text-gray-400">|</span>
@@ -51,7 +51,7 @@ export default function ShopMegaMenu() {
                                 <li key={cat.name}>
                                     <Link
                                         to={cat.href}
-                                        className="text-lg font-serif hover:text-design-teal hover:pl-2 transition-all block"
+                                        className="text-lg font-serif hover:text-logo-brown hover:pl-2 transition-all block"
                                     >
                                         {cat.name}
                                     </Link>
@@ -66,7 +66,7 @@ export default function ShopMegaMenu() {
 
                         {isLoading ? (
                             <div className="flex items-center justify-center h-20">
-                                <Loader2 className="w-6 h-6 animate-spin text-design-teal" />
+                                <Loader2 className="w-6 h-6 animate-spin text-logo-brown" />
                             </div>
                         ) : (
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -88,7 +88,7 @@ export default function ShopMegaMenu() {
                                                 />
                                             </div>
                                             <div>
-                                                <span className="block font-bold text-gray-900 group-hover:text-design-teal transition-colors line-clamp-1">
+                                                <span className="block font-bold text-gray-900 group-hover:text-logo-brown transition-colors line-clamp-1">
                                                     {product.name}
                                                 </span>
                                                 <span className="text-xs text-gray-500">View Product</span>
