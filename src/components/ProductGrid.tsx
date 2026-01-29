@@ -2,7 +2,7 @@ import { ShoppingBag, Eye, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useProducts } from "@/hooks/useProducts";
-// import { useCart } from "@/context/CartContext"; // Cart context no longer needed here
+import { useCart } from "@/context/CartContext";
 
 interface ProductGridProps {
     sortBy?: string;
@@ -21,7 +21,7 @@ export default function ProductGrid({
 }: ProductGridProps) {
     const { data: products, isLoading } = useProducts();
     const navigate = useNavigate();
-    // const { addToCart } = useCart(); // Cart context no longer needed here
+    const { addToCart } = useCart();
 
     if (isLoading) {
         return (
@@ -74,19 +74,40 @@ export default function ProductGrid({
                 return (
                     <div key={product.id} className="group relative bg-transparent">
                         {/* Image Container */}
-                        <div className="aspect-[3/4] overflow-hidden rounded-md bg-gray-100 relative mb-4 shadow-sm group-hover:shadow-md transition-all duration-500">
+                        <div
+                            className="aspect-[3/4] overflow-hidden rounded-md bg-gray-100 relative mb-4 shadow-sm group-hover:shadow-md transition-all duration-500 cursor-pointer"
+                            onClick={() => navigate(`/product/${product.id}`)}
+                        >
                             <img
                                 src={imageUrl}
                                 alt={product.name}
                                 className="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-in-out"
                             />
 
-                            {/* Catalog Style: Button appears at bottom of image on hover */}
-                            <div className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            {/* Catalog Style: Buttons appear at bottom of image on hover */}
+                            <div
+                                className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-2"
+                                onClick={(e) => e.stopPropagation()} // Prevent navigating when clicking action area
+                            >
                                 <Button
                                     className="w-full bg-white/90 text-black hover:bg-white hover:text-design-teal shadow-sm backdrop-blur-sm"
-                                    onClick={() => navigate(`/product/${product.id}`)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        addToCart(product);
+                                    }}
                                 >
+                                    <ShoppingBag className="w-4 h-4 mr-2" />
+                                    Add to Bag
+                                </Button>
+                                <Button
+                                    variant="secondary"
+                                    className="w-full bg-black/70 text-white hover:bg-black hover:text-white shadow-sm backdrop-blur-sm"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        navigate(`/product/${product.id}`);
+                                    }}
+                                >
+                                    <Eye className="w-4 h-4 mr-2" />
                                     View Details
                                 </Button>
                             </div>
