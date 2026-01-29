@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const fetchProduct = async (id: string) => {
   const { data, error } = await supabase
-    .from('products')
+    .from('collections') // Changed from 'products' to 'collections'
     .select(`
       *,
       category:categories(name),
