@@ -131,6 +131,28 @@ export default function ProductDetails() {
                 {product.description}
               </div>
 
+              {/* Stock Status */}
+              {(() => {
+                const stockQty = product.stock_quantity ?? 0;
+                const isOutOfStock = stockQty === 0;
+                const isLowStock = stockQty > 0 && stockQty <= 5;
+                
+                return (
+                  <>
+                    {isOutOfStock && (
+                      <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 text-sm font-medium uppercase tracking-wide text-center">
+                        Currently Out of Stock
+                      </div>
+                    )}
+                    {isLowStock && (
+                      <div className="bg-logo-ochre/10 border border-logo-ochre/30 text-logo-ochre px-4 py-3 text-sm font-medium uppercase tracking-wide text-center">
+                        Only {stockQty} left — Order soon!
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+
               {/* Actions */}
               <div className="space-y-8 pt-6">
                 {/* Quantity */}
@@ -140,13 +162,15 @@ export default function ProductDetails() {
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
                       className="p-3 hover:bg-gray-50 text-gray-500 transition-colors"
+                      disabled={(product.stock_quantity ?? 0) === 0}
                     >
                       <Minus className="w-3 h-3" />
                     </button>
                     <span className="w-12 text-center text-sm font-medium">{quantity}</span>
                     <button
-                      onClick={() => setQuantity(quantity + 1)}
+                      onClick={() => setQuantity(Math.min(quantity + 1, product.stock_quantity ?? 99))}
                       className="p-3 hover:bg-gray-50 text-gray-500 transition-colors"
+                      disabled={(product.stock_quantity ?? 0) === 0}
                     >
                       <Plus className="w-3 h-3" />
                     </button>
@@ -155,14 +179,19 @@ export default function ProductDetails() {
 
                 <Button
                   size="lg"
-                  className="w-full bg-brand-dark text-white hover:bg-logo-brown h-14 text-sm uppercase tracking-[0.15em] font-bold shadow-lg transition-all duration-300 rounded-none transform active:scale-[0.99]"
+                  className={`w-full h-14 text-sm uppercase tracking-[0.15em] font-bold shadow-lg transition-all duration-300 rounded-none transform active:scale-[0.99] ${
+                    (product.stock_quantity ?? 0) === 0
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300'
+                      : 'bg-brand-dark text-white hover:bg-logo-brown'
+                  }`}
+                  disabled={(product.stock_quantity ?? 0) === 0}
                   onClick={() => addToCart({
                     ...product,
                     collection_images: product.collection_images || []
                   } as any)}
                 >
                   <ShoppingBag className="mr-3 w-4 h-4" />
-                  Add to Bag
+                  {(product.stock_quantity ?? 0) === 0 ? 'Out of Stock' : 'Add to Bag'}
                 </Button>
 
                 <p className="text-xs text-center text-gray-400 uppercase tracking-widest">

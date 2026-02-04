@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ShopMegaMenu from '@/components/ShopMegaMenu';
 import ShopFilters from '@/components/ShopFilters';
 import ProductGrid from '@/components/ProductGrid';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link, useSearchParams } from 'react-router-dom';
+
+const ITEMS_PER_PAGE = 9;
 
 export default function Shop() {
     const [searchParams] = useSearchParams();
@@ -16,15 +18,36 @@ export default function Shop() {
     const [sortBy, setSortBy] = useState("featured");
     const [priceRange, setPriceRange] = useState([0, 1000]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalProducts, setTotalProducts] = useState(0);
+
+    const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+
+    const handleTotalCountChange = useCallback((count: number) => {
+        setTotalProducts(count);
+    }, []);
+
+    // Reset to page 1 when filters change
+    const handleSortChange = (value: string) => {
+        setSortBy(value);
+        setCurrentPage(1);
+    };
+
+    const handlePriceRangeChange = (value: number[]) => {
+        setPriceRange(value);
+        setCurrentPage(1);
+    };
+
+    const handleSearchChange = (value: string) => {
+        setSearchQuery(value);
+        setCurrentPage(1);
+    };
 
     return (
         <div className="min-h-screen bg-design-bg text-foreground font-sans">
             <Header />
 
-            {/* 1. Header Section: Crafted for Kings & Queens (Removed) */}
-
-
-            {/* 2. Mega Menu (Visual Navigation) */}
+            {/* Mega Menu (Visual Navigation) */}
             <ShopMegaMenu />
 
             <main className="container mx-auto px-4 md:px-8 py-12">
@@ -34,11 +57,11 @@ export default function Shop() {
                     <aside className="hidden md:block md:col-span-1">
                         <ShopFilters
                             sortBy={sortBy}
-                            onSortChange={setSortBy}
+                            onSortChange={handleSortChange}
                             priceRange={priceRange}
-                            setPriceRange={setPriceRange}
+                            setPriceRange={handlePriceRangeChange}
                             searchQuery={searchQuery}
-                            setSearchQuery={setSearchQuery}
+                            setSearchQuery={handleSearchChange}
                         />
                     </aside>
 
@@ -50,9 +73,8 @@ export default function Shop() {
                                     ? `Showing results for ${categoryDetail}`
                                     : collectionId
                                         ? "Showing collection items"
-                                        : "Showing all results"}
+                                        : `Showing ${Math.min((currentPage - 1) * ITEMS_PER_PAGE + 1, totalProducts)}-${Math.min(currentPage * ITEMS_PER_PAGE, totalProducts)} of ${totalProducts} products`}
                             </p>
-                            {/* Mobile Filter Toggle could go here */}
                         </div>
                         <ProductGrid
                             sortBy={sortBy}
@@ -60,19 +82,60 @@ export default function Shop() {
                             priceRange={priceRange}
                             categorySlug={categoryDetail}
                             collectionId={collectionId}
+                            page={currentPage}
+                            itemsPerPage={ITEMS_PER_PAGE}
+                            onTotalCountChange={handleTotalCountChange}
                         />
 
-                        {/* Pagination / Load More */}
-                        <div className="mt-12 text-center">
-                            <Button variant="outline" className="px-8 border-design-teal text-design-teal hover:bg-design-teal hover:text-white uppercase tracking-widest">
-                                Load More Products
-                            </Button>
-                        </div>
+                        {/* Pagination Controls */}
+                        {totalPages > 1 && (
+                            <div className="mt-12 flex items-center justify-center gap-2">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                    disabled={currentPage === 1}
+                                    className="border-border text-foreground hover:bg-muted"
+                                >
+                                    <ChevronLeft className="w-4 h-4 mr-1" />
+                                    Previous
+                                </Button>
+                                
+                                <div className="flex items-center gap-1">
+                                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                                        <Button
+                                            key={pageNum}
+                                            variant={pageNum === currentPage ? "default" : "ghost"}
+                                            size="sm"
+                                            onClick={() => setCurrentPage(pageNum)}
+                                            className={`w-10 h-10 ${
+                                                pageNum === currentPage 
+                                                    ? 'bg-brand-dark text-white' 
+                                                    : 'text-foreground hover:bg-muted'
+                                            }`}
+                                        >
+                                            {pageNum}
+                                        </Button>
+                                    ))}
+                                </div>
+
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                    disabled={currentPage === totalPages}
+                                    className="border-border text-foreground hover:bg-muted"
+                                >
+                                    Next
+                                    <ChevronRight className="w-4 h-4 ml-1" />
+                                </Button>
+                            </div>
+                        )}
                     </div>
 
                 </div>
 
-                {/* Ancestral Modernity Section (Retained from previous design) */}
+                {/* Ancestral Modernity Section */}
                 <section className="mt-20 py-20 bg-muted/30 rounded-none border border-border text-center">
                     <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground uppercase">
                         ANCESTRAL MODERNITY
