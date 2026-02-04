@@ -13,7 +13,7 @@ const fetchProduct = async (id: string) => {
     .select(`
       *,
       category:categories(name, slug),
-      collection_images(image_url)
+      collection_images(id, collection_id, variant_id, image_url, display_order, created_at)
     `)
     .eq('id', id)
     .single();
@@ -156,7 +156,10 @@ export default function ProductDetails() {
                 <Button
                   size="lg"
                   className="w-full bg-brand-dark text-white hover:bg-logo-brown h-14 text-sm uppercase tracking-[0.15em] font-bold shadow-lg transition-all duration-300 rounded-none transform active:scale-[0.99]"
-                  onClick={() => addToCart(product)}
+                  onClick={() => addToCart({
+                    ...product,
+                    collection_images: product.collection_images || []
+                  } as any)}
                 >
                   <ShoppingBag className="mr-3 w-4 h-4" />
                   Add to Bag
