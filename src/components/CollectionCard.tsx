@@ -84,7 +84,11 @@ export default function CollectionCard({ collection, variant = 'default' }: Coll
         {/* Ghost 'Add to Cart' */}
         <div className="absolute inset-x-0 bottom-6 px-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
           <Button
-            onClick={handleAddToCart}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleAddToCart(e);
+            }}
             className="w-full bg-white/95 backdrop-blur text-logo-charcoal hover:bg-logo-charcoal hover:text-white uppercase tracking-widest text-xs font-bold shadow-md rounded-none py-6"
           >
             Add to Cart
