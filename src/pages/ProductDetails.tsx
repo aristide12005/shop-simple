@@ -60,7 +60,7 @@ export default function ProductDetails() {
 
   return (
     <div className="min-h-screen bg-neutral-50 pt-28 pb-20">
-      <div className="container mx-auto px-4 md:px-8 max-w-7xl">
+      <div className="container mx-auto px-4 md:px-8 max-w-6xl">
 
         {/* Breadcrumb */}
         <nav className="flex items-center text-xs uppercase tracking-widest text-muted-foreground mb-12 animate-fade-in-up">
@@ -71,11 +71,11 @@ export default function ProductDetails() {
           <span className="text-brand-dark font-medium line-clamp-1">{product.name}</span>
         </nav>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-20 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 mb-24">
 
           {/* LEFT: Image Gallery */}
           <div className="md:col-span-7 space-y-6">
-            <div className="relative aspect-[3/4] bg-white overflow-hidden shadow-sm border border-gray-100/50">
+            <div className="relative aspect-[3/4] bg-white overflow-hidden shadow-sm border border-gray-100/50 rounded-[2rem]">
               <img
                 src={mainImage}
                 alt={product.name}
@@ -90,7 +90,7 @@ export default function ProductDetails() {
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
-                    className={`relative w-20 aspect-[3/4] flex-shrink-0 overflow-hidden border transition-all ${selectedImage === idx ? "border-logo-brown ring-1 ring-logo-brown" : "border-transparent opacity-60 hover:opacity-100"
+                    className={`relative w-20 aspect-[3/4] flex-shrink-0 overflow-hidden border transition-all rounded-lg ${selectedImage === idx ? "border-logo-brown ring-1 ring-logo-brown" : "border-transparent opacity-60 hover:opacity-100"
                       }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
@@ -136,16 +136,16 @@ export default function ProductDetails() {
                 const stockQty = product.stock_quantity ?? 0;
                 const isOutOfStock = stockQty === 0;
                 const isLowStock = stockQty > 0 && stockQty <= 5;
-                
+
                 return (
                   <>
                     {isOutOfStock && (
-                      <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 text-sm font-medium uppercase tracking-wide text-center">
+                      <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 text-sm font-medium uppercase tracking-wide text-center rounded-lg">
                         Currently Out of Stock
                       </div>
                     )}
                     {isLowStock && (
-                      <div className="bg-logo-ochre/10 border border-logo-ochre/30 text-logo-ochre px-4 py-3 text-sm font-medium uppercase tracking-wide text-center">
+                      <div className="bg-logo-ochre/10 border border-logo-ochre/30 text-logo-ochre px-4 py-3 text-sm font-medium uppercase tracking-wide text-center rounded-lg">
                         Only {stockQty} left — Order soon!
                       </div>
                     )}
@@ -158,7 +158,7 @@ export default function ProductDetails() {
                 {/* Quantity */}
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-gray-900 uppercase tracking-wide">Quantity</span>
-                  <div className="flex items-center border border-gray-200 bg-white">
+                  <div className="flex items-center border border-gray-200 bg-white rounded-lg overflow-hidden">
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
                       className="p-3 hover:bg-gray-50 text-gray-500 transition-colors"
@@ -179,11 +179,10 @@ export default function ProductDetails() {
 
                 <Button
                   size="lg"
-                  className={`w-full h-14 text-sm uppercase tracking-[0.15em] font-bold shadow-lg transition-all duration-300 rounded-none transform active:scale-[0.99] ${
-                    (product.stock_quantity ?? 0) === 0
+                  className={`w-full h-12 text-xs uppercase tracking-[0.15em] font-bold shadow-lg transition-all duration-300 rounded-full transform active:scale-[0.99] ${(product.stock_quantity ?? 0) === 0
                       ? 'bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300'
-                      : 'bg-brand-dark text-white hover:bg-logo-brown'
-                  }`}
+                      : 'bg-black text-white hover:bg-neutral-800'
+                    }`}
                   disabled={(product.stock_quantity ?? 0) === 0}
                   onClick={() => addToCart({
                     ...product,
