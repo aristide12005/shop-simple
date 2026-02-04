@@ -13,38 +13,20 @@ Browserslist: browsers data (caniuse-lite) is 8 months old. Please run:
 
 [1m[33mwarn[39m[22m - The class `duration-[2s]` is ambiguous and matches multiple utilities.
 [1m[33mwarn[39m[22m - If this is content and not a class, replace it with `duration-&lsqb;2s&rsqb;` to silence this warning.
-[32m✓[39m 110 modules transformed.
-[31mx[39m Build failed in 2.42s
+[32m✓[39m 65 modules transformed.
+[31mx[39m Build failed in 2.25s
 [31merror during build:
-[31m[vite:esbuild] Transform failed with 3 errors:
-C:/Users/mugunga pacific/Downloads/shop-simple-main/shop-simple/src/components/ProductGrid.tsx:143:32: ERROR: The character ">" is not valid inside a JSX element
-C:/Users/mugunga pacific/Downloads/shop-simple-main/shop-simple/src/components/ProductGrid.tsx:146:30: ERROR: Unexpected closing "Button" tag does not match opening "div" tag
-C:/Users/mugunga pacific/Downloads/shop-simple-main/shop-simple/src/components/ProductGrid.tsx:161:24: ERROR: Expected ")" but found "{"[31m
-file: [36mC:/Users/mugunga pacific/Downloads/shop-simple-main/shop-simple/src/components/ProductGrid.tsx:143:32[31m
+[31m[vite:esbuild] Transform failed with 1 error:
+C:/Users/mugunga pacific/Downloads/shop-simple-main/shop-simple/src/components/ProductGrid.tsx:203:4: ERROR: Unexpected ")"[31m
+file: [36mC:/Users/mugunga pacific/Downloads/shop-simple-main/shop-simple/src/components/ProductGrid.tsx:203:4[31m
 [33m
-[33mThe character ">" is not valid inside a JSX element[33m
-141|                                      if (!isOutOfStock) addToCart(product);
-142|                                  }}
-143|                                  >
-   |                                  ^
-144|                                  <ShoppingBag className="w-4 h-4 mr-2" />
-145|                                  {isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
-
-[33mUnexpected closing "Button" tag does not match opening "div" tag[33m
-144|                                  <ShoppingBag className="w-4 h-4 mr-2" />
-145|                                  {isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
-146|                              </Button>
-   |                                ^
-147|                              <Button
-148|                                  variant="secondary"
-
-[33mExpected ")" but found "{"[33m
-159|                      </div>
-160|  
-161|                          {/* Product Info - Clean & Readable */ }
-   |                          ^
-162|                  <div className="space-y-1 text-center">
-163|                      {product.category && (
+[33mUnexpected ")"[33m
+201|              })}
+202|          </div> >
+203|      );
+   |      ^
+204|  }
+205|  
 [31m
     at failureErrorWithLog (C:\Users\mugunga pacific\Downloads\shop-simple-main\shop-simple\node_modules\esbuild\lib\main.js:1472:15)
     at C:\Users\mugunga pacific\Downloads\shop-simple-main\shop-simple\node_modules\esbuild\lib\main.js:755:50
