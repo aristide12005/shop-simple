@@ -18,7 +18,6 @@ interface ProductGridProps {
 }
 
 export default function ProductGrid({
-    // Standard Catalog Layout
     sortBy = "featured",
     searchQuery = "",
     priceRange = [0, 1000],
@@ -52,7 +51,6 @@ export default function ProductGrid({
         }
     });
 
-    // Report total count to parent for pagination
     useEffect(() => {
         if (onTotalCountChange) {
             onTotalCountChange(sortedProducts.length);
@@ -103,7 +101,6 @@ export default function ProductGrid({
                 return (
                     <div key={product.id} className="group cursor-pointer">
                         <Link to={`/product/${product.id}`} className="block">
-                            {/* Image Container */}
                             <div className="relative aspect-square rounded-[2rem] overflow-hidden mb-4 shadow-sm hover:shadow-md transition-shadow">
                                 <img
                                     src={imageUrl}
@@ -111,12 +108,8 @@ export default function ProductGrid({
                                     className={`w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out ${isOutOfStock ? 'grayscale-[50%]' : ''}`}
                                 />
 
-                                {/* Gradient Overlay for Top Controls Visibility */}
                                 <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/20 to-transparent pointer-events-none" />
 
-
-
-                                {/* Heart Icon */}
                                 <div className="absolute top-4 right-4 text-white z-10">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +127,6 @@ export default function ProductGrid({
                                     </svg>
                                 </div>
 
-                                {/* Catalog Style: Buttons appear at bottom of image on hover */}
                                 <div
                                     className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-2 z-20"
                                     onClick={(e) => e.stopPropagation()}
@@ -168,7 +160,6 @@ export default function ProductGrid({
                                 </div>
                             </div>
 
-                            {/* Product Info */}
                             <div className="space-y-1">
                                 <div className="flex justify-between items-start">
                                     <h3 className="font-bold text-base text-foreground group-hover:text-primary/80 transition-colors line-clamp-1">
