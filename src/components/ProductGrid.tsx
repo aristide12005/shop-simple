@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useProducts } from "@/hooks/useProducts";
 import { useCart } from "@/context/CartContext";
+import { useEffect } from "react";
 
 interface ProductGridProps {
     sortBy?: string;
@@ -11,6 +12,9 @@ interface ProductGridProps {
     categorySlug?: string | null;
     collectionId?: string | null;
     limit?: number;
+    page?: number;
+    itemsPerPage?: number;
+    onTotalCountChange?: (count: number) => void;
 }
 
 export default function ProductGrid({
@@ -19,11 +23,50 @@ export default function ProductGrid({
     priceRange = [0, 1000],
     categorySlug = null,
     collectionId = null,
-    limit
+    limit,
+    page = 1,
+    itemsPerPage = 9,
+    onTotalCountChange
 }: ProductGridProps) {
     const { data: products, isLoading } = useProducts();
     const navigate = useNavigate();
     const { addToCart } = useCart();
+
+    // Filter products
+    const filteredProducts = (products || []).filter(product => {
+        if (searchQuery && !product.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+        const price = Number(product.price);
+        if (price < priceRange[0] || price > priceRange[1]) return false;
+        if (categorySlug && product.category?.slug !== categorySlug) return false;
+        if (collectionId && product.collection_id !== collectionId) return false;
+        return true;
+    });
+
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+        switch (sortBy) {
+            case "price-low": return Number(a.price) - Number(b.price);
+            case "price-high": return Number(b.price) - Number(a.price);
+            case "newest": return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+            default: return 0;
+        }
+    });
+
+    // Report total count to parent for pagination
+    useEffect(() => {
+        if (onTotalCountChange) {
+            onTotalCountChange(sortedProducts.length);
+        }
+    }, [sortedProducts.length, onTotalCountChange]);
+
+    // Apply pagination or limit
+    let displayedProducts = sortedProducts;
+    if (limit) {
+        displayedProducts = sortedProducts.slice(0, limit);
+    } else {
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        displayedProducts = sortedProducts.slice(startIndex, endIndex);
+    }
 
     if (isLoading) {
         return (
@@ -41,16 +84,6 @@ export default function ProductGrid({
         );
     }
 
-    // Filter products
-    const filteredProducts = products.filter(product => {
-        if (searchQuery && !product.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
-        const price = Number(product.price);
-        if (price < priceRange[0] || price > priceRange[1]) return false;
-        if (categorySlug && product.category?.slug !== categorySlug) return false;
-        if (collectionId && product.collection_id !== collectionId) return false;
-        return true;
-    });
-
     if (filteredProducts.length === 0) {
         return (
             <div className="text-center py-12 col-span-full bg-gray-50 rounded-lg">
@@ -59,21 +92,13 @@ export default function ProductGrid({
         );
     }
 
-    const sortedProducts = [...filteredProducts].sort((a, b) => {
-        switch (sortBy) {
-            case "price-low": return Number(a.price) - Number(b.price);
-            case "price-high": return Number(b.price) - Number(a.price);
-            case "newest": return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-            default: return 0;
-        }
-    });
-
-    const displayedProducts = limit ? sortedProducts.slice(0, limit) : sortedProducts;
-
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {displayedProducts.map((product) => {
                 const imageUrl = product.collection_images?.[0]?.image_url || "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600&auto=format&fit=crop";
+                const stockQty = product.stock_quantity ?? 0;
+                const isOutOfStock = stockQty === 0;
+                const isLowStock = stockQty > 0 && stockQty <= 5;
 
                 return (
                     <div key={product.id} className="group relative bg-transparent">
@@ -85,23 +110,40 @@ export default function ProductGrid({
                             <img
                                 src={imageUrl}
                                 alt={product.name}
-                                className="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-in-out"
+                                className={`w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-in-out ${isOutOfStock ? 'opacity-60 grayscale-[30%]' : ''}`}
                             />
+
+                            {/* Stock Badge */}
+                            {isOutOfStock && (
+                                <div className="absolute top-3 left-3 bg-destructive text-destructive-foreground text-xs font-bold uppercase tracking-wider px-3 py-1.5">
+                                    Sold Out
+                                </div>
+                            )}
+                            {isLowStock && (
+                                <div className="absolute top-3 left-3 bg-logo-ochre text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5">
+                                    Only {stockQty} left!
+                                </div>
+                            )}
 
                             {/* Catalog Style: Buttons appear at bottom of image on hover */}
                             <div
                                 className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-2"
-                                onClick={(e) => e.stopPropagation()} // Prevent navigating when clicking action area
+                                onClick={(e) => e.stopPropagation()}
                             >
                                 <Button
-                                    className="w-full bg-white/95 text-black hover:bg-logo-brown hover:text-white shadow-sm backdrop-blur-sm transition-colors duration-300 rounded-none uppercase tracking-widest text-xs font-bold"
+                                    className={`w-full shadow-sm backdrop-blur-sm transition-colors duration-300 rounded-none uppercase tracking-widest text-xs font-bold ${
+                                        isOutOfStock 
+                                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                                            : 'bg-white/95 text-black hover:bg-logo-brown hover:text-white'
+                                    }`}
+                                    disabled={isOutOfStock}
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        addToCart(product);
+                                        if (!isOutOfStock) addToCart(product);
                                     }}
                                 >
                                     <ShoppingBag className="w-4 h-4 mr-2" />
-                                    Add to Bag
+                                    {isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
                                 </Button>
                                 <Button
                                     variant="secondary"
