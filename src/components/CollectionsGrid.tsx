@@ -59,10 +59,7 @@ export default function CollectionsGrid({ limit, hideHeader = false }: { limit?:
                     {/* Gradient Overlay for Top Controls Visibility */}
                     <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/20 to-transparent pointer-events-none" />
 
-                    {/* Badge: Guest Favorite / Coup de cœur */}
-                    <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-sm z-10">
-                      <span className="text-xs font-bold text-foreground block">Guest favorite</span>
-                    </div>
+
 
                     {/* Heart Icon */}
                     <div className="absolute top-4 right-4 text-white z-10">
