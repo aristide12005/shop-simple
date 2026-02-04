@@ -31,8 +31,8 @@ export default function FeaturedEssentials() {
                     </Link>
                 </div>
 
-                {/* Products Carousel */}
-                <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
+                {/* Products Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
                     {displayProducts.map((product, index) => {
                         const imageUrl = product.collection_images?.[0]?.image_url || "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800";
                         const stockQty = product.stock_quantity ?? 0;
@@ -41,12 +41,12 @@ export default function FeaturedEssentials() {
                         return (
                             <div
                                 key={product.id}
-                                className="flex-none w-[85vw] md:w-[320px] snap-center group cursor-pointer animate-fade-up"
+                                className="group cursor-pointer animate-fade-up"
                                 style={{ animationDelay: `${index * 100}ms` }}
                             >
                                 <Link to={`/product/${product.id}`} className="block">
                                     {/* Image Container */}
-                                    <div className="relative aspect-square md:aspect-[4/3] rounded-[2rem] overflow-hidden mb-4 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="relative aspect-square rounded-[2rem] overflow-hidden mb-4 shadow-sm hover:shadow-md transition-shadow">
                                         <img
                                             src={imageUrl}
                                             alt={product.name}

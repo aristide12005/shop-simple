@@ -93,91 +93,112 @@ export default function ProductGrid({
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {displayedProducts.map((product) => {
                 const imageUrl = product.collection_images?.[0]?.image_url || "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600&auto=format&fit=crop";
                 const stockQty = product.stock_quantity ?? 0;
                 const isOutOfStock = stockQty === 0;
-                const isLowStock = stockQty > 0 && stockQty <= 5;
 
                 return (
-                    <div key={product.id} className="group relative bg-transparent">
-                        {/* Image Container */}
-                        <div
-                            className="aspect-[3/4] overflow-hidden rounded-md bg-gray-100 relative mb-4 shadow-sm group-hover:shadow-md transition-all duration-500 cursor-pointer"
-                            onClick={() => navigate(`/product/${product.id}`)}
-                        >
-                            <img
-                                src={imageUrl}
-                                alt={product.name}
-                                className={`w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-in-out ${isOutOfStock ? 'opacity-60 grayscale-[30%]' : ''}`}
-                            />
+                    <div key={product.id} className="group cursor-pointer">
+                        <Link to={`/product/${product.id}`} className="block">
+                            {/* Image Container */}
+                            <div className="relative aspect-square rounded-[2rem] overflow-hidden mb-4 shadow-sm hover:shadow-md transition-shadow">
+                                <img
+                                    src={imageUrl}
+                                    alt={product.name}
+                                    className={`w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out ${isOutOfStock ? 'grayscale-[50%]' : ''}`}
+                                />
 
-                            {/* Stock Badge */}
-                            {isOutOfStock && (
-                                <div className="absolute top-3 left-3 bg-destructive text-destructive-foreground text-xs font-bold uppercase tracking-wider px-3 py-1.5">
-                                    Sold Out
-                                </div>
-                            )}
-                            {isLowStock && (
-                                <div className="absolute top-3 left-3 bg-logo-ochre text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5">
-                                    Only {stockQty} left!
-                                </div>
-                            )}
+                                {/* Gradient Overlay for Top Controls Visibility */}
+                                <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/20 to-transparent pointer-events-none" />
 
-                            {/* Catalog Style: Buttons appear at bottom of image on hover */}
-                            <div
-                                className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-2"
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                <Button
-                                    className={`w-full shadow-sm backdrop-blur-sm transition-colors duration-300 rounded-none uppercase tracking-widest text-xs font-bold ${isOutOfStock
-                                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                                        : 'bg-white/95 text-black hover:bg-logo-brown hover:text-white'
-                                        }`}
-                                    disabled={isOutOfStock}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        if (!isOutOfStock) addToCart(product);
-                                    }}
+                                {/* Badge */}
+                                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-sm z-10">
+                                    <span className="text-xs font-bold text-foreground block">
+                                        {isOutOfStock ? "Sold Out" : "Best seller"}
+                                    </span>
+                                </div>
+
+                                {/* Heart Icon */}
+                                <div className="absolute top-4 right-4 text-white z-10">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={2}
+                                        stroke="currentColor"
+                                        className="w-7 h-7 hover:scale-110 transition-transform drop-shadow-md"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                                        />
+                                    </svg>
+                                </div>
+
+                                {/* Catalog Style: Buttons appear at bottom of image on hover */}
+                                <div
+                                    className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-2 z-20"
+                                    onClick={(e) => e.stopPropagation()}
                                 >
-                                    <ShoppingBag className="w-4 h-4 mr-2" />
-                                    {isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
-                                </Button>
-                                <Button
-                                    variant="secondary"
-                                    className="w-full bg-black/80 text-white hover:bg-black hover:text-white shadow-sm backdrop-blur-sm rounded-none uppercase tracking-widest text-xs"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        navigate(`/product/${product.id}`);
-                                    }}
-                                >
-                                    <Eye className="w-4 h-4 mr-2" />
-                                    View Details
-                                </Button>
+                                    <Button
+                                        className={`w-full shadow-sm backdrop-blur-sm transition-colors duration-300 rounded-none uppercase tracking-widest text-xs font-bold ${isOutOfStock
+                                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                            : 'bg-white/95 text-black hover:bg-logo-brown hover:text-white'
+                                            }`}
+                                        disabled={isOutOfStock}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            if (!isOutOfStock) addToCart(product);
+                                        }}
+                                    >
+                                        <ShoppingBag className="w-4 h-4 mr-2" />
+                                        {isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
+                                    </Button>
+                                    <Button
+                                        variant="secondary"
+                                        className="w-full bg-black/80 text-white hover:bg-black hover:text-white shadow-sm backdrop-blur-sm rounded-none uppercase tracking-widest text-xs"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            navigate(`/product/${product.id}`);
+                                        }}
+                                    >
+                                        <Eye className="w-4 h-4 mr-2" />
+                                        View Details
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Product Info - Clean & Readable */}
-                        <div className="space-y-1 text-center">
-                            {product.category && (
-                                <p className="text-xs text-muted-foreground uppercase tracking-widest">
-                                    {product.category.name}
+                            {/* Product Info */}
+                            <div className="space-y-1">
+                                <div className="flex justify-between items-start">
+                                    <h3 className="font-bold text-base text-foreground group-hover:text-primary/80 transition-colors line-clamp-1">
+                                        {product.name}
+                                    </h3>
+                                    <div className="flex items-center gap-1 text-sm font-medium">
+                                        <span>★</span>
+                                        <span>4.8</span>
+                                    </div>
+                                </div>
+                                <p className="text-muted-foreground text-sm line-clamp-1">
+                                    {typeof product.category === 'object' && product.category?.name ? product.category.name : "Essentials"}
                                 </p>
-                            )}
-                            <Link to={`/product/${product.id}`}>
-                                <h3 className="font-sans text-lg text-brand-dark group-hover:text-logo-brown transition-colors duration-300">
-                                    {product.name}
-                                </h3>
-                            </Link>
-                            <p className="font-heading text-lg font-medium text-logo-brown">
-                                ${Number(product.price).toFixed(2)}
-                            </p>
-                        </div>
+                                <div className="mt-1 flex items-baseline gap-2">
+                                    <span className="text-foreground font-bold text-base">
+                                        ${Number(product.price).toFixed(0)}
+                                    </span>
+                                    <span className="text-muted-foreground text-sm font-normal">
+                                        total
+                                    </span>
+                                </div>
+                            </div>
+                        </Link>
                     </div>
                 );
             })}
-        </div >
+        </div> >
     );
 }
