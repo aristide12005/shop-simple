@@ -1,0 +1,58 @@
+
+> vite_react_shadcn_ts@0.0.0 build
+> vite build
+
+[36mvite v5.4.19 [32mbuilding for production...[36m[39m
+transforming...
+Browserslist: browsers data (caniuse-lite) is 8 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+
+[1m[33mwarn[39m[22m - The class `duration-[1.5s]` is ambiguous and matches multiple utilities.
+[1m[33mwarn[39m[22m - If this is content and not a class, replace it with `duration-&lsqb;1.5s&rsqb;` to silence this warning.
+
+[1m[33mwarn[39m[22m - The class `duration-[2s]` is ambiguous and matches multiple utilities.
+[1m[33mwarn[39m[22m - If this is content and not a class, replace it with `duration-&lsqb;2s&rsqb;` to silence this warning.
+[32m✓[39m 110 modules transformed.
+[31mx[39m Build failed in 2.42s
+[31merror during build:
+[31m[vite:esbuild] Transform failed with 3 errors:
+C:/Users/mugunga pacific/Downloads/shop-simple-main/shop-simple/src/components/ProductGrid.tsx:143:32: ERROR: The character ">" is not valid inside a JSX element
+C:/Users/mugunga pacific/Downloads/shop-simple-main/shop-simple/src/components/ProductGrid.tsx:146:30: ERROR: Unexpected closing "Button" tag does not match opening "div" tag
+C:/Users/mugunga pacific/Downloads/shop-simple-main/shop-simple/src/components/ProductGrid.tsx:161:24: ERROR: Expected ")" but found "{"[31m
+file: [36mC:/Users/mugunga pacific/Downloads/shop-simple-main/shop-simple/src/components/ProductGrid.tsx:143:32[31m
+[33m
+[33mThe character ">" is not valid inside a JSX element[33m
+141|                                      if (!isOutOfStock) addToCart(product);
+142|                                  }}
+143|                                  >
+   |                                  ^
+144|                                  <ShoppingBag className="w-4 h-4 mr-2" />
+145|                                  {isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
+
+[33mUnexpected closing "Button" tag does not match opening "div" tag[33m
+144|                                  <ShoppingBag className="w-4 h-4 mr-2" />
+145|                                  {isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
+146|                              </Button>
+   |                                ^
+147|                              <Button
+148|                                  variant="secondary"
+
+[33mExpected ")" but found "{"[33m
+159|                      </div>
+160|  
+161|                          {/* Product Info - Clean & Readable */ }
+   |                          ^
+162|                  <div className="space-y-1 text-center">
+163|                      {product.category && (
+[31m
+    at failureErrorWithLog (C:\Users\mugunga pacific\Downloads\shop-simple-main\shop-simple\node_modules\esbuild\lib\main.js:1472:15)
+    at C:\Users\mugunga pacific\Downloads\shop-simple-main\shop-simple\node_modules\esbuild\lib\main.js:755:50
+    at responseCallbacks.<computed> (C:\Users\mugunga pacific\Downloads\shop-simple-main\shop-simple\node_modules\esbuild\lib\main.js:622:9)
+    at handleIncomingPacket (C:\Users\mugunga pacific\Downloads\shop-simple-main\shop-simple\node_modules\esbuild\lib\main.js:677:12)
+    at Socket.readFromStdout (C:\Users\mugunga pacific\Downloads\shop-simple-main\shop-simple\node_modules\esbuild\lib\main.js:600:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)[39m

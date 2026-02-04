@@ -130,53 +130,54 @@ export default function ProductGrid({
                                 className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-2"
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                className={`w-full shadow-sm backdrop-blur-sm transition-colors duration-300 rounded-none uppercase tracking-widest text-xs font-bold ${isOutOfStock
+                                <Button
+                                    className={`w-full shadow-sm backdrop-blur-sm transition-colors duration-300 rounded-none uppercase tracking-widest text-xs font-bold ${isOutOfStock
                                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                                         : 'bg-white/95 text-black hover:bg-logo-brown hover:text-white'
-                                    }`}
-                                disabled={isOutOfStock}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    if (!isOutOfStock) addToCart(product);
-                                }}
+                                        }`}
+                                    disabled={isOutOfStock}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        if (!isOutOfStock) addToCart(product);
+                                    }}
                                 >
-                                <ShoppingBag className="w-4 h-4 mr-2" />
-                                {isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
-                            </Button>
-                            <Button
-                                variant="secondary"
-                                className="w-full bg-black/80 text-white hover:bg-black hover:text-white shadow-sm backdrop-blur-sm rounded-none uppercase tracking-widest text-xs"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    navigate(`/product/${product.id}`);
-                                }}
-                            >
-                                <Eye className="w-4 h-4 mr-2" />
-                                View Details
-                            </Button>
+                                    <ShoppingBag className="w-4 h-4 mr-2" />
+                                    {isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
+                                </Button>
+                                <Button
+                                    variant="secondary"
+                                    className="w-full bg-black/80 text-white hover:bg-black hover:text-white shadow-sm backdrop-blur-sm rounded-none uppercase tracking-widest text-xs"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        navigate(`/product/${product.id}`);
+                                    }}
+                                >
+                                    <Eye className="w-4 h-4 mr-2" />
+                                    View Details
+                                </Button>
+                            </div>
+                        </div>
+
+                        {/* Product Info - Clean & Readable */}
+                        <div className="space-y-1 text-center">
+                            {product.category && (
+                                <p className="text-xs text-muted-foreground uppercase tracking-widest">
+                                    {product.category.name}
+                                </p>
+                            )}
+                            <Link to={`/product/${product.id}`}>
+                                <h3 className="font-sans text-lg text-brand-dark group-hover:text-logo-brown transition-colors duration-300">
+                                    {product.name}
+                                </h3>
+                            </Link>
+                            <p className="font-heading text-lg font-medium text-logo-brown">
+                                ${Number(product.price).toFixed(2)}
+                            </p>
                         </div>
                     </div>
-
-                        {/* Product Info - Clean & Readable */ }
-                <div className="space-y-1 text-center">
-                    {product.category && (
-                        <p className="text-xs text-muted-foreground uppercase tracking-widest">
-                            {product.category.name}
-                        </p>
-                    )}
-                    <Link to={`/product/${product.id}`}>
-                        <h3 className="font-sans text-lg text-brand-dark group-hover:text-logo-brown transition-colors duration-300">
-                            {product.name}
-                        </h3>
-                    </Link>
-                    <p className="font-heading text-lg font-medium text-logo-brown">
-                        ${Number(product.price).toFixed(2)}
-                    </p>
-                </div>
-                    </div>
-    );
-})}
+                );
+            })}
         </div >
     );
 }
