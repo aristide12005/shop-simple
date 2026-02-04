@@ -1,9 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useProducts } from "@/hooks/useProducts";
-import { Loader2 } from "lucide-react";
+import { Loader2, ShoppingBag, Eye } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useCart } from "@/context/CartContext";
 
 export default function FeaturedEssentials() {
     const { data: products, isLoading } = useProducts();
+    const { addToCart } = useCart();
+    const navigate = useNavigate();
     const displayProducts = products?.slice(0, 8) || [];
 
     if (isLoading) {
@@ -74,6 +78,38 @@ export default function FeaturedEssentials() {
                                                     d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
                                                 />
                                             </svg>
+                                        </div>
+
+                                        <div
+                                            className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-row gap-3 z-20 justify-center items-center"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            <Button
+                                                className={`flex-1 shadow-sm backdrop-blur-sm transition-colors duration-300 rounded-full h-8 text-[10px] font-bold uppercase tracking-widest ${isOutOfStock
+                                                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                                    : 'bg-white/95 text-black hover:bg-logo-brown hover:text-white'
+                                                    }`}
+                                                disabled={isOutOfStock}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    if (!isOutOfStock) addToCart(product);
+                                                }}
+                                            >
+                                                <ShoppingBag className="w-3 h-3 mr-1.5" />
+                                                {isOutOfStock ? 'Sold' : 'Add'}
+                                            </Button>
+                                            <Button
+                                                variant="secondary"
+                                                className="flex-1 bg-black/80 text-white hover:bg-black hover:text-white shadow-sm backdrop-blur-sm rounded-full h-8 text-[10px] font-bold uppercase tracking-widest"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    navigate(`/product/${product.id}`);
+                                                }}
+                                            >
+                                                <Eye className="w-3 h-3 mr-1.5" />
+                                                View
+                                            </Button>
                                         </div>
                                     </div>
 

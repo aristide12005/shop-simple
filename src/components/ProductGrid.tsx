@@ -128,11 +128,11 @@ export default function ProductGrid({
                                 </div>
 
                                 <div
-                                    className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-2 z-20"
+                                    className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-row gap-3 z-20 justify-center items-center"
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     <Button
-                                        className={`w-full shadow-sm backdrop-blur-sm transition-colors duration-300 rounded-none uppercase tracking-widest text-xs font-bold ${isOutOfStock
+                                        className={`flex-1 shadow-sm backdrop-blur-sm transition-colors duration-300 rounded-full h-8 text-[10px] font-bold uppercase tracking-widest ${isOutOfStock
                                             ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                                             : 'bg-white/95 text-black hover:bg-logo-brown hover:text-white'
                                             }`}
@@ -143,19 +143,19 @@ export default function ProductGrid({
                                             if (!isOutOfStock) addToCart(product);
                                         }}
                                     >
-                                        <ShoppingBag className="w-4 h-4 mr-2" />
-                                        {isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
+                                        <ShoppingBag className="w-3 h-3 mr-1.5" />
+                                        {isOutOfStock ? 'Sold' : 'Add'}
                                     </Button>
                                     <Button
                                         variant="secondary"
-                                        className="w-full bg-black/80 text-white hover:bg-black hover:text-white shadow-sm backdrop-blur-sm rounded-none uppercase tracking-widest text-xs"
+                                        className="flex-1 bg-black/80 text-white hover:bg-black hover:text-white shadow-sm backdrop-blur-sm rounded-full h-8 text-[10px] font-bold uppercase tracking-widest"
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             navigate(`/product/${product.id}`);
                                         }}
                                     >
-                                        <Eye className="w-4 h-4 mr-2" />
-                                        View Details
+                                        <Eye className="w-3 h-3 mr-1.5" />
+                                        View
                                     </Button>
                                 </div>
                             </div>
