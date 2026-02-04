@@ -47,7 +47,7 @@ export default function CollectionsGrid({ limit, hideHeader = false }: { limit?:
                 className="flex-none w-[85vw] md:w-[350px] snap-center group cursor-pointer animate-fade-up"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <Link to={`/shop?collection=${collection.id}`} className="block">
+                <Link to={`/collections/${collection.id}`} className="block">
                   {/* Card Image Container */}
                   <div className="relative aspect-square md:aspect-[4/3] rounded-[2rem] overflow-hidden mb-4 shadow-sm hover:shadow-md transition-shadow">
                     <img

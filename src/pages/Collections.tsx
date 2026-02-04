@@ -32,7 +32,7 @@ export default function Collections() {
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {activeCollections.map((collection) => (
-                                <Link key={collection.id} to={`/shop?collection=${collection.id}`} className="group relative h-96 overflow-hidden rounded-lg block">
+                                <Link key={collection.id} to={`/collections/${collection.id}`} className="group relative h-96 overflow-hidden rounded-lg block">
                                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors z-10" />
                                     <img
                                         src={collection.banner_image_url || "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=600&auto=format&fit=crop"}
