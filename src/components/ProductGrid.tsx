@@ -128,7 +128,7 @@ export default function ProductGrid({
                                 </div>
 
                                 <div
-                                    className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-row gap-3 z-20 justify-center items-center"
+                                    className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-row gap-2 z-20 justify-center items-center"
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     <Button

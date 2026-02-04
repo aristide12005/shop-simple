@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 
 const PayPalIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-    <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .757-.65h6.193c2.105 0 3.729.577 4.82 1.712.477.496.818 1.06 1.02 1.686.204.626.26 1.37.167 2.21-.016.152-.038.31-.066.477-.044.267-.093.547-.152.843a8.36 8.36 0 0 1-.35 1.274 6.726 6.726 0 0 1-.598 1.166c-.26.392-.567.739-.92 1.038a5.13 5.13 0 0 1-1.322.81c-.49.203-1.038.36-1.634.468-.597.108-1.25.162-1.951.162H8.534a.77.77 0 0 0-.757.65l-.7 4.771z"/>
+    <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .757-.65h6.193c2.105 0 3.729.577 4.82 1.712.477.496.818 1.06 1.02 1.686.204.626.26 1.37.167 2.21-.016.152-.038.31-.066.477-.044.267-.093.547-.152.843a8.36 8.36 0 0 1-.35 1.274 6.726 6.726 0 0 1-.598 1.166c-.26.392-.567.739-.92 1.038a5.13 5.13 0 0 1-1.322.81c-.49.203-1.038.36-1.634.468-.597.108-1.25.162-1.951.162H8.534a.77.77 0 0 0-.757.65l-.7 4.771z" />
   </svg>
 );
 
@@ -142,7 +142,7 @@ export default function CartModal() {
   };
 
   // Get item key for unique identification
-  const getItemKey = (item: typeof items[0]) => 
+  const getItemKey = (item: typeof items[0]) =>
     item.variant ? `${item.collection.id}-${item.variant.id}` : item.collection.id;
 
   return (
@@ -275,10 +275,10 @@ export default function CartModal() {
               {items.map((item) => {
                 const price = item.variant?.price ?? item.collection.price;
                 const itemKey = getItemKey(item);
-                
+
                 return (
                   <div key={itemKey} className="flex gap-4 group">
-                    <div className="w-20 h-24 bg-muted rounded-md overflow-hidden flex-shrink-0">
+                    <div className="w-20 h-24 bg-muted rounded-2xl overflow-hidden flex-shrink-0 border border-gray-100">
                       <img
                         src={item.collection.collection_images?.[0]?.image_url || "/placeholder.svg"}
                         alt={item.collection.name}
@@ -302,7 +302,7 @@ export default function CartModal() {
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 border border-border rounded px-2 h-8">
+                        <div className="flex items-center gap-2 border border-border rounded-full px-2 h-8">
                           <button
                             className="h-full px-1 hover:text-primary"
                             onClick={() => updateQuantity(item.collection.id, item.quantity - 1, item.variant?.id)}
@@ -318,7 +318,7 @@ export default function CartModal() {
                           </button>
                         </div>
                         <button
-                          className="text-muted-foreground hover:text-destructive transition-colors"
+                          className="text-muted-foreground hover:text-destructive transition-colors p-2 hover:bg-gray-100 rounded-full"
                           onClick={() => removeFromCart(item.collection.id, item.variant?.id)}
                         >
                           <Trash2 className="h-4 w-4" />
@@ -342,7 +342,7 @@ export default function CartModal() {
                 </div>
                 <Button
                   onClick={() => setIsCheckout(true)}
-                  className="w-full h-12 bg-foreground hover:bg-foreground/90 text-background uppercase tracking-widest text-sm font-bold rounded-none"
+                  className="w-full h-12 bg-black hover:bg-neutral-800 text-white uppercase tracking-widest text-sm font-bold rounded-full shadow-lg"
                 >
                   Checkout Now
                 </Button>
@@ -352,14 +352,14 @@ export default function CartModal() {
                 <Button
                   variant="outline"
                   onClick={() => setIsCheckout(false)}
-                  className="flex-1 h-12 rounded-none"
+                  className="flex-1 h-12 rounded-full border-gray-300"
                 >
                   Back
                 </Button>
                 <Button
                   onClick={handleCheckout}
                   disabled={isProcessing}
-                  className="flex-1 h-12 bg-primary hover:bg-primary/90 text-primary-foreground uppercase tracking-widest text-sm font-bold rounded-none"
+                  className="flex-1 h-12 bg-black hover:bg-neutral-800 text-white uppercase tracking-widest text-sm font-bold rounded-full shadow-lg"
                 >
                   {isProcessing ? 'Processing...' : 'Pay Now'}
                 </Button>
