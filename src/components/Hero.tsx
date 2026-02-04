@@ -1,28 +1,19 @@
-import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-const videos = [
-  "/hero-video.mp4",
-  "/hero-video2.mp4"
-];
-
 const Hero = () => {
-  const [currentVideo, setCurrentVideo] = useState(0);
-
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Background Video */}
       <div className="absolute inset-0">
         <video
-          key={videos[currentVideo]}
           autoPlay
+          loop
           muted
           playsInline
-          onEnded={() => setCurrentVideo((prev) => (prev + 1) % videos.length)}
           className="w-full h-full object-cover object-center animate-scale-in"
           poster="https://images.unsplash.com/photo-1590735213920-68192a487bc2?q=80&w=2070&auto=format&fit=crop"
         >
-          <source src={videos[currentVideo]} type="video/mp4" />
+          <source src="/hero-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
