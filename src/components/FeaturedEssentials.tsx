@@ -65,7 +65,7 @@ export default function FeaturedEssentials() {
                                     {/* Product Info */}
                                     <div className="space-y-2">
                                         <span className="text-xs tracking-luxury uppercase text-muted-foreground">
-                                            {product.category || "Essensials"}
+                                            {typeof product.category === 'object' && product.category?.name ? product.category.name : "Essentials"}
                                         </span>
                                         <h3 className="font-serif text-lg text-foreground group-hover:text-accent transition-colors duration-300">
                                             {product.name}
