@@ -18,6 +18,7 @@ interface ProductGridProps {
 }
 
 export default function ProductGrid({
+    // Standard Catalog Layout
     sortBy = "featured",
     searchQuery = "",
     priceRange = [0, 1000],
