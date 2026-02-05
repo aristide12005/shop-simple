@@ -22,6 +22,7 @@ import ProductsManagement from "./pages/admin/Products";
 import CategoriesManagement from "./pages/admin/Categories";
 import IncomeTracking from "./pages/admin/Income";
 import CollectionsManagement from "./pages/admin/Collections";
+ import DeliveryManagement from "./pages/admin/Delivery";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ const App = () => (
               <Route path="products" element={<ProductsManagement />} />
               <Route path="categories" element={<CategoriesManagement />} />
               <Route path="collections" element={<CollectionsManagement />} />
+               <Route path="delivery" element={<DeliveryManagement />} />
               <Route path="income" element={<IncomeTracking />} />
             </Route>
             <Route path="/payment-success" element={<PaymentSuccess />} />

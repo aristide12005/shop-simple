@@ -131,6 +131,42 @@ export type Database = {
           },
         ]
       }
+      delivery_zones: {
+        Row: {
+          created_at: string
+          delivery_fee: number
+          description: string | null
+          estimated_delivery_days: number | null
+          id: string
+          is_active: boolean
+          min_order_amount: number | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          delivery_fee?: number
+          description?: string | null
+          estimated_delivery_days?: number | null
+          id?: string
+          is_active?: boolean
+          min_order_amount?: number | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          delivery_fee?: number
+          description?: string | null
+          estimated_delivery_days?: number | null
+          id?: string
+          is_active?: boolean
+          min_order_amount?: number | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           collection_id: string
@@ -178,6 +214,8 @@ export type Database = {
           created_at: string
           customer_email: string
           customer_name: string | null
+          delivery_fee: number | null
+          delivery_zone_id: string | null
           id: string
           paypal_order_id: string | null
           shipping_address: string | null
@@ -190,6 +228,8 @@ export type Database = {
           created_at?: string
           customer_email: string
           customer_name?: string | null
+          delivery_fee?: number | null
+          delivery_zone_id?: string | null
           id?: string
           paypal_order_id?: string | null
           shipping_address?: string | null
@@ -202,6 +242,8 @@ export type Database = {
           created_at?: string
           customer_email?: string
           customer_name?: string | null
+          delivery_fee?: number | null
+          delivery_zone_id?: string | null
           id?: string
           paypal_order_id?: string | null
           shipping_address?: string | null
@@ -210,7 +252,15 @@ export type Database = {
           status?: string
           total_amount?: number
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "orders_delivery_zone_id_fkey"
+            columns: ["delivery_zone_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_zones"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       product_collections: {
         Row: {
