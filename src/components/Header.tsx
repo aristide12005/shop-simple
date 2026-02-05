@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { name: "Collections", href: "/#collections" },
@@ -33,18 +34,19 @@ const Header = () => {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isVisible
-            ? "glass border-b border-white/10 py-4"
-            : "bg-transparent py-6"
+          ? "glass border-b border-white/10 py-4"
+          : "bg-transparent py-6"
           }`}
       >
         <nav className="container-luxury flex items-center justify-between">
           {/* Logo */}
           <Link
             to="/"
-            className="font-serif text-2xl md:text-3xl font-medium tracking-wide"
+            className="flex items-center gap-3 font-serif text-2xl md:text-3xl font-medium tracking-wide"
           >
+            <img src={logo} alt="Accicoa Logo" className="h-8 w-auto md:h-10" />
             <span className={isVisible ? "text-foreground" : "text-white"}>
-              ACCICOA
+              Accicoa
             </span>
           </Link>
 
@@ -55,8 +57,8 @@ const Header = () => {
                 <Link
                   to={link.href}
                   className={`link-underline text-sm font-medium tracking-luxury uppercase transition-colors duration-300 ${isVisible
-                      ? "text-foreground/80 hover:text-foreground"
-                      : "text-white/90 hover:text-white"
+                    ? "text-foreground/80 hover:text-foreground"
+                    : "text-white/90 hover:text-white"
                     }`}
                 >
                   {link.name}
