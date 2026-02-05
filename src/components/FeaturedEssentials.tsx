@@ -3,6 +3,7 @@ import { useProducts } from "@/hooks/useProducts";
 import { Loader2, ShoppingBag, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
+import { formatPrice } from "@/lib/currency";
 
 export default function FeaturedEssentials() {
     const { data: products, isLoading } = useProducts();
@@ -129,10 +130,7 @@ export default function FeaturedEssentials() {
                                         </p>
                                         <div className="mt-1 flex items-baseline gap-2">
                                             <span className="text-foreground font-bold text-base">
-                                                ${Number(product.price).toFixed(0)}
-                                            </span>
-                                            <span className="text-muted-foreground text-sm font-normal">
-                                                total
+                                                {formatPrice(product.price, (product as any).currency || 'USD')}
                                             </span>
                                         </div>
                                     </div>

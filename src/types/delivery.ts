@@ -1,3 +1,5 @@
+ import { Currency } from '@/lib/currency';
+
  export interface DeliveryZone {
    id: string;
    name: string;
@@ -6,6 +8,7 @@
    delivery_fee: number;
    min_order_amount: number;
    estimated_delivery_days: number;
+   currency: Currency;
    created_at: string;
    updated_at: string;
  }

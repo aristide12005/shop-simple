@@ -21,6 +21,7 @@ import { useCart } from '@/context/CartContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useDeliveryZones } from '@/hooks/useDeliveryZones';
 import { DeliveryZone } from '@/types/delivery';
+import { formatPrice, getCurrencySymbol } from '@/lib/currency';
 import { toast } from 'sonner';
 
 const PayPalIcon = () => (
@@ -367,7 +368,7 @@ export default function CartModal() {
                           </p>
                         )}
                         <p className="text-sm text-muted-foreground font-serif">
-                          ${Number(price).toFixed(2)}
+                          {formatPrice(price, (item.collection as any).currency || 'USD')}
                         </p>
                       </div>
 

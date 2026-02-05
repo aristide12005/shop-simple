@@ -50,10 +50,10 @@ export function useCreateCollection() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: { name: string; description: string; price: number; stock_quantity?: number }) => {
+    mutationFn: async (data: { name: string; description: string; price: number; stock_quantity?: number; currency?: string; category_id?: string | null; collection_id?: string | null }) => {
       const { data: collection, error } = await supabase
         .from('collections')
-        .insert({ ...data, stock_quantity: data.stock_quantity ?? 0 } as any)
+        .insert({ ...data, stock_quantity: data.stock_quantity ?? 0, currency: data.currency ?? 'USD' } as any)
         .select()
         .single();
 
@@ -70,7 +70,7 @@ export function useUpdateCollection() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, ...data }: { id: string; name: string; description: string; price: number; stock_quantity?: number }) => {
+    mutationFn: async ({ id, ...data }: { id: string; name?: string; description?: string; price?: number; stock_quantity?: number; currency?: string; category_id?: string | null; collection_id?: string | null }) => {
       const { data: collection, error } = await supabase
         .from('collections')
         .update(data as any)
