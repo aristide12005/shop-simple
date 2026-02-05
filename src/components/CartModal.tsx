@@ -1,9 +1,16 @@
 import { useState } from 'react';
-import { Minus, Plus, Trash2, CreditCard } from 'lucide-react';
+import { Minus, Plus, Trash2, CreditCard, Truck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Sheet,
   SheetContent,
@@ -12,6 +19,8 @@ import {
 } from '@/components/ui/sheet';
 import { useCart } from '@/context/CartContext';
 import { supabase } from '@/integrations/supabase/client';
+import { useDeliveryZones } from '@/hooks/useDeliveryZones';
+import { DeliveryZone } from '@/types/delivery';
 import { toast } from 'sonner';
 
 const PayPalIcon = () => (
@@ -22,14 +31,21 @@ const PayPalIcon = () => (
 
 export default function CartModal() {
   const { items, removeFromCart, updateQuantity, clearCart, totalAmount, isCartOpen, setIsCartOpen } = useCart();
+  const { data: deliveryZones } = useDeliveryZones();
   const [isCheckout, setIsCheckout] = useState(false);
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerName, setCustomerName] = useState('');
   const [shippingAddress, setShippingAddress] = useState('');
   const [shippingCity, setShippingCity] = useState('');
   const [shippingCountry, setShippingCountry] = useState('');
+  const [selectedZoneId, setSelectedZoneId] = useState<string>('');
   const [paymentMethod, setPaymentMethod] = useState<'paypal' | 'card'>('paypal');
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const selectedZone = deliveryZones?.find(z => z.id === selectedZoneId);
+  const deliveryFee = selectedZone?.delivery_fee || 0;
+  const orderTotal = totalAmount + deliveryFee;
+  const meetsMinOrder = selectedZone ? totalAmount >= selectedZone.min_order_amount : true;
 
   const handleClose = () => {
     setIsCartOpen(false);
@@ -73,6 +89,16 @@ export default function CartModal() {
       return;
     }
 
+    if (!selectedZoneId) {
+      toast.error('Please select a delivery zone');
+      return;
+    }
+
+    if (!meetsMinOrder && selectedZone) {
+      toast.error(`Minimum order amount is $${selectedZone.min_order_amount.toFixed(2)} for ${selectedZone.name} delivery`);
+      return;
+    }
+
     setIsProcessing(true);
 
     try {
@@ -81,11 +107,13 @@ export default function CartModal() {
         .insert({
           customer_email: customerEmail.trim(),
           customer_name: customerName.trim(),
-          total_amount: totalAmount,
+          total_amount: orderTotal,
           status: 'pending',
           shipping_address: shippingAddress.trim(),
           shipping_city: shippingCity.trim(),
           shipping_country: shippingCountry.trim(),
+          delivery_zone_id: selectedZoneId,
+          delivery_fee: deliveryFee,
         } as any)
         .select()
         .single();
@@ -230,7 +258,44 @@ export default function CartModal() {
                 </div>
               </div>
 
-              <div className="space-y-3">
+              {/* Delivery Zone Selection */}
+              <div className="space-y-4 border-t border-border pt-4">
+                <h4 className="font-medium text-sm uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                  <Truck className="h-4 w-4" />
+                  Delivery Zone *
+                </h4>
+                <Select value={selectedZoneId} onValueChange={setSelectedZoneId}>
+                  <SelectTrigger className="bg-muted border-border">
+                    <SelectValue placeholder="Select your delivery zone" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {deliveryZones?.map((zone) => (
+                      <SelectItem key={zone.id} value={zone.id}>
+                        <div className="flex items-center justify-between w-full gap-4">
+                          <span>{zone.name}</span>
+                          <span className="text-muted-foreground text-sm">
+                            ${Number(zone.delivery_fee).toFixed(2)}
+                          </span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {selectedZone && (
+                  <div className="text-xs text-muted-foreground space-y-1">
+                    {selectedZone.description && <p>{selectedZone.description}</p>}
+                    <p>Est. delivery: {selectedZone.estimated_delivery_days} business days</p>
+                    {selectedZone.min_order_amount > 0 && (
+                      <p className={!meetsMinOrder ? 'text-destructive font-medium' : ''}>
+                        Min. order: ${Number(selectedZone.min_order_amount).toFixed(2)}
+                        {!meetsMinOrder && ` (Add $${(selectedZone.min_order_amount - totalAmount).toFixed(2)} more)`}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-3 border-t border-border pt-4">
                 <Label>Payment Method</Label>
                 <RadioGroup
                   value={paymentMethod}
@@ -261,13 +326,18 @@ export default function CartModal() {
                   <span>${totalAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Shipping</span>
-                  <span className="text-green-600 text-xs font-bold uppercase">Pay on Delivery</span>
+                  <span className="text-muted-foreground">Delivery</span>
+                  <span>${deliveryFee.toFixed(2)}</span>
                 </div>
                 <div className="border-t border-border pt-2 mt-2 flex justify-between font-bold text-lg">
                   <span>Total</span>
-                  <span>${totalAmount.toFixed(2)}</span>
+                  <span>${orderTotal.toFixed(2)}</span>
                 </div>
+                {selectedZone && (
+                  <p className="text-xs text-muted-foreground">
+                    Est. delivery: {selectedZone.estimated_delivery_days} business days
+                  </p>
+                )}
               </div>
             </div>
           ) : (
