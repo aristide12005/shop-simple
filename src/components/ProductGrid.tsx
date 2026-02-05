@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useProducts } from "@/hooks/useProducts";
 import { useCart } from "@/context/CartContext";
+import { formatPrice } from "@/lib/currency";
 import { useEffect } from "react";
 
 interface ProductGridProps {
@@ -175,10 +176,7 @@ export default function ProductGrid({
                                 </p>
                                 <div className="mt-1 flex items-baseline gap-2">
                                     <span className="text-foreground font-bold text-base">
-                                        ${Number(product.price).toFixed(0)}
-                                    </span>
-                                    <span className="text-muted-foreground text-sm font-normal">
-                                        total
+                                        {formatPrice(product.price, (product as any).currency || 'USD')}
                                     </span>
                                 </div>
                             </div>

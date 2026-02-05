@@ -6,6 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { Loader2, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import ProductGrid from "@/components/ProductGrid";
+import { formatPrice } from "@/lib/currency";
 
 const fetchProduct = async (id: string) => {
   const { data, error } = await supabase
@@ -122,7 +123,7 @@ export default function ProductDetails() {
                 </h1>
 
                 <p className="text-2xl font-sans text-logo-brown font-medium">
-                  ${Number(product.price).toFixed(2)}
+                  {formatPrice(product.price, (product as any).currency || 'USD')}
                 </p>
               </div>
 

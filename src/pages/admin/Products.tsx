@@ -53,6 +53,7 @@ import {
 } from "@/components/ui/select";
 import { VariantManager } from "@/components/admin/VariantManager";
 import { CollectionWithImages } from "@/types/database";
+import { CURRENCIES, formatPrice, Currency } from "@/lib/currency";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 
@@ -78,6 +79,7 @@ export default function ProductsManagement() {
     stock_quantity: "0",
     category_id: "none",
     collection_id: "none",
+    currency: "USD" as Currency,
   });
 
   const filteredProducts = products?.filter((p) =>
@@ -109,10 +111,11 @@ export default function ProductsManagement() {
         stock_quantity: (product.stock_quantity || 0).toString(),
         category_id: product.category_id || "none",
         collection_id: product.collection_id || "none",
+        currency: (product as any).currency || "USD",
       });
     } else {
       setEditingProduct(null);
-      setFormData({ name: "", description: "", price: "", stock_quantity: "0", category_id: "none", collection_id: "none" });
+      setFormData({ name: "", description: "", price: "", stock_quantity: "0", category_id: "none", collection_id: "none", currency: "USD" });
     }
     setIsDialogOpen(true);
   };
@@ -132,6 +135,7 @@ export default function ProductsManagement() {
         stock_quantity: parseInt(formData.stock_quantity) || 0,
         category_id: formData.category_id === "none" ? null : formData.category_id,
         collection_id: formData.collection_id === "none" ? null : formData.collection_id,
+        currency: formData.currency,
       };
 
       if (editingProduct) {
@@ -309,7 +313,9 @@ export default function ProductsManagement() {
                           {product.description || "No description"}
                         </div>
                       </TableCell>
-                      <TableCell className="font-medium">${Number(product.price).toFixed(2)}</TableCell>
+                      <TableCell className="font-medium">
+                        {formatPrice(product.price, (product as any).currency || 'USD')}
+                      </TableCell>
                       <TableCell>{totalStock} units</TableCell>
                       <TableCell>
                         <Badge variant="outline">{product.product_variants?.length || 0} variants</Badge>
@@ -406,7 +412,7 @@ export default function ProductsManagement() {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="price">Price ($) *</Label>
+                        <Label htmlFor="price">Price *</Label>
                         <Input
                           id="price"
                           type="number"
@@ -419,16 +425,35 @@ export default function ProductsManagement() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="stock">Base Stock Quantity</Label>
-                        <Input
+                        <Label htmlFor="currency">Currency *</Label>
+                        <Select
+                          value={formData.currency}
+                          onValueChange={(value) => setFormData({ ...formData, currency: value as Currency })}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Currency" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {CURRENCIES.map((currency) => (
+                              <SelectItem key={currency.value} value={currency.value}>
+                                {currency.symbol} - {currency.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="stock">Base Stock Quantity</Label>
+                      <Input
                           id="stock"
                           type="number"
                           min="0"
                           value={formData.stock_quantity}
                           onChange={(e) => setFormData({ ...formData, stock_quantity: e.target.value })}
                           placeholder="0"
-                        />
-                      </div>
+                      />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
@@ -580,7 +605,7 @@ export default function ProductsManagement() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="price">Price ($) *</Label>
+                    <Label htmlFor="price">Price *</Label>
                     <Input
                       id="price"
                       type="number"
@@ -593,16 +618,35 @@ export default function ProductsManagement() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="stock">Initial Stock</Label>
-                    <Input
+                    <Label htmlFor="currency">Currency *</Label>
+                    <Select
+                      value={formData.currency}
+                      onValueChange={(value) => setFormData({ ...formData, currency: value as Currency })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Currency" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {CURRENCIES.map((currency) => (
+                          <SelectItem key={currency.value} value={currency.value}>
+                            {currency.symbol} - {currency.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="stock">Initial Stock</Label>
+                  <Input
                       id="stock"
                       type="number"
                       min="0"
                       value={formData.stock_quantity}
                       onChange={(e) => setFormData({ ...formData, stock_quantity: e.target.value })}
                       placeholder="0"
-                    />
-                  </div>
+                  />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">

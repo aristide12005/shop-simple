@@ -40,6 +40,14 @@
    useDeleteDeliveryZone,
  } from '@/hooks/useDeliveryZones';
  import { DeliveryZone } from '@/types/delivery';
+import { CURRENCIES, formatPrice, Currency } from '@/lib/currency';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
  import { toast } from 'sonner';
  
  export default function Delivery() {
@@ -57,6 +65,7 @@
      min_order_amount: '',
      estimated_delivery_days: '',
      is_active: true,
+    currency: 'USD' as Currency,
    });
  
    const resetForm = () => {
@@ -67,6 +76,7 @@
        min_order_amount: '',
        estimated_delivery_days: '',
        is_active: true,
+      currency: 'USD',
      });
      setEditingZone(null);
    };
@@ -87,6 +97,7 @@
          min_order_amount: parseFloat(formData.min_order_amount) || 0,
          estimated_delivery_days: parseInt(formData.estimated_delivery_days) || 3,
          is_active: formData.is_active,
+        currency: formData.currency,
        };
  
        if (editingZone) {
@@ -113,6 +124,7 @@
        min_order_amount: String(zone.min_order_amount),
        estimated_delivery_days: String(zone.estimated_delivery_days),
        is_active: zone.is_active,
+      currency: zone.currency || 'USD',
      });
      setIsDialogOpen(true);
    };
@@ -201,7 +213,7 @@
  
                <div className="grid grid-cols-2 gap-4">
                  <div className="space-y-2">
-                   <Label htmlFor="delivery_fee">Delivery Fee ($) *</Label>
+                    <Label htmlFor="delivery_fee">Delivery Fee *</Label>
                    <Input
                      id="delivery_fee"
                      type="number"
@@ -215,8 +227,28 @@
                  </div>
  
                  <div className="space-y-2">
-                   <Label htmlFor="min_order_amount">Min. Order ($)</Label>
-                   <Input
+                    <Label htmlFor="currency">Currency *</Label>
+                    <Select
+                      value={formData.currency}
+                      onValueChange={(value) => setFormData({ ...formData, currency: value as Currency })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Currency" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {CURRENCIES.map((curr) => (
+                          <SelectItem key={curr.value} value={curr.value}>
+                            {curr.symbol} - {curr.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="min_order_amount">Min. Order Amount</Label>
+                  <Input
                      id="min_order_amount"
                      type="number"
                      step="0.01"
@@ -224,8 +256,7 @@
                      value={formData.min_order_amount}
                      onChange={(e) => setFormData({ ...formData, min_order_amount: e.target.value })}
                      placeholder="0.00"
-                   />
-                 </div>
+                  />
                </div>
  
                <div className="space-y-2">
@@ -334,10 +365,10 @@
                        </div>
                      </TableCell>
                      <TableCell className="font-mono">
-                       ${Number(zone.delivery_fee).toFixed(2)}
+                       {formatPrice(zone.delivery_fee, zone.currency || 'USD')}
                      </TableCell>
                      <TableCell className="font-mono">
-                       ${Number(zone.min_order_amount).toFixed(2)}
+                       {formatPrice(zone.min_order_amount, zone.currency || 'USD')}
                      </TableCell>
                      <TableCell>{zone.estimated_delivery_days} days</TableCell>
                      <TableCell>

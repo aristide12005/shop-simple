@@ -27,6 +27,7 @@ export interface Product {
   stock_quantity: number;
   collection_id: string | null;
   category_id: string | null;
+  currency: 'USD' | 'CAD';
   created_at: string;
   updated_at: string;
 }

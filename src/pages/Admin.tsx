@@ -34,6 +34,7 @@ import {
   useDeleteImage,
 } from '@/hooks/useCollections';
 import { CollectionWithImages } from '@/types/database';
+import { formatPrice } from '@/lib/currency';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
 
@@ -274,7 +275,7 @@ export default function Admin() {
                       {collection.description || 'No description'}
                     </p>
                     <p className="font-serif text-xl font-bold text-primary mt-2">
-                      ${Number(collection.price).toFixed(2)}
+                      {formatPrice(collection.price, (collection as any).currency || 'USD')}
                     </p>
                   </div>
 
