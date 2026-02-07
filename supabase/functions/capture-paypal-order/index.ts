@@ -144,6 +144,16 @@ Deno.serve(async (req) => {
 
     console.log('Order completed successfully:', orderId);
 
+    // Send order confirmation email (best-effort, don't block response)
+    try {
+      await supabase.functions.invoke('send-order-confirmation', {
+        body: { orderId },
+      });
+      console.log('Confirmation email triggered for order:', orderId);
+    } catch (emailErr) {
+      console.error('Failed to trigger confirmation email:', emailErr);
+    }
+
     return new Response(
       JSON.stringify({ 
         success: true, 
