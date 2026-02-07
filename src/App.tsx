@@ -16,13 +16,17 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancelled from "./pages/PaymentCancelled";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import OrderTracking from "./pages/OrderTracking";
+import Shipping from "./pages/Shipping";
+import Returns from "./pages/Returns";
+import SizeGuide from "./pages/SizeGuide";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/Dashboard";
 import ProductsManagement from "./pages/admin/Products";
 import CategoriesManagement from "./pages/admin/Categories";
 import IncomeTracking from "./pages/admin/Income";
 import CollectionsManagement from "./pages/admin/Collections";
- import DeliveryManagement from "./pages/admin/Delivery";
+import DeliveryManagement from "./pages/admin/Delivery";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,13 +48,17 @@ const App = () => (
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
+            <Route path="/order-tracking" element={<OrderTracking />} />
+            <Route path="/shipping" element={<Shipping />} />
+            <Route path="/returns" element={<Returns />} />
+            <Route path="/size-guide" element={<SizeGuide />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="products" element={<ProductsManagement />} />
               <Route path="categories" element={<CategoriesManagement />} />
               <Route path="collections" element={<CollectionsManagement />} />
-               <Route path="delivery" element={<DeliveryManagement />} />
+              <Route path="delivery" element={<DeliveryManagement />} />
               <Route path="income" element={<IncomeTracking />} />
             </Route>
             <Route path="/payment-success" element={<PaymentSuccess />} />

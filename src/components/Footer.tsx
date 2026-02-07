@@ -1,24 +1,23 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, Twitter } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const footerLinks = {
   shop: [
     { name: "New Arrivals", href: "/shop" },
     { name: "Collections", href: "/collections" },
-    { name: "Accessories", href: "/shop?cat=accessories" },
-    { name: "Sale", href: "/shop?cat=sale" },
+    { name: "All Products", href: "/shop" },
   ],
   about: [
     { name: "Our Story", href: "/about" },
-    { name: "Artisans", href: "/about" },
-    { name: "Sustainability", href: "/about" },
-    { name: "Press", href: "/contact" },
+    { name: "Contact", href: "/contact" },
   ],
   help: [
-    { name: "Contact Us", href: "/contact" },
-    { name: "Shipping", href: "/shipping" },
-    { name: "Returns", href: "/returns" },
+    { name: "Track Order", href: "/order-tracking" },
+    { name: "Shipping & Delivery", href: "/shipping" },
+    { name: "Returns & Exchanges", href: "/returns" },
     { name: "Size Guide", href: "/size-guide" },
   ],
 };
@@ -31,11 +30,34 @@ const socialLinks = [
 
 const Footer = () => {
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle newsletter signup
-    setEmail("");
+    if (!email.trim()) return;
+
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase
+        .from('newsletter_subscribers')
+        .insert({ email: email.trim().toLowerCase() } as any);
+
+      if (error) {
+        if (error.code === '23505') {
+          toast.info("You're already subscribed!");
+        } else {
+          throw error;
+        }
+      } else {
+        toast.success("Welcome! You've been subscribed.");
+      }
+      setEmail("");
+    } catch (err) {
+      console.error('Newsletter error:', err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -57,14 +79,16 @@ const Footer = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="flex-1 bg-transparent border border-primary-foreground/30 px-4 py-3 text-sm placeholder:text-primary-foreground/50 focus:outline-none focus:border-accent transition-colors text-white"
+                className="flex-1 bg-transparent border border-primary-foreground/30 px-4 py-3 text-sm placeholder:text-primary-foreground/50 focus:outline-none focus:border-accent transition-colors text-primary-foreground"
                 required
+                disabled={isSubmitting}
               />
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="btn-gold whitespace-nowrap"
               >
-                Subscribe
+                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
               </button>
             </form>
           </div>
